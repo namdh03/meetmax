@@ -1,0 +1,176 @@
+/* SCSS Grid System */
+@use "sass:math";
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px,
+);
+
+$grid-columns: 12;
+$spacer: 16px;
+$grid-gutter-width: $spacer * 1.5 !default;
+$grid-row-columns: 6;
+$gutters: (
+    0: 0,
+    1: 0.25,
+    2: 0.5,
+    3: 1,
+    4: 1.5,
+    5: 3,
+);
+
+%max-width-full {
+    max-width: 100%;
+}
+
+%width-full {
+    width: 100%;
+}
+
+%container-padding {
+    --spacer-x: #{$grid-gutter-width};
+    --spacer-y: 0;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    @extend %gutter-padding;
+}
+
+%gutter-padding {
+    padding-left: calc(var(--spacer-x) / 2);
+    padding-right: calc(var(--spacer-x) / 2);
+}
+
+.container {
+    @extend %max-width-full;
+    @extend %container-padding;
+
+    &-fluid {
+        @extend %width-full;
+    }
+
+    @each $breakpoint, $dimension in $container-max-widths {
+        &-#{$breakpoint} {
+            @extend %width-full;
+            @extend %container-padding;
+        }
+    }
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--spacer-y));
+    margin-left: calc(-1 * var(--spacer-x) / 2);
+    margin-right: calc(-1 * var(--spacer-x) / 2);
+
+    > * {
+        flex-shrink: 0;
+        width: 100%;
+        max-width: 100%;
+        margin-top: var(--spacer-y);
+
+        @extend %gutter-padding;
+    }
+}
+
+.col {
+    flex: 1 0 0%;
+}
+
+@mixin make-media-query($dimension, $isMediaQuery) {
+    @if ($isMediaQuery) {
+        @media (min-width: $dimension) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin make-columns($infix) {
+    @for $i from 1 through $grid-columns {
+        .col#{$infix}-#{$i} {
+            flex: 0 0 auto;
+            width: math.div(100%, $grid-columns) * $i;
+        }
+    }
+}
+
+@mixin make-row-columns($infix) {
+    @for $i from 1 through 6 {
+        .row-cols#{$infix}-#{$i} > * {
+            flex: 0 0 auto;
+            width: math.div(100%, $i);
+        }
+    }
+}
+
+@mixin make-offset-columns($infix) {
+    @for $i from 0 to $grid-columns {
+        .offset#{$infix}-#{$i} {
+            margin-left: if($i != 0, math.div(100%, $grid-columns) * $i, 0);
+        }
+    }
+}
+
+@mixin make-gutters($infix) {
+    @each $key, $value in $gutters {
+        .g#{$infix}-#{$key},
+        .gx#{$infix}-#{$key} {
+            --spacer-x: #{$spacer * $value};
+        }
+
+        .g#{$infix}-#{$key},
+        .gy#{$infix}-#{$key} {
+            --spacer-y: #{$spacer * $value};
+        }
+    }
+}
+
+@each $breakpoint, $dimension in $grid-breakpoints {
+    $container-keys: map-keys($container-max-widths);
+    $container-index: index($container-keys, $breakpoint);
+    $max-width: map-get(
+        $map: $container-max-widths,
+        $key: $breakpoint,
+    );
+    $is-xs: $breakpoint == "xs";
+    $infix: if($is-xs, "", "-#{$breakpoint}");
+
+    @include make-media-query($dimension, not $is-xs) {
+        @if $container-index {
+            $classes: ".container";
+
+            @for $i from 1 through $container-index {
+                $classes: append(
+                    $classes,
+                    ".container-#{nth($container-keys, $i)}",
+                    comma
+                );
+            }
+
+            #{$classes} {
+                max-width: $max-width;
+            }
+        }
+
+        @include make-columns($infix);
+        @include make-row-columns($infix);
+        @include make-offset-columns($infix);
+        @include make-gutters($infix);
+    }
+}
