@@ -46,6 +46,7 @@ import lock from "@/assets/icons/lock.svg";
 import logOut from "@/assets/icons/log-out.svg";
 import logo from "@/assets/icons/logo.svg";
 import loveColor from "@/assets/icons/love-color.svg";
+import mail from "@/assets/icons/mail.svg";
 import male from "@/assets/icons/male.svg";
 import menu from "@/assets/icons/menu.svg";
 import message from "@/assets/icons/message.svg";
@@ -78,7 +79,6 @@ import updateCircle from "@/assets/icons/update-circle.svg";
 import upload from "@/assets/icons/upload.svg";
 import user from "@/assets/icons/user.svg";
 import userColor from "@/assets/icons/user-color.svg";
-import vector from "@/assets/icons/vector.svg";
 import videoCamera from "@/assets/icons/video-camera.svg";
 import videoOff from "@/assets/icons/video-off.svg";
 import volumeFull from "@/assets/icons/volume-full.svg";
@@ -165,7 +165,7 @@ const icons = {
     upload,
     user,
     userColor,
-    vector,
+    mail,
     videoCamera,
     videoOff,
     volumeFull,
