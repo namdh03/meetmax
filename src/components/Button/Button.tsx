@@ -29,7 +29,7 @@ const Button = ({
         if (!icon) return null;
 
         return (
-            <img className="button__icon" src={icon.src} alt="button icon" />
+            <img className="button__icon" src={icon.src} alt="button-icon" />
         );
     };
 
@@ -49,7 +49,7 @@ const Button = ({
             >
                 {icon?.align === "left" && <Icon />}
 
-                <span className="button__text">{children}</span>
+                {children && <span>{children}</span>}
 
                 {icon?.align === "right" && <Icon />}
             </div>
