@@ -5,6 +5,7 @@ import { FirebaseApp } from "firebase/app";
 import { Auth, User } from "firebase/auth";
 import { Firestore } from "firebase/firestore";
 
+import { WEEK_DAYS } from "@/utils/constants";
 import { AuthActionType, Role } from "@/utils/enum";
 
 // Config types
@@ -50,4 +51,14 @@ export type ReducerHandlers = {
 export type RoleBasedGuardProps = {
     children: React.ReactNode;
     accessibleRoles: Role[];
+};
+
+// Calender props
+export type CalendarContextType = {
+    date: Date;
+    setDate: (date: Date) => void;
+};
+
+export type CalendarDayLabelProps = {
+    day: keyof typeof WEEK_DAYS;
 };
