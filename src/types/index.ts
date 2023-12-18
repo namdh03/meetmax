@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { ComponentPropsWithoutRef, Dispatch } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -51,6 +51,27 @@ export type ReducerHandlers = {
 export type RoleBasedGuardProps = {
     children: React.ReactNode;
     accessibleRoles: Role[];
+};
+
+// Align keys
+export type AlignKey = "left" | "right";
+
+// Variant keys
+export type VariantKey = "primary" | "secondary" | "outline";
+
+// Button icon type
+export type ButtonIconType = {
+    src: string;
+    alt?: string;
+    align?: AlignKey;
+    size?: number;
+    gutter?: number;
+};
+
+// Button props
+export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+    icon?: ButtonIconType;
+    variant?: VariantKey;
 };
 
 // Calender props

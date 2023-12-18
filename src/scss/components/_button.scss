@@ -1,0 +1,48 @@
+@use "../abstracts";
+
+// Button
+.button {
+    @include abstracts.display-flex($justify: center, $align: center);
+
+    height: 44px;
+    border-radius: 6px;
+
+    border: 1px solid var(--button-border-color);
+    color: var(--button-color);
+    background: var(--button-bg-color);
+
+    @extend %display-m;
+
+    &__inner {
+        @include abstracts.display-flex($justify: center, $align: center);
+        column-gap: var(--icon-gutter);
+
+        height: 100%;
+        padding: 0 34px;
+    }
+
+    &__icon {
+        display: block;
+        width: var(--size);
+        height: var(--size);
+        object-fit: cover;
+    }
+
+    &--primary {
+        border: 1px solid var(--button-border-primary-color);
+        color: var(--button-primary-color);
+        background: var(--button-bg-primary-color);
+    }
+
+    &--secondary {
+        border: 1px solid var(--button-border-secondary-color);
+        color: var(--button-secondary-color);
+        background: var(--button-bg-secondary-color);
+    }
+
+    &--outline {
+        border: 1px solid var(--button-border-outline-color);
+        color: var(--button-outline-color);
+        background: var(--button-bg-outline-color);
+    }
+}
