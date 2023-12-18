@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { ComponentPropsWithoutRef, Dispatch } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -50,4 +50,13 @@ export type ReducerHandlers = {
 export type RoleBasedGuardProps = {
     children: React.ReactNode;
     accessibleRoles: Role[];
+};
+
+// Variant keys
+export type VariantKey = "primary" | "secondary" | "outline";
+
+// Button props
+export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+    children: React.ReactNode;
+    variant?: VariantKey;
 };

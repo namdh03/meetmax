@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
+import Button from "@/components/Button";
 import configs from "@/configs";
 
 const Home = () => {
@@ -20,6 +21,8 @@ const Home = () => {
                     <Link to={configs.routes.notFound}>Not Found</Link>
                 </li>
             </ul>
+
+            <Button children="Follow" variant="primary" />
         </div>
     );
 };

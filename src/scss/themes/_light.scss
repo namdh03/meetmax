@@ -1,0 +1,18 @@
+@use "../abstracts";
+
+html {
+    // Button - Button primary
+    --button-bg: #{abstracts.$blue-primary-color};
+    --button-color: #{abstracts.$grayscale-white-color};
+    --button-bg-hover: #{abstracts.$blue-primary-color-b-20};
+
+    // Button secondary - message
+    --button-bg-secondary: #{abstracts.$green-primary-color};
+    --button-color-secondary: #{abstracts.$grayscale-white-color};
+    --button-bg-secondary-hover: #{abstracts.$green-primary-color-b-20};
+
+    // Button outline
+    --button-bg-outline: transparent;
+    --button-color-outline: #{abstracts.$grayscale-gray-color};
+    --button-border-outline: #{abstracts.$grayscale-gray-color};
+}
