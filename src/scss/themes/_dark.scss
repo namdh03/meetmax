@@ -1,0 +1,11 @@
+@use "../abstracts";
+
+html.dark {
+    // Button - Button default
+    --button-bg-color: #{abstracts.$grayscale-gray-color};
+    --button-color: #{abstracts.$grayscale-color-w-10};
+
+    // Button - Button primary
+
+    // Button - Button secondary - Message
+}

@@ -52,11 +52,23 @@ export type RoleBasedGuardProps = {
     accessibleRoles: Role[];
 };
 
+// Align keys
+export type AlignKey = "left" | "right";
+
 // Variant keys
 export type VariantKey = "primary" | "secondary" | "outline";
 
+// Button icon type
+export type ButtonIconType = {
+    src: string;
+    alt?: string;
+    align?: AlignKey;
+    size?: number;
+    gutter?: number;
+};
+
 // Button props
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
-    children: React.ReactNode;
+    icon?: ButtonIconType;
     variant?: VariantKey;
 };

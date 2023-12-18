@@ -22,7 +22,17 @@ const Home = () => {
                 </li>
             </ul>
 
-            <Button children="Follow" variant="primary" />
+            <Button
+                children="Log in with Google"
+                icon={{ src: icons.google, align: "left" }}
+            />
+            <br />
+            <Button variant="primary" children="Follow" />
+            <br />
+            <Button variant="secondary">Message</Button>
+            <br />
+            <Button variant="outline">Ignore</Button>
+            <br />
         </div>
     );
 };

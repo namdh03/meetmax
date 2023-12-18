@@ -1,89 +1,56 @@
-// Color
-.typography-primary {
-    color: #4e5d78;
-}
-
-.typography-secondary {
-    color: #b0b7c3;
-}
+@use "../abstracts";
 
 // Heading
 .first-heading {
-    font-size: 3rem;
-    font-weight: 900;
-    line-height: 153.333%;
+    @extend %first-heading;
 }
 
 .second-heading {
-    font-size: 2.6rem;
-    font-weight: 700;
-    line-height: 153.846%;
+    @extend %second-heading;
 }
 
 .third-heading {
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 155.556%;
+    @extend %third-heading;
 }
 
 // Display
 .display-b {
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 150%;
+    @extend %display-b;
 }
 
 .display-m {
-    font-size: 1.6rem;
-    font-weight: 500;
-    line-height: 150%;
+    @extend %display-m;
 }
 
 // Body
 .body-b {
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 157.143%;
+    @extend %body-b;
 }
 
 .body-m-1 {
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 157.143%;
+    @extend %body-m-1;
 }
 
 .body-m-2 {
-    font-size: 1.3rem;
-    font-weight: 500;
-    line-height: 138.462%;
+    @extend %body-m-2;
 }
 
 .body-m-3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    line-height: 150%;
+    @extend %body-m-3;
 }
 
 .body-r-1 {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 157.143%;
+    @extend %body-r-1;
 }
 
 .body-r-2 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 150%;
+    @extend %body-r-2;
 }
 
 .body-r-3 {
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 160%;
+    @extend %body-r-3;
 }
 
 .body-r-4 {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 160%;
+    @extend %body-r-4;
 }

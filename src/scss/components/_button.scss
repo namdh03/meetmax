@@ -1,9 +1,68 @@
+@use "../abstracts";
+
 // Button
 .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include abstracts.display-flex($justify: center, $align: center);
 
-    width: 116px;
     height: 36px;
+    border-radius: 6px;
+
+    border: 1px solid var(--button-border-color);
+    color: var(--button-color);
+    background: var(--button-bg-color);
+
+    @extend %display-m;
+
+    &__inner {
+        @include abstracts.display-flex($justify: center, $align: center);
+        column-gap: var(--icon-gutter);
+
+        height: 100%;
+
+        padding: 0 34px;
+    }
+
+    &__icon {
+        display: block;
+        width: var(--size);
+        height: var(--size);
+
+        object-fit: cover;
+    }
+
+    &--primary {
+        min-width: 116px;
+        height: 36px;
+        border-radius: 8px;
+
+        border: 1px solid var(--button-border-primary-color);
+        color: var(--button-primary-color);
+        background: var(--button-bg-primary-color);
+
+        @extend %display-m;
+    }
+
+    &--secondary {
+        min-width: 100px;
+        height: 40px;
+        border-radius: 10px;
+
+        border: 1px solid var(--button-border-secondary-color);
+        color: var(--button-secondary-color);
+        background: var(--button-bg-secondary-color);
+
+        @extend %body-m-1;
+    }
+
+    &--outline {
+        min-width: 116px;
+        height: 36px;
+        border-radius: 6px;
+
+        border: 1px solid var(--button-border-outline-color);
+        color: var(--button-outline-color);
+        background: var(--button-bg-outline-color);
+
+        @extend %body-b;
+    }
 }
