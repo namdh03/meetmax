@@ -3,4 +3,65 @@
 .calendar {
     max-width: 285px;
     padding: 10px 20px 20px 20px;
+    background-color: var(--calendar-bg-color);
+    filter: drop-shadow(0px 4px 8px var(--calendar-drop-shadow-color));
+    backdrop-filter: blur(25px);
+    border-radius: 16px;
+
+    &__divider {
+        margin-bottom: 10px;
+        background-color: var(--calendar-divider-bg-color);
+    }
+
+    &__list-day {
+        display: flex;
+    }
+
+    &__date {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+
+        & > .calendar__label-date {
+            cursor: pointer;
+        }
+    }
+
+    %calendar__cell {
+        min-width: 35px;
+        padding: 6px 8px;
+        text-align: center;
+
+        @extend %body-m-1;
+    }
+
+    &__item-day {
+        @extend %calendar__cell;
+
+        color: var(--calendar-text-standard-color);
+    }
+
+    &__label-date {
+        @extend %calendar__cell;
+        border: 1px solid transparent;
+
+        &--standard {
+            color: var(--calendar-text-standard-color);
+        }
+
+        &--today {
+            border-color: var(--calendar-text-today-color);
+            border-radius: 999px;
+            color: var(--calendar-text-standard-color);
+        }
+
+        &--highlighted {
+            border-radius: 999px;
+            color: var(--calendar-text-highlighted-color);
+            background-color: var(--calendar-bg-highlighted-color);
+        }
+
+        &--outer {
+            color: var(--calendar-text-outer-color);
+        }
+    }
 }

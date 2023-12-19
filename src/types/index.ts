@@ -5,7 +5,6 @@ import { FirebaseApp } from "firebase/app";
 import { Auth, User } from "firebase/auth";
 import { Firestore } from "firebase/firestore";
 
-import { WEEK_DAYS } from "@/utils/constants";
 import { AuthActionType, Role } from "@/utils/enum";
 
 // Config types
@@ -74,12 +73,39 @@ export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
     variant?: VariantKey;
 };
 
+// Calendar state
+export type CalendarState = {
+    current: Date | null;
+    month: number;
+    year: number;
+};
+
 // Calender props
+export type CalendarProps = {
+    date?: Date;
+    onDateChanged?: (date: Date) => void;
+};
+
+// Calendar context type
 export type CalendarContextType = {
-    date: Date;
+    today: Date;
+    data: CalendarState;
     setDate: (date: Date) => void;
 };
 
-export type CalendarDayLabelProps = {
-    day: keyof typeof WEEK_DAYS;
+// Date props
+export type DateProps = {
+    children: React.ReactNode;
+    inMonth: boolean | 0;
+    index: number;
+    title: string;
+    className?: string;
+    onClick?: () => void;
+};
+
+// Divider props
+export type DividerProps = {
+    children?: React.ReactNode;
+    color?: string;
+    className?: string;
 };

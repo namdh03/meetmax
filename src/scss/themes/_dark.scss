@@ -8,4 +8,14 @@ html.dark {
     // Button - Button primary
 
     // Button - Button secondary - Message
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$dark-color-2};
+    --calendar-text-standard-color: #{abstracts.$grayscale-color-w-10};
+    --calendar-text-outer-color: #{abstracts.$grayscale-gray-color};
+    --calendar-divider-bg-color: #{abstracts.$dark-color-1};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-gray-color};
+    --divider-text-color: #{abstracts.$grayscale-color-w-10};
 }

@@ -20,4 +20,18 @@ html {
     --button-bg-outline-color: transparent;
     --button-outline-color: #{abstracts.$grayscale-gray-color};
     --button-border-outline-color: #{abstracts.$grayscale-gray-color};
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-text-standard-color: #{abstracts.$grayscale-gray-color};
+    --calendar-text-today-color: #{abstracts.$green-primary-color};
+    --calendar-text-highlighted-color: #{abstracts.$grayscale-white-color};
+    --calendar-text-outer-color: #{abstracts.$grayscale-color-w-60};
+    --calendar-bg-highlighted-color: #{abstracts.$blue-primary-color};
+    --calendar-divider-bg-color: #{abstracts.$grayscale-color-w-20};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --divider-text-color: #{abstracts.$grayscale-gray-color};
 }

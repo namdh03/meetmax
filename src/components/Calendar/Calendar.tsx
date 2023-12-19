@@ -1,25 +1,24 @@
+import Divider from "@/components/Divider";
 import { CalendarProvider } from "@/contexts/calendar/CalendarContext";
-import { WEEK_DAYS } from "@/utils/constants";
+import { CalendarProps } from "@/types";
 
-import DayLabel from "./components/DayLabel";
+import CalendarDate from "./components/CalendarDate";
+import DayList from "./components/DayList";
 
-const Calendar = () => {
+const Calendar = ({ date, onDateChanged }: CalendarProps) => {
     return (
-        <CalendarProvider>
+        <CalendarProvider date={date} onDateChanged={onDateChanged}>
             <article className="calendar">
                 <header className="calendar__header">
-                    <input className="calendar__date" />
+                    <input className="calendar__selected-date" />
                 </header>
 
+                <Divider className="calendar__divider" />
+
                 <div className="calendar__content">
-                    <ul className="calendar__list-day">
-                        {Object.keys(WEEK_DAYS).map((day) => (
-                            <DayLabel
-                                key={day}
-                                day={day as keyof typeof WEEK_DAYS}
-                            />
-                        ))}
-                    </ul>
+                    <DayList />
+
+                    <CalendarDate />
                 </div>
             </article>
         </CalendarProvider>

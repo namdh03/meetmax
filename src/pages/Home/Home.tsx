@@ -23,6 +23,8 @@ const Home = () => {
                 </li>
             </ul>
 
+            <Calendar />
+
             <Button
                 children="Log in with Google"
                 icon={{ src: icons.google, align: "left" }}
@@ -34,8 +36,6 @@ const Home = () => {
             <br />
             <Button variant="outline">Ignore</Button>
             <br />
-
-            <Calendar />
         </div>
     );
 };
