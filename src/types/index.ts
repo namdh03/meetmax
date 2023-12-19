@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, Dispatch } from "react";
+import { Dispatch } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -58,6 +58,9 @@ export type AlignKey = "left" | "right";
 // Variant keys
 export type VariantKey = "primary" | "secondary" | "outline";
 
+// Button types
+export type ButtonType = "button" | "submit" | "reset";
+
 // Button icon type
 export type ButtonIconType = {
     src: string;
@@ -68,9 +71,16 @@ export type ButtonIconType = {
 };
 
 // Button props
-export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+export type ButtonProps = {
+    children: React.ReactNode;
+    to?: string;
+    type?: ButtonType;
+    disabled?: boolean;
+    loading?: boolean;
     icon?: ButtonIconType;
     variant?: VariantKey;
+    className?: string;
+    onClick?: () => void;
 };
 
 // Calendar state

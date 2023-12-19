@@ -5,9 +5,9 @@ html.dark {
     --button-bg-color: #{abstracts.$grayscale-gray-color};
     --button-color: #{abstracts.$grayscale-color-w-10};
 
-    // Button - Button primary
-
-    // Button - Button secondary - Message
+    // Button icon
+    --button-icon-color: brightness(0) saturate(100%) invert(96%) sepia(77%)
+        saturate(63%) hue-rotate(173deg) brightness(97%) contrast(94%);
 
     // Calendar
     --calendar-bg-color: #{abstracts.$dark-color-2};
