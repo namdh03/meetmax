@@ -27,11 +27,19 @@ const Home = () => {
                 icon={{ src: icons.google, align: "left" }}
             />
             <br />
-            <Button variant="primary" children="Follow" />
+            <Button loading variant="primary" children="Follow" />
             <br />
-            <Button variant="secondary">Message</Button>
+            <Button
+                loading
+                to="https://docs.google.com/document/d/1FQUi7TKMfOcH7ecCtsrFNE7WE-8SyK2BmklVTEsUt6M/edit"
+                variant="secondary"
+            >
+                Message
+            </Button>
             <br />
-            <Button variant="outline">Ignore</Button>
+            <Button loading variant="outline">
+                Ignore
+            </Button>
             <br />
         </div>
     );

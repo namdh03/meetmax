@@ -1,15 +1,24 @@
 import { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 
 import { ButtonProps } from "@/types";
 
 const Button = ({
     children,
+    to = "",
+    type,
+    disabled,
+    loading,
     variant,
     icon,
     className,
-    ...props
+    onClick,
 }: ButtonProps) => {
-    let classes = "button";
+    const Component = to ? Link : "button";
+    let classes =
+        "button" +
+        (to ? " button--link" : "") +
+        (disabled ? " button--disabled" : "");
 
     switch (variant) {
         case "primary":
@@ -34,26 +43,36 @@ const Button = ({
     };
 
     return (
-        <button
-            {...props}
+        <Component
+            to={to}
+            type={type}
+            disabled={disabled}
+            onClick={onClick}
             className={className ? classes + " " + className : classes}
         >
-            <div
-                className="button__inner"
-                style={
-                    {
-                        "--icon-gutter": icon?.gutter || 8 + "px",
-                        "--size": icon?.size || 16 + "px",
-                    } as CSSProperties
-                }
-            >
-                {icon?.align === "left" && <Icon />}
+            {loading ? (
+                <div className="button__inner button__inner--loading">
+                    <div className="button__spinner"></div>
+                    <span>{children}</span>
+                </div>
+            ) : (
+                <div
+                    className="button__inner"
+                    style={
+                        {
+                            "--icon-gutter": icon?.gutter || 8 + "px",
+                            "--size": icon?.size || 16 + "px",
+                        } as CSSProperties
+                    }
+                >
+                    {icon?.align === "left" && <Icon />}
 
-                {children && <span>{children}</span>}
+                    {children && <span>{children}</span>}
 
-                {icon?.align === "right" && <Icon />}
-            </div>
-        </button>
+                    {icon?.align === "right" && <Icon />}
+                </div>
+            )}
+        </Component>
     );
 };
 
