@@ -2,8 +2,7 @@
 
 // Button
 .button {
-    @include abstracts.display-flex($justify: center, $align: center);
-
+    @include abstracts.display-flex(center);
     height: 44px;
     border-radius: 6px;
 
@@ -13,12 +12,40 @@
 
     @extend %display-m;
 
+    user-select: none;
+
+    &--link {
+        width: fit-content;
+        pointer-events: none;
+    }
+
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &__inner--loading {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &__spinner {
+        border: 2px solid var(--button-color);
+        border-bottom-color: transparent;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
     &__inner {
-        @include abstracts.display-flex($justify: center, $align: center);
+        @include abstracts.display-flex(center);
         column-gap: var(--icon-gutter);
 
         height: 100%;
-        padding: 0 34px;
+        padding: 0 24px;
     }
 
     &__icon {
@@ -26,6 +53,7 @@
         width: var(--size);
         height: var(--size);
         object-fit: cover;
+        filter: var(--button-icon-color);
     }
 
     &--primary {
@@ -44,5 +72,20 @@
         border: 1px solid var(--button-border-outline-color);
         color: var(--button-outline-color);
         background: var(--button-bg-outline-color);
+    }
+
+    &--primary &__spinner {
+        border: 2px solid var(--button-primary-color);
+        border-bottom-color: transparent;
+    }
+
+    &--secondary &__spinner {
+        border: 2px solid var(--button-secondary-color);
+        border-bottom-color: transparent;
+    }
+
+    &--outline &__spinner {
+        border: 2px solid var(--button-outline-color);
+        border-bottom-color: transparent;
     }
 }

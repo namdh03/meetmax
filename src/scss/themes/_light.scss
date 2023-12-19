@@ -18,8 +18,12 @@ html {
 
     // Button - Button outline
     --button-bg-outline-color: transparent;
-    --button-outline-color: #{abstracts.$grayscale-gray-color};
-    --button-border-outline-color: #{abstracts.$grayscale-gray-color};
+    --button-outline-color: #{abstracts.$grayscale-color-w-20};
+    --button-border-outline-color: #{abstracts.$grayscale-color-w-20};
+
+    // Button icon
+    --button-icon-color: brightness(0) saturate(100%) invert(36%) sepia(8%)
+        saturate(1944%) hue-rotate(180deg) brightness(88%) contrast(79%);
 
     // Input - Input sign up
     --input-border-color: #{abstracts.$grayscale-color-w-20};
