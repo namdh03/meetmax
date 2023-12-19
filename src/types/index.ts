@@ -79,6 +79,7 @@ export type InputEmailProps = {
     name: string;
     placeholder?: string;
     icon?: string;
+    errorMessage: string;
 };
 
 // Input text props

@@ -24,4 +24,6 @@ html {
     // Input - Input sign up
     --input-border-color: #{abstracts.$grayscale-color-w-20};
     --input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --input-icon-color: brightness(0) saturate(100%) invert(36%) sepia(6%)
+        saturate(2435%) hue-rotate(180deg) brightness(92%) contrast(85%);
 }

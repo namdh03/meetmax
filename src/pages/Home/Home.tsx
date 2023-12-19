@@ -41,6 +41,7 @@ const Home = () => {
                 name="email"
                 placeholder="Your Email"
                 icon={icons.mail}
+                errorMessage="Please enter a valid email address."
             />
             <Text
                 id="fullName"
