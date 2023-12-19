@@ -1,0 +1,19 @@
+@use "../abstracts";
+
+.input {
+    &__email {
+        border-radius: 10px;
+        border: 1px solid var(--input-border-color);
+    }
+
+    &__email-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    &__email-input {
+        color: var(--input-placeholder-color);
+    }
+
+
+}

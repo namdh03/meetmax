@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
+import Input from "@/components/Input";
 import configs from "@/configs";
 
+const { Email, Text, Password } = Input;
 const Home = () => {
     return (
         <div>
@@ -33,6 +35,26 @@ const Home = () => {
             <br />
             <Button variant="outline">Ignore</Button>
             <br />
+
+            <Email
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                icon={icons.mail}
+            />
+            <Text
+                id="fullName"
+                name="fullName"
+                placeholder="Your Name"
+                icon={icons.smile}
+            />
+            <Password
+                id="password"
+                name="password"
+                placeholder="Create Password"
+                icon1={icons.lock}
+                icon2={icons.eyeOff}
+            />
         </div>
     );
 };

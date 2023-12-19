@@ -72,3 +72,28 @@ export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
     icon?: ButtonIconType;
     variant?: VariantKey;
 };
+
+// Input email props
+export type InputEmailProps = {
+    id: string;
+    name: string;
+    placeholder?: string;
+    icon?: string;
+};
+
+// Input text props
+export type InputTextProps = {
+    id: string;
+    name: string;
+    placeholder?: string;
+    icon?: string;
+};
+
+// Input password props
+export type InputPassProps = {
+    id:string;
+    name: string;
+    placeholder?: string;
+    icon1?: string;
+    icon2?: string;
+};
