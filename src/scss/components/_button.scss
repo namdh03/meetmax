@@ -30,7 +30,6 @@
     }
 
     &__spinner {
-        margin-right: 12px;
         border: 2px solid var(--button-color);
         border-bottom-color: transparent;
         width: 14px;
@@ -55,7 +54,7 @@
         column-gap: var(--icon-gutter);
 
         height: 100%;
-        padding: 0 17px;
+        padding: 0 24px;
     }
 
     &__icon {

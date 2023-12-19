@@ -15,6 +15,7 @@ const Button = ({
     onClick,
 }: ButtonProps) => {
     const Component = to ? Link : "button";
+    const iconAlign = icon?.align || "left";
     let classes =
         "button" +
         (to ? " button--link" : "") +
@@ -49,27 +50,32 @@ const Button = ({
             disabled={disabled}
             onClick={onClick}
             className={className ? classes + " " + className : classes}
+            style={
+                {
+                    "--icon-gutter": icon?.gutter || 8 + "px",
+                    "--size": icon?.size || 16 + "px",
+                } as CSSProperties
+            }
         >
             {loading ? (
                 <div className="button__inner button__inner--loading">
-                    <div className="button__spinner"></div>
+                    {iconAlign === "left" && (
+                        <div className="button__spinner"></div>
+                    )}
+
                     <span>{children}</span>
+
+                    {iconAlign === "right" && (
+                        <div className="button__spinner"></div>
+                    )}
                 </div>
             ) : (
-                <div
-                    className="button__inner"
-                    style={
-                        {
-                            "--icon-gutter": icon?.gutter || 8 + "px",
-                            "--size": icon?.size || 16 + "px",
-                        } as CSSProperties
-                    }
-                >
-                    {icon?.align === "left" && <Icon />}
+                <div className="button__inner">
+                    {iconAlign === "left" && <Icon />}
 
                     {children && <span>{children}</span>}
 
-                    {icon?.align === "right" && <Icon />}
+                    {iconAlign === "right" && <Icon />}
                 </div>
             )}
         </Component>
