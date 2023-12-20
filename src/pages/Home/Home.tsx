@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
+import Radio from "@/components/Radio";
+import Group from "@/components/Radio/components/Group";
 import configs from "@/configs";
 
 const Home = () => {
+    const handleClick = () => {
+        console.log("clicked");
+    };
+
     return (
         <div style={{ padding: "0 30px" }}>
             <img src={icons.logo} alt="Meetmax" />
@@ -21,6 +27,27 @@ const Home = () => {
                     <Link to={configs.routes.notFound}>Not Found</Link>
                 </li>
             </ul>
+
+            <br />
+            <Group>
+                <Radio
+                    onClick={handleClick}
+                    name="haha"
+                    label="Radio 1"
+                    value="1"
+                />
+                <Radio
+                    onClick={handleClick}
+                    name="haha"
+                    label="Radio 2"
+                    value="2"
+                />
+            </Group>
+            <br />
+
+            <br />
+            <Radio name="" label="Radio 2" value="1" />
+            <br />
 
             <Button
                 children="Log in with Google"

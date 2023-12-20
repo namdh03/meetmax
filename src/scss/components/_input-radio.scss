@@ -1,0 +1,35 @@
+@use "../abstracts";
+
+.input-radio {
+    @include abstracts.display-flex(center, null);
+    column-gap: 14px;
+
+    cursor: pointer;
+
+    &__input {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    &__label {
+        @extend %display-m;
+        cursor: pointer;
+    }
+
+    &__checkmark {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid #4e5d78;
+        border-radius: 50%;
+    }
+
+    
+}

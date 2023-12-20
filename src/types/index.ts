@@ -82,3 +82,18 @@ export type ButtonProps = {
     className?: string;
     onClick?: () => void;
 };
+
+//Radio props
+export type RadioProps = {
+    name: string;
+    label: string;
+    value: string;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick?: () => void;
+};
+
+// Radio group props
+export type RadioGroupProps = {
+    children: React.ReactNode;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
