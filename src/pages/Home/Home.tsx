@@ -12,7 +12,7 @@ const Home = () => {
     };
 
     return (
-        <div style={{ padding: "0 30px" }}>
+        <>
             <img src={icons.logo} alt="Meetmax" />
             <span>Meetmax</span>
 
@@ -69,54 +69,33 @@ const Home = () => {
             <br />
             <h2>blank</h2>
             <br />
-            <Button loading variant="primary" children="Follow" />
-            <br />
-            <Button
-                loading
-                to="https://docs.google.com/document/d/1FQUi7TKMfOcH7ecCtsrFNE7WE-8SyK2BmklVTEsUt6M/edit"
-                variant="secondary"
-            >
-                Message
-            </Button>
+            <Button variant="primary" children="Follow" />
+
             <br />
             <Button loading variant="outline">
                 Ignore
             </Button>
             <br />
 
-            <h2>blank</h2>
-            <br />
-
-            <Button variant="primary" children="Follow" />
-            <br />
-            <Button
-                to="https://docs.google.com/document/d/1FQUi7TKMfOcH7ecCtsrFNE7WE-8SyK2BmklVTEsUt6M/edit"
-                variant="secondary"
-            >
+            <Button disabled variant="secondary">
                 Message
             </Button>
             <br />
-            <Button variant="outline">Ignore</Button>
-            <br />
 
-            <h2>blank</h2>
-            <br />
-
-            <Button disabled variant="primary" children="Follow" />
-            <br />
             <Button
                 disabled
                 to="https://docs.google.com/document/d/1FQUi7TKMfOcH7ecCtsrFNE7WE-8SyK2BmklVTEsUt6M/edit"
-                variant="secondary"
+                variant="primary"
             >
-                Message
+                Shopping time
             </Button>
             <br />
-            <Button disabled variant="outline">
-                Ignore
+
+            <Button disabled to={configs.routes.signUp} variant="primary">
+                Sign up
             </Button>
             <br />
-        </div>
+        </>
     );
 };
 
