@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import React, { Dispatch } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -111,6 +111,13 @@ export type DateProps = {
     title: string;
     className?: string;
     onClick?: () => void;
+};
+
+// Date picker props
+export type DatePickerProps = {
+    icon?: string;
+    label?: string;
+    onDateChanged?: (date: Date) => void;
 };
 
 // Divider props

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
-import Calendar from "@/components/Calendar";
+import DatePicker from "@/components/DatePicker";
 import configs from "@/configs";
 
 const Home = () => {
@@ -23,7 +23,7 @@ const Home = () => {
                 </li>
             </ul>
 
-            <Calendar />
+            <DatePicker label="Date of birth" />
 
             <Button
                 children="Log in with Google"

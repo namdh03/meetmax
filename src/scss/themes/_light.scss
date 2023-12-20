@@ -1,6 +1,11 @@
 @use "../abstracts";
 
 html {
+    // Icon
+    --icon-filter-color: brightness(0) saturate(100%) invert(36%)
+        sepia(14%) saturate(922%) hue-rotate(180deg) brightness(92%)
+        contrast(90%);
+
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-color-w-5};
     --button-color: #{abstracts.$grayscale-gray-color};
@@ -34,6 +39,12 @@ html {
     --calendar-text-outer-color: #{abstracts.$grayscale-color-w-60};
     --calendar-bg-highlighted-color: #{abstracts.$blue-primary-color};
     --calendar-divider-bg-color: #{abstracts.$grayscale-color-w-20};
+
+    // Date picker
+    --date-picker-bg-color: #{abstracts.$grayscale-white-color};
+    --date-picker-border-color: #{abstracts.$grayscale-color-w-20};
+    --date-picker-default-text-color: #{abstracts.$grayscale-color-w-60};
+    --date-picker-date-text-color: #{abstracts.$grayscale-gray-color};
 
     // Divider
     --divider-bg-color: #{abstracts.$grayscale-color-w-20};

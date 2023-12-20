@@ -37,6 +37,7 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
     const pressureTimer = useRef<NodeJS.Timeout | null>(null);
     const pressureTimeout = useRef<NodeJS.Timeout | null>(null);
 
+    // Component lifecycle hooks
     useEffect(() => {
         const now = new Date();
         const tomorrow = new Date().setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000;

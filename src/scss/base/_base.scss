@@ -50,3 +50,7 @@ input,
 textarea {
     background: transparent;
 }
+
+.icon {
+    filter: var(--icon-filter-color);
+}
