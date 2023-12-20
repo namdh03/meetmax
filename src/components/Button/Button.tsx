@@ -41,7 +41,11 @@ const Button = ({
         if (!icon) return null;
 
         return (
-            <img className="button__icon" src={icon.src} alt="button-icon" />
+            <img
+                className="icon button__icon"
+                src={icon.src}
+                alt="button-icon"
+            />
         );
     };
 
