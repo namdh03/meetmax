@@ -1,9 +1,8 @@
 import { RadioProps } from "@/types";
 
-const Radio = ({ name, label, value, onChange, onClick }: RadioProps) => {
+const Radio = ({ name, label, value, onChange }: RadioProps) => {
     return (
-        <div className="input-radio" onClick={onClick}>
-            <span className="input-radio__checkmark"></span>
+        <label className="input-radio" htmlFor={value}>
             <input
                 className="input-radio__input"
                 id={value}
@@ -12,10 +11,8 @@ const Radio = ({ name, label, value, onChange, onClick }: RadioProps) => {
                 value={value}
                 onChange={onChange}
             />
-            <label className="input-radio__label" htmlFor={value}>
-                {label}
-            </label>
-        </div>
+            {label}
+        </label>
     );
 };
 

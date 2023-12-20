@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch, ReactNode } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -72,7 +72,7 @@ export type ButtonIconType = {
 
 // Button props
 export type ButtonProps = {
-    children: React.ReactNode;
+    children: ReactNode;
     to?: string;
     type?: ButtonType;
     disabled?: boolean;
@@ -89,11 +89,11 @@ export type RadioProps = {
     label: string;
     value: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onClick?: () => void;
 };
 
 // Radio group props
 export type RadioGroupProps = {
-    children: React.ReactNode;
+    children: ReactNode;
+    gap?: number;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

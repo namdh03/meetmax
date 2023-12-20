@@ -1,35 +1,67 @@
 @use "../abstracts";
 
 .input-radio {
-    @include abstracts.display-flex(center, null);
-    column-gap: 14px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
 
+    color: var(--input-radio-color);
     cursor: pointer;
 
+    &::before,
+    &::after {
+        content: "";
+        display: inline-block;
+    }
+
+    &::before {
+        width: 14px;
+        height: 14px;
+        margin-right: 14px;
+        border: 2px solid var(--input-radio-label-color);
+        border-radius: 50%;
+    }
+
+    &:has(:checked) {
+        color: var(--input-radio-color-checked);
+
+        &::before {
+            border: 2px solid var(--input-radio-label-color-checked);
+        }
+
+        &::after {
+            --radio-size: 6px;
+
+            position: absolute;
+            left: 4px;
+            width: var(--radio-size);
+            height: var(--radio-size);
+            background: var(--input-radio-label-color-checked);
+            border-radius: 50%;
+        }
+    }
+
     &__input {
-        border: 0;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
         position: absolute;
-        white-space: nowrap;
+        height: 1px;
         width: 1px;
+
+        margin: -1px;
+        padding: 0;
+        border: 0;
+
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     &__label {
         @extend %display-m;
         cursor: pointer;
     }
+}
 
-    &__checkmark {
-        display: inline-block;
-        width: 14px;
-        height: 14px;
-        border: 2px solid #4e5d78;
-        border-radius: 50%;
-    }
-
-    
+.input-radio-group {
+    @include abstracts.display-flex(center, null);
+    column-gap: var(--input-radio-gap);
 }

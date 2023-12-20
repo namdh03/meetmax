@@ -58,8 +58,8 @@ const Button = ({
             className={className ? classes + " " + className : classes}
             style={
                 {
-                    "--icon-gutter": icon?.gutter || 8 + "px",
-                    "--size": icon?.size || 16 + "px",
+                    "--icon-gutter": (icon?.gutter || 8) + "px",
+                    "--size": (icon?.size || 16) + "px",
                 } as CSSProperties
             }
         >
