@@ -15,6 +15,7 @@ import calendar from "@/assets/icons/calendar.svg";
 import cameraRegular from "@/assets/icons/camera-regular.svg";
 import cameraSolid from "@/assets/icons/camera-solid.svg";
 import check from "@/assets/icons/check.svg";
+import checkbox from "@/assets/icons/checkbox.svg";
 import clock from "@/assets/icons/clock.svg";
 import close from "@/assets/icons/close.svg";
 import closeCircle from "@/assets/icons/close-circle.svg";
@@ -102,6 +103,7 @@ const icons = {
     cameraRegular,
     cameraSolid,
     check,
+    checkbox,
     clock,
     close,
     closeCircle,
