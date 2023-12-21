@@ -1,12 +1,13 @@
 @use "../abstracts";
 
-.input-radio {
+.radio {
     position: relative;
     display: inline-flex;
     align-items: center;
 
     color: var(--input-radio-color);
     cursor: pointer;
+    user-select: none;
 
     &::before,
     &::after {
@@ -55,13 +56,7 @@
         white-space: nowrap;
     }
 
-    &__label {
+    &__text {
         @extend %display-m;
-        cursor: pointer;
     }
-}
-
-.input-radio-group {
-    @include abstracts.display-flex(center, null);
-    column-gap: var(--input-radio-gap);
 }

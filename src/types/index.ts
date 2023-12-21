@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode } from "react";
+import { ComponentPropsWithoutRef, Dispatch, ReactNode } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -84,16 +84,8 @@ export type ButtonProps = {
 };
 
 //Radio props
-export type RadioProps = {
-    name: string;
+export type RadioProps = ComponentPropsWithoutRef<"input"> & {
+    id: string;
     label: string;
-    value: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-// Radio group props
-export type RadioGroupProps = {
-    children: ReactNode;
-    gap?: number;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
 };

@@ -1,17 +1,15 @@
 import { RadioProps } from "@/types";
 
-const Radio = ({ name, label, value, onChange }: RadioProps) => {
+const Radio = ({ id, label, className, ...props }: RadioProps) => {
+    const classes = "radio";
+
     return (
-        <label className="input-radio" htmlFor={value}>
-            <input
-                className="input-radio__input"
-                id={value}
-                type="radio"
-                name={name}
-                value={value}
-                onChange={onChange}
-            />
-            {label}
+        <label
+            className={className ? classes + " " + className : classes}
+            htmlFor={id}
+        >
+            <input {...props} type="radio" id={id} className="radio__input" />
+            <span className="radio__text">{label}</span>
         </label>
     );
 };

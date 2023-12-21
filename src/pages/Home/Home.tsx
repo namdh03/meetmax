@@ -24,8 +24,8 @@ const Home = () => {
             </ul>
 
             <br />
-            <Radio name="haha" label="Radio 1" value="1" />
-            <Radio name="haha" label="Radio 2" value="2" />
+            <Radio id="1" label="hello" name="hihi" />
+            <Radio id="2" label="Bye" name="hihi" />
             <br />
 
             <Button
