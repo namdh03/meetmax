@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { ComponentPropsWithoutRef, Dispatch, ReactNode } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -72,7 +72,7 @@ export type ButtonIconType = {
 
 // Button props
 export type ButtonProps = {
-    children: React.ReactNode;
+    children: ReactNode;
     to?: string;
     type?: ButtonType;
     disabled?: boolean;
@@ -81,4 +81,11 @@ export type ButtonProps = {
     variant?: VariantKey;
     className?: string;
     onClick?: () => void;
+};
+
+//Radio props
+export type RadioProps = ComponentPropsWithoutRef<"input"> & {
+    id: string;
+    label: string;
+    className?: string;
 };

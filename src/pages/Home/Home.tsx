@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
+import Radio from "@/components/Radio";
 import configs from "@/configs";
 
 const Home = () => {
@@ -21,6 +22,11 @@ const Home = () => {
                     <Link to={configs.routes.notFound}>Not Found</Link>
                 </li>
             </ul>
+
+            <br />
+            <Radio id="1" label="hello" name="hihi" />
+            <Radio id="2" label="Bye" name="hihi" />
+            <br />
 
             <Button
                 children="Log in with Google"

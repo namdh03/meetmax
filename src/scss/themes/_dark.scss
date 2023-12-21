@@ -4,4 +4,8 @@ html.dark {
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-gray-color};
     --button-color: #{abstracts.$grayscale-color-w-10};
+
+    // Input radio
+    --input-radio-color-checked: #{abstracts.$grayscale-color-w-10};
+    --input-radio-label-color: #{abstracts.$grayscale-color-w-10};
 }
