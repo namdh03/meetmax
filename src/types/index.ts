@@ -86,6 +86,6 @@ export type ButtonProps = {
 //Radio props
 export type RadioProps = ComponentPropsWithoutRef<"input"> & {
     id: string;
-    label: string;
+    label?: string;
     className?: string;
 };
