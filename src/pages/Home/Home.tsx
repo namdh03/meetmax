@@ -33,6 +33,10 @@ const Home = () => {
             <Radio id="2" label="Bye" name="hihi" />
             <br />
 
+            <Radio id="3" name="ahha" />
+            <Radio id="4" name="ahha" />
+            <br />
+
             <Button
                 children="Log in with Google"
                 icon={{ src: icons.google, align: "left" }}
