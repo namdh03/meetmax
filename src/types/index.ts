@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import { Dispatch, ReactNode } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -48,7 +48,7 @@ export type ReducerHandlers = {
 
 // Role based guard types
 export type RoleBasedGuardProps = {
-    children: React.ReactNode;
+    children: ReactNode;
     accessibleRoles: Role[];
 };
 
@@ -72,7 +72,7 @@ export type ButtonIconType = {
 
 // Button props
 export type ButtonProps = {
-    children: React.ReactNode;
+    children: ReactNode;
     to?: string;
     type?: ButtonType;
     disabled?: boolean;
@@ -81,6 +81,12 @@ export type ButtonProps = {
     variant?: VariantKey;
     className?: string;
     onClick?: () => void;
+};
+
+// Coords type
+export type Coords = {
+    x?: number;
+    y?: number;
 };
 
 // Calendar state
@@ -94,6 +100,7 @@ export type CalendarState = {
 export type CalendarProps = {
     date?: Date;
     onDateChanged?: (date: Date) => void;
+    coords?: Coords;
 };
 
 // Calendar context type
@@ -105,24 +112,23 @@ export type CalendarContextType = {
 
 // Date props
 export type DateProps = {
-    children: React.ReactNode;
-    inMonth: boolean | 0;
-    index: number;
-    title: string;
+    children: ReactNode;
+    date: Date;
     className?: string;
-    onClick?: () => void;
 };
 
 // Date picker props
 export type DatePickerProps = {
     icon?: string;
     label?: string;
+    position?: Coords;
+    className?: string;
     onDateChanged?: (date: Date) => void;
 };
 
 // Divider props
 export type DividerProps = {
-    children?: React.ReactNode;
+    children?: ReactNode;
     color?: string;
     className?: string;
 };

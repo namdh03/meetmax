@@ -29,6 +29,7 @@ html {
     // Calendar
     --calendar-bg-color: #{abstracts.$grayscale-white-color};
     --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-text-date-color: #{abstracts.$grayscale-gray-color};
     --calendar-text-standard-color: #{abstracts.$grayscale-gray-color};
     --calendar-text-today-color: #{abstracts.$green-primary-color};
     --calendar-text-highlighted-color: #{abstracts.$grayscale-white-color};

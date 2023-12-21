@@ -1,16 +1,37 @@
+import { CSSProperties, useMemo } from "react";
+
 import Divider from "@/components/Divider";
 import { CalendarProvider } from "@/contexts/calendar/CalendarContext";
 import { CalendarProps } from "@/types";
 
 import CalendarDate from "./components/CalendarDate";
 import DayList from "./components/DayList";
+import DropdownCalendar from "./components/DropdownCalendar";
+import TextDate from "./components/TextDate";
 
-const Calendar = ({ date, onDateChanged }: CalendarProps) => {
+const Calendar = ({ date, onDateChanged, coords }: CalendarProps) => {
+    const classNames = ["calendar"];
+    const coordStyle = useMemo(() => {
+        if (!coords) return;
+
+        return {
+            "--coord-x": `${coords.x}px`,
+            "--coord-y": `${coords.y}px`,
+        };
+    }, [coords]);
+
+    if (coords) classNames.push("calendar--coords");
+
     return (
         <CalendarProvider date={date} onDateChanged={onDateChanged}>
-            <article className="calendar">
+            <article
+                className={classNames.join(" ")}
+                style={coordStyle as CSSProperties}
+            >
                 <header className="calendar__header">
-                    <input className="calendar__selected-date" />
+                    <TextDate />
+
+                    <DropdownCalendar />
                 </header>
 
                 <Divider className="calendar__divider" />

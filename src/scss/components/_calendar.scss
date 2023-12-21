@@ -1,16 +1,47 @@
 @use "../abstracts";
 
 .calendar {
+    &--coords {
+        position: absolute;
+        top: var(--coord-y);
+        left: var(--coord-x);
+    }
+
     max-width: 285px;
-    padding: 10px 20px 20px 20px;
     background-color: var(--calendar-bg-color);
     filter: drop-shadow(0px 4px 8px var(--calendar-drop-shadow-color));
     backdrop-filter: blur(25px);
     border-radius: 16px;
 
+    &__header {
+        @include abstracts.display-flex(center, space-between);
+        padding: 10px 20px 7px;
+    }
+
+    &__text-date {
+        display: inline-block;
+        @extend %display-m;
+        color: var(--calendar-text-date-color);
+    }
+
+    &__dropdown {
+        @include abstracts.display-flex(center);
+        column-gap: 10px;
+        cursor: pointer;
+
+        &-text {
+            @extend %display-m;
+            color: var(--calendar-text-date-color);
+        }
+    }
+
     &__divider {
         margin-bottom: 10px;
         background-color: var(--calendar-divider-bg-color);
+    }
+
+    &__content {
+        padding: 0 20px 20px 20px;
     }
 
     &__list-day {

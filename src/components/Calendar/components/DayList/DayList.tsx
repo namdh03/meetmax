@@ -1,6 +1,8 @@
+import { memo } from "react";
+
 import { WEEK_DAYS } from "@/utils/constants";
 
-const DayList = () => (
+const DayList = memo(() => (
     <ul className="calendar__list-day">
         {Object.entries(WEEK_DAYS).map((day) => (
             <li key={day[0]} className="calendar__item-day">
@@ -8,6 +10,6 @@ const DayList = () => (
             </li>
         ))}
     </ul>
-);
+));
 
 export default DayList;

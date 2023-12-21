@@ -10,7 +10,7 @@ import useCalendar from "@/hooks/useCalendar";
 import LabelDate from "../LabelDate";
 
 const CalendarDate = () => {
-    const { today, data, setDate } = useCalendar();
+    const { today, data } = useCalendar();
     const dateList = useMemo(
         () => calendar(data.month, data.year),
         [data.month, data.year]
@@ -18,7 +18,7 @@ const CalendarDate = () => {
 
     // Render a calendar date as returned from the calendar builder function
     // This method is used as a map callback as seen in render()
-    const renderCalendarDate = (date: (string | number)[], index: number) => {
+    const renderCalendarDate = (date: (string | number)[]) => {
         const { current, month, year } = data;
         const _date = new Date(date.join("-"));
         // Check if calendar date is same day as today
@@ -39,13 +39,9 @@ const CalendarDate = () => {
             ? "calendar__label-date--standard"
             : "calendar__label-date--outer";
         // The click handler
-        const onClick = () => setDate(_date);
         const props = {
-            inMonth,
-            index,
-            title: _date.toDateString(),
             className,
-            onClick,
+            date: _date,
         };
 
         return (
@@ -57,7 +53,7 @@ const CalendarDate = () => {
 
     return (
         <ul className="calendar__date">
-            {dateList.map((date, index) => renderCalendarDate(date, index))}
+            {dateList.map((date) => renderCalendarDate(date))}
         </ul>
     );
 };

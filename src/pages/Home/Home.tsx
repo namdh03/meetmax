@@ -23,7 +23,23 @@ const Home = () => {
                 </li>
             </ul>
 
-            <DatePicker label="Date of birth" />
+            <div
+                style={{
+                    padding: 500,
+                }}
+            >
+                <DatePicker
+                    label="Date of birth"
+                    position={{
+                        x: -219,
+                        y: 42,
+                    }}
+                />
+
+                <br />
+
+                <DatePicker label="Date of birth" />
+            </div>
 
             <Button
                 children="Log in with Google"

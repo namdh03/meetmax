@@ -64,7 +64,7 @@ export const isSameDay = (date: Date, baseDate = new Date()) => {
     );
 };
 
-// (string) Formats the given date as DD-MM-YYYY
+// (string) Formats the given date as DD/MM/YYYY
 // Months and Days are zero padded
 export const getDateISO = (date = new Date()) => {
     if (!isDate(date)) return null;
@@ -73,7 +73,7 @@ export const getDateISO = (date = new Date()) => {
         zeroPad(+date.getDate(), 2),
         zeroPad(+date.getMonth() + 1, 2),
         date.getFullYear(),
-    ].join("-");
+    ].join("/");
 };
 
 // ({month, year}) Gets the month and year before the given month and year
@@ -94,6 +94,19 @@ export const getNextMonth = (month: number, year: number) => {
     const nextMonthYear = month < 12 ? year : year + 1;
 
     return { month: nextMonth, year: nextMonthYear };
+};
+
+// (string) Formats the given date as Month, YYYY (e.g. March, 2020) 
+// If no date is given, the current date is used
+// If an invalid date is given, null is returned
+// Note: The month is not zero padded
+export const getMonthAndYearFormat = (date = new Date()) => {
+    if (!isDate(date)) return null;
+
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+
+    return `${month} ${year}`;
 };
 
 // Calendar builder for a month in the specified year
