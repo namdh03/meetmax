@@ -26,6 +26,12 @@ html {
     --button-outline-color: #{abstracts.$grayscale-color-w-60};
     --button-border-outline-color: #{abstracts.$grayscale-color-w-20};
 
+    // Input radio
+    --input-radio-color-checked: #{abstracts.$grayscale-gray-color};
+    --input-radio-color: #{abstracts.$grayscale-color-w-60};
+    --input-radio-label-color: #{abstracts.$grayscale-gray-color};
+    --input-radio-label-color-checked: #{abstracts.$blue-primary-color};
+
     // Calendar
     --calendar-bg-color: #{abstracts.$grayscale-white-color};
     --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
