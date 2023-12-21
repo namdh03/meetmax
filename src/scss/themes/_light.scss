@@ -26,4 +26,8 @@ html {
     --input-radio-color: #{abstracts.$grayscale-color-w-60};
     --input-radio-label-color: #{abstracts.$grayscale-gray-color};
     --input-radio-label-color-checked: #{abstracts.$blue-primary-color};
+
+    // Input checkbox
+    --input-checkbox-color-checked: #{abstracts.$blue-primary-color};
+    --input-checkbox-color: #{abstracts.$grayscale-gray-color};
 }

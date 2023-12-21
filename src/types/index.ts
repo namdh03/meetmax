@@ -89,3 +89,10 @@ export type RadioProps = ComponentPropsWithoutRef<"input"> & {
     label: string;
     className?: string;
 };
+
+// Checkbox props
+export type CheckboxProps = ComponentPropsWithoutRef<"input"> & {
+    id: string;
+    label?: string;
+    className?: string;
+};

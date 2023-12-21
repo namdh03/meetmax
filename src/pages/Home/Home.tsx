@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
 
@@ -22,6 +23,10 @@ const Home = () => {
                     <Link to={configs.routes.notFound}>Not Found</Link>
                 </li>
             </ul>
+
+            <br />
+            <Checkbox id="hihi" label="hihihi" className="hihi" />
+            <Checkbox id="hehe" />
 
             <br />
             <Radio id="1" label="hello" name="hihi" />
