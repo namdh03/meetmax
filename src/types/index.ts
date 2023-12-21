@@ -90,6 +90,13 @@ export type RadioProps = ComponentPropsWithoutRef<"input"> & {
     className?: string;
 };
 
+// Checkbox props
+export type CheckboxProps = ComponentPropsWithoutRef<"input"> & {
+    id: string;
+    label?: string;
+    className?: string;
+};
+
 // Coords type
 export type Coords = {
     x?: number;

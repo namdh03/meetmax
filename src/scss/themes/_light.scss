@@ -31,6 +31,10 @@ html {
     --input-radio-label-color: #{abstracts.$grayscale-gray-color};
     --input-radio-label-color-checked: #{abstracts.$blue-primary-color};
 
+    // Input checkbox
+    --input-checkbox-color-checked: #{abstracts.$blue-primary-color};
+    --input-checkbox-color: #{abstracts.$grayscale-gray-color};
+
     // Calendar
     --calendar-bg-color: #{abstracts.$grayscale-white-color};
     --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
