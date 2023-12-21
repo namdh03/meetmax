@@ -9,8 +9,9 @@ import DayList from "./components/DayList";
 import DropdownCalendar from "./components/DropdownCalendar";
 import TextDate from "./components/TextDate";
 
-const Calendar = ({ date, onDateChanged, coords }: CalendarProps) => {
+const Calendar = ({ date, onDateChanged, coords, actions }: CalendarProps) => {
     const classNames = ["calendar"];
+
     const coordStyle = useMemo(() => {
         if (!coords) return;
 
@@ -40,6 +41,8 @@ const Calendar = ({ date, onDateChanged, coords }: CalendarProps) => {
                     <DayList />
 
                     <CalendarDate />
+
+                    {actions}
                 </div>
             </article>
         </CalendarProvider>

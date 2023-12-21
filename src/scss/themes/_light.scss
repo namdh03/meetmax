@@ -2,9 +2,8 @@
 
 html {
     // Icon
-    --icon-filter-color: brightness(0) saturate(100%) invert(36%)
-        sepia(14%) saturate(922%) hue-rotate(180deg) brightness(92%)
-        contrast(90%);
+    --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
+        saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
 
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-color-w-5};
@@ -42,12 +41,21 @@ html {
     --calendar-text-outer-color: #{abstracts.$grayscale-color-w-60};
     --calendar-bg-highlighted-color: #{abstracts.$blue-primary-color};
     --calendar-divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --calendar-dropdown-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-dropdown-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-month-year-item-text-color: #{abstracts.$grayscale-gray-color};
+    --calendar-month-year-item-active-text-color: #{abstracts.$blue-primary-color};
+    --calendar-month-year-item-active-bg-color: #{abstracts.$blue-primary-color-w-80};
+    --calendar-scrollbar-track-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-scrollbar-shadow-color: #eff3f4;
+    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-color-w-20};
 
     // Date picker
     --date-picker-bg-color: #{abstracts.$grayscale-white-color};
     --date-picker-border-color: #{abstracts.$grayscale-color-w-20};
     --date-picker-default-text-color: #{abstracts.$grayscale-color-w-60};
     --date-picker-date-text-color: #{abstracts.$grayscale-gray-color};
+    --date-picker-cancel-btn-color: #{abstracts.$grayscale-color-w-60};
 
     // Divider
     --divider-bg-color: #{abstracts.$grayscale-color-w-20};

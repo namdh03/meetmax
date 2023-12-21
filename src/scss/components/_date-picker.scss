@@ -28,4 +28,18 @@
         @extend %body-m-1;
         color: var(--date-picker-date-text-color);
     }
+
+    &__actions {
+        @include abstracts.display-flex(center, flex-end);
+    }
+
+    &__btn {
+        @extend %body-m-1;
+
+        &--cancel {
+            color: var(--date-picker-cancel-btn-color);
+            background-color: transparent;
+            border-color: transparent;
+        }
+    }
 }

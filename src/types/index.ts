@@ -108,6 +108,7 @@ export type CalendarProps = {
     date?: Date;
     onDateChanged?: (date: Date) => void;
     coords?: Coords;
+    actions?: ReactNode;
 };
 
 // Calendar context type
@@ -115,6 +116,8 @@ export type CalendarContextType = {
     today: Date;
     data: CalendarState;
     setDate: (date: Date) => void;
+    open: boolean;
+    toggle: () => void;
 };
 
 // Date props

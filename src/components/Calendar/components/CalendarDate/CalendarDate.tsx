@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 import calendar, {
     getDateISO,
@@ -9,7 +9,7 @@ import useCalendar from "@/hooks/useCalendar";
 
 import LabelDate from "../LabelDate";
 
-const CalendarDate = () => {
+const CalendarDate = memo(() => {
     const { today, data } = useCalendar();
     const dateList = useMemo(
         () => calendar(data.month, data.year),
@@ -56,6 +56,6 @@ const CalendarDate = () => {
             {dateList.map((date) => renderCalendarDate(date))}
         </ul>
     );
-};
+});
 
 export default CalendarDate;

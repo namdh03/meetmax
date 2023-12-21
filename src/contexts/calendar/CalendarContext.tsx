@@ -20,6 +20,8 @@ const CalendarContext = createContext<CalendarContextType>({
     today: new Date(),
     data: initialDate,
     setDate: () => {},
+    open: false,
+    toggle: () => {},
 });
 
 const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
@@ -33,6 +35,7 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
         month: date ? date.getMonth() + 1 : initialDate.month,
         year: date ? date.getFullYear() : initialDate.year,
     });
+    const [monthYearListOpen, setMonthYearListOpen] = useState<boolean>(false);
     const dayTimeout = useRef<NodeJS.Timeout | null>(null);
     const pressureTimer = useRef<NodeJS.Timeout | null>(null);
     const pressureTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -82,10 +85,14 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
         onDateChanged && onDateChanged(_date);
     };
 
+    const toggle = () => setMonthYearListOpen(!monthYearListOpen);
+
     const contextValue: CalendarContextType = {
         today,
         data,
         setDate,
+        open: monthYearListOpen,
+        toggle,
     };
 
     return (

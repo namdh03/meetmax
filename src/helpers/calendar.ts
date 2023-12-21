@@ -96,17 +96,45 @@ export const getNextMonth = (month: number, year: number) => {
     return { month: nextMonth, year: nextMonthYear };
 };
 
-// (string) Formats the given date as Month, YYYY (e.g. March, 2020) 
+// (string) Formats the given date as Month, YYYY (e.g. March, 2020)
 // If no date is given, the current date is used
 // If an invalid date is given, null is returned
 // Note: The month is not zero padded
-export const getMonthAndYearFormat = (date = new Date()) => {
-    if (!isDate(date)) return null;
+export const getMonthAndYearFormat = (month = THIS_MONTH, year = THIS_YEAR) => {
+    const date = new Date(year, month - 1);
+    const _month = date.toLocaleString("default", { month: "long" });
+    const _year = date.getFullYear();
 
-    const month = date.toLocaleString("default", { month: "long" });
-    const year = date.getFullYear();
+    return `${_month} ${_year}`;
+};
 
-    return `${month} ${year}`;
+// (Array) Gets an array of months and years for the given year
+// The array contains 12 months before the given year,
+// 12 months of the given year and 12 months after the given year
+// Each month and year is represented as an object => {month, year}
+export const getMonthYearList = (year: number) => {
+    const previousYear = year - 1;
+    const currentYear = year;
+    const nextYear = year + 1;
+
+    const monthYearList = [];
+
+    // Get list of months and years of the previous year
+    for (let month = 1; month <= 12; month++) {
+        monthYearList.push({ month, year: previousYear });
+    }
+
+    // Get list of months and years of the current year
+    for (let month = 1; month <= 12; month++) {
+        monthYearList.push({ month, year: currentYear });
+    }
+
+    // Get list of months and years of the next year
+    for (let month = 1; month <= 12; month++) {
+        monthYearList.push({ month, year: nextYear });
+    }
+
+    return monthYearList;
 };
 
 // Calendar builder for a month in the specified year

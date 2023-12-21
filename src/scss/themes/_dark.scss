@@ -19,6 +19,10 @@ html.dark {
     --calendar-text-standard-color: #{abstracts.$grayscale-color-w-10};
     --calendar-text-outer-color: #{abstracts.$grayscale-gray-color};
     --calendar-divider-bg-color: #{abstracts.$dark-color-1};
+    --calendar-dropdown-bg-color: #{abstracts.$dark-color-1};
+    --calendar-scrollbar-track-bg-color: #{abstracts.$dark-color-2};
+    --calendar-scrollbar-shadow-color: #{abstracts.$grayscale-gray-color};
+    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-gray-color};
 
     // Date picker
     --date-picker-bg-color: #{abstracts.$dark-color-2};

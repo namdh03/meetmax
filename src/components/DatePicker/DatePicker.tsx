@@ -3,8 +3,9 @@ import { useRef, useState } from "react";
 import icons from "@/assets/icons";
 import { getMonthAndYearFormat } from "@/helpers/calendar";
 import { usePortal } from "@/hooks/usePortal";
-import { DatePickerProps } from "@/types";
+import { Coords, DatePickerProps } from "@/types";
 
+import Button from "../Button";
 import Calendar from "../Calendar";
 
 const DatePicker = ({
@@ -17,13 +18,14 @@ const DatePicker = ({
     const { render } = usePortal();
     const [date, setDate] = useState<Date>();
     const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
-    const [coords, setCoords] = useState({ x: 0, y: 0 });
-    const calendarRef = useRef<HTMLDivElement>(null);
+    const [coords, setCoords] = useState<Coords>({ x: 0, y: 0 });
+    const dateTemp = useRef<Date>(new Date());
+    const datePickerRef = useRef<HTMLDivElement>(null);
 
     const toggleCalendar = () => {
-        if (!calendarRef.current) return;
+        if (!datePickerRef.current) return;
 
-        const rect = calendarRef.current.getBoundingClientRect();
+        const rect = datePickerRef.current.getBoundingClientRect();
 
         setCoords({
             x: rect.x + window.scrollX + (position?.x ?? 0),
@@ -31,17 +33,44 @@ const DatePicker = ({
         });
         setCalendarOpen(!calendarOpen);
     };
+
     const handleDateChange = (date: Date) => {
-        if (date) {
-            setDate(date);
-            setCalendarOpen(false);
-            onDateChanged && onDateChanged(date);
-        }
+        dateTemp.current = date;
+        onDateChanged && onDateChanged(date);
     };
+
     const formatDate = (date: Date) => {
         const day = date.getDate();
-        return `${day}/${getMonthAndYearFormat(date)}`;
+        return `${day}/${getMonthAndYearFormat(
+            date.getMonth() + 1,
+            date.getFullYear()
+        )}`;
     };
+
+    const handleCancelCalendar = () => setCalendarOpen(false);
+
+    const handleSaveCalendar = () => {
+        setDate(dateTemp.current);
+        setCalendarOpen(false);
+    };
+
+    const Actions = () => (
+        <div className="date-picker__actions">
+            <Button
+                className="date-picker__btn date-picker__btn--cancel"
+                onClick={handleCancelCalendar}
+            >
+                Cancel
+            </Button>
+            <Button
+                variant="primary"
+                className="date-picker__btn"
+                onClick={handleSaveCalendar}
+            >
+                Save
+            </Button>
+        </div>
+    );
 
     const CalendarPortal = () =>
         render(
@@ -49,13 +78,14 @@ const DatePicker = ({
                 date={date}
                 onDateChanged={handleDateChange}
                 coords={coords}
+                actions={<Actions />}
             />
         );
 
     return (
         <>
             <div
-                ref={calendarRef}
+                ref={datePickerRef}
                 className={`date-picker ${className}`.trim()}
                 onClick={toggleCalendar}
             >
