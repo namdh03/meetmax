@@ -21,6 +21,7 @@ const CalendarContext = createContext<CalendarContextType>({
     data: initialDate,
     setDate: () => {},
     open: false,
+    setOpen: () => {},
     toggle: () => {},
 });
 
@@ -39,6 +40,7 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
     const dayTimeout = useRef<NodeJS.Timeout | null>(null);
     const pressureTimer = useRef<NodeJS.Timeout | null>(null);
     const pressureTimeout = useRef<NodeJS.Timeout | null>(null);
+    const dropdownRef = useRef<HTMLLIElement | null>(null);
 
     // Component lifecycle hooks
     useEffect(() => {
@@ -56,6 +58,12 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
             clearPressureTimer();
         };
     }, []);
+
+    useEffect(() => {
+        if (monthYearListOpen) {
+            dropdownRef.current?.scrollIntoView({ block: "center" });
+        }
+    }, [monthYearListOpen]);
 
     const clearDayTimeout = () => {
         if (dayTimeout.current) {
@@ -91,7 +99,9 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
         today,
         data,
         setDate,
+        ref: dropdownRef,
         open: monthYearListOpen,
+        setOpen: setMonthYearListOpen,
         toggle,
     };
 

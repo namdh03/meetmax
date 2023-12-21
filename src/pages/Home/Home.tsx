@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
-import Calendar from "@/components/Calendar";
 import Checkbox from "@/components/Checkbox";
 import DatePicker from "@/components/DatePicker";
 import Radio from "@/components/Radio";
@@ -44,8 +43,6 @@ const Home = () => {
                     padding: 500,
                 }}
             >
-                <Calendar />
-
                 <DatePicker
                     label="Date of birth"
                     position={{
@@ -53,10 +50,6 @@ const Home = () => {
                         y: 42,
                     }}
                 />
-
-                <br />
-
-                <DatePicker label="Date of birth" />
             </div>
 
             <Button

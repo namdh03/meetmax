@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, Dispatch, ReactNode } from "react";
+import {
+    ComponentPropsWithoutRef,
+    Dispatch,
+    ReactNode,
+    RefObject,
+} from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -124,7 +129,9 @@ export type CalendarContextType = {
     data: CalendarState;
     setDate: (date: Date) => void;
     open: boolean;
+    setOpen: (open: boolean) => void;
     toggle: () => void;
+    ref?: RefObject<HTMLLIElement>;
 };
 
 // Date props
@@ -140,7 +147,8 @@ export type DatePickerProps = {
     label?: string;
     position?: Coords;
     className?: string;
-    onDateChanged?: (date: Date) => void;
+    value?: Date;
+    onChanged?: (date: Date) => void;
 };
 
 // Divider props

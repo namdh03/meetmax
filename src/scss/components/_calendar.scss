@@ -87,6 +87,7 @@
             &::-webkit-scrollbar-thumb {
                 background-color: var(--calendar-scrollbar-thumb-bg-color);
                 border-radius: 5px;
+                height: 100px;
             }
         }
 

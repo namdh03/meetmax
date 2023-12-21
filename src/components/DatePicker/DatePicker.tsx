@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 
 import icons from "@/assets/icons";
 import { getMonthAndYearFormat } from "@/helpers/calendar";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { usePortal } from "@/hooks/usePortal";
 import { Coords, DatePickerProps } from "@/types";
 
@@ -13,14 +14,23 @@ const DatePicker = ({
     label,
     position,
     className = "",
-    onDateChanged,
+    value,
+    onChanged,
 }: DatePickerProps) => {
     const { render } = usePortal();
     const [date, setDate] = useState<Date>();
     const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
     const [coords, setCoords] = useState<Coords>({ x: 0, y: 0 });
-    const dateTemp = useRef<Date>(new Date());
+    const dateTemp = useRef<Date>(value || new Date());
     const datePickerRef = useRef<HTMLDivElement>(null);
+    const calendarRef = useRef<HTMLElement>(null);
+
+    // Handle click outside component to close calendar
+    const handleClickOutside = (e: MouseEvent) => {
+        if (datePickerRef.current?.contains(e.target as Node)) return;
+        setCalendarOpen(false);
+    };
+    useOnClickOutside(calendarRef, handleClickOutside);
 
     const toggleCalendar = () => {
         if (!datePickerRef.current) return;
@@ -31,12 +41,13 @@ const DatePicker = ({
             x: rect.x + window.scrollX + (position?.x ?? 0),
             y: rect.y + window.scrollY + (position?.y ?? rect.height),
         });
+
         setCalendarOpen(!calendarOpen);
     };
 
     const handleDateChange = (date: Date) => {
         dateTemp.current = date;
-        onDateChanged && onDateChanged(date);
+        onChanged && onChanged(date);
     };
 
     const formatDate = (date: Date) => {
@@ -75,6 +86,7 @@ const DatePicker = ({
     const CalendarPortal = () =>
         render(
             <Calendar
+                ref={calendarRef}
                 date={date}
                 onDateChanged={handleDateChange}
                 coords={coords}
