@@ -29,6 +29,10 @@ const Home = () => {
             <Radio id="2" label="Bye" name="hihi" />
             <br />
 
+            <Radio id="3" name="ahha" />
+            <Radio id="4" name="ahha" />
+            <br />
+
             <div
                 style={{
                     padding: 500,
