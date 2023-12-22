@@ -24,9 +24,26 @@ export type FirebaseConfigType = {
     db: Firestore;
 };
 
+// Collection types
+export type CollectionKey =
+    | "users"
+    | "rooms"
+    | "userRooms"
+    | "messages"
+    | "passwordHistory"
+    | "followers"
+    | "followings"
+    | "blockList"
+    | "posts"
+    | "postImages"
+    | "postTags";
+
+export type CollectionType = { [K in CollectionKey]: string };
+
 export type ConfigType = {
     routes: RouteConfigType;
     firebase: FirebaseConfigType;
+    collections: CollectionType;
 };
 
 // Authentication types
