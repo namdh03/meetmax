@@ -18,6 +18,7 @@ const DatePicker = ({
     errorMsg,
     onChanged,
 }: DatePickerProps) => {
+    // Render calendar in a portal
     const { render } = usePortal();
     const [date, setDate] = useState<Date>();
     const [calendarOpen, setCalendarOpen] = useState<boolean>(false);

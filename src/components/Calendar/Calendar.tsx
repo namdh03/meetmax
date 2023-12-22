@@ -16,6 +16,7 @@ const Calendar = forwardRef(
     ) => {
         const classNames = ["calendar"];
 
+        // Position the calendar based on the coordinates
         const coordStyle = useMemo(() => {
             if (!coords) return;
 
