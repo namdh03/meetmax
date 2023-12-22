@@ -35,4 +35,7 @@ html.dark {
     // Divider
     --divider-bg-color: #{abstracts.$grayscale-gray-color};
     --divider-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Logo
+    --logo-color: #{abstracts.$grayscale-color-w-10};
 }
