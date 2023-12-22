@@ -1,7 +1,9 @@
 @use "../abstracts";
 
 .logo {
-    @include abstracts.display-flex(center);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     column-gap: var(--gap);
 
     cursor: pointer;
