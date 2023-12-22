@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import InfiniteScroll from "@/components/InfiniteScroll";
 import {
     getMonthAndYearFormat,
@@ -9,9 +7,8 @@ import {
 import useCalendar from "@/hooks/useCalendar";
 
 const MonthYearList = () => {
-    const { data, setDate, toggle, ref } = useCalendar();
-
-    const [list, setList] = useState(() => getMonthYearList(data.year));
+    const { data, monthYearList, setMonthYearList, setDate, toggle, ref } =
+        useCalendar();
 
     const handleChangeDate = (month: number, year: number) => {
         const date = new Date(year, month - 1, data.current?.getDate() ?? 1);
@@ -20,14 +17,18 @@ const MonthYearList = () => {
         toggle();
     };
 
+    // Load more months and years when the user reaches the top of the list
     const handleLoadMore = () =>
-        setList((prev) => [...getMonthYearList(prev[0].year - 2), ...prev]);
+        setMonthYearList((prev) => [
+            ...getMonthYearList(prev[0].year - 2),
+            ...prev,
+        ]);
 
     return (
         <div className="calendar__dropdown-month-year">
             <InfiniteScroll hasMore={true} fetchMore={handleLoadMore}>
                 <ul className="calendar__dropdown-list">
-                    {list.map((date) => {
+                    {monthYearList.map((date) => {
                         const isActive = isSameMonth(
                             new Date(date.year, date.month),
                             new Date(data.year, data.month)

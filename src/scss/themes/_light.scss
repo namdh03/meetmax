@@ -71,6 +71,16 @@ html {
     // Logo
     --logo-color: #{abstracts.$grayscale-gray-color};
 
+    // Auth layout
+    --auth-header-bg-color: #{abstracts.$grayscale-white-color};
+    --auth-body-bg-from-color: rgba(255, 255, 255, 0.4);
+    --auth-body-bg-to-color: rgba(255, 255, 255, 0.1);
+    --auth-title-color: #{abstracts.$grayscale-gray-color};
+    --auth-form-bg-color: #{abstracts.$grayscale-white-color};
+    --auth-form-shadow-color: rgba(205, 205, 212, 0.1);
+    --auth-background-color: #{abstracts.$grayscale-white-color};
+    --auth-background-filter-color: #{abstracts.$blue-primary-color};
+
     // Input
     --input-border-color: #{abstracts.$grayscale-color-w-20};
     --input-placeholder-color: #{abstracts.$grayscale-color-w-60};

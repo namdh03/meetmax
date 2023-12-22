@@ -3,19 +3,22 @@ import {
     Dispatch,
     ReactNode,
     RefObject,
+    SetStateAction,
 } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
 import { Auth, User } from "firebase/auth";
-import { Firestore } from "firebase/firestore";
+import { FieldValue, Firestore } from "firebase/firestore";
 
-import { AuthActionType, Role } from "@/utils/enum";
+import { AuthActionType, Gender, Role } from "@/utils/enum";
 
 // Config types
 export type RouteKey = "home" | "signIn" | "signUp" | "notFound";
 
-export type RouteConfigType = { [K in RouteKey]: string };
+export type RouteValue = "/" | "/sign-in" | "/sign-up" | "*";
+
+export type RouteConfigType = { [K in RouteKey]: RouteValue };
 
 export type FirebaseConfigType = {
     app: FirebaseApp;
@@ -24,9 +27,67 @@ export type FirebaseConfigType = {
     db: Firestore;
 };
 
+// Collection types
+export type CollectionKey =
+    | "users"
+    | "rooms"
+    | "userRooms"
+    | "messages"
+    | "passwordHistory"
+    | "followers"
+    | "followings"
+    | "blockList"
+    | "posts"
+    | "postImages"
+    | "postTags";
+
+export type CollectionValue =
+    | "users"
+    | "rooms"
+    | "user_rooms"
+    | "messages"
+    | "password_history"
+    | "followers"
+    | "followings"
+    | "block_list"
+    | "posts"
+    | "post_images"
+    | "post_tags";
+
+export type CollectionType = {
+    [key in CollectionKey]: CollectionValue;
+};
+
 export type ConfigType = {
     routes: RouteConfigType;
     firebase: FirebaseConfigType;
+    collections: CollectionType;
+};
+
+// Provider ID types
+export type ProviderId = "firebase";
+
+// Users collection types
+export type UserType = {
+    id: string;
+    email: string;
+    full_name: string;
+    birthday: Date;
+    gender: Gender;
+    providerId: ProviderId;
+    bio: string;
+    phone: string;
+    website: string;
+    location: string;
+    facebook_link: string;
+    twitter_link: string;
+    instagram_link: string;
+    linkedIn_link: string;
+    avatar_url: string;
+    avatar_name: string;
+    cover_photo_url: string;
+    cover_photo_name: string;
+    created_at: FieldValue;
 };
 
 // Authentication types
@@ -123,9 +184,16 @@ export type CalendarProps = {
     actions?: ReactNode;
 };
 
+export type MonthYearType = {
+    month: number;
+    year: number;
+};
+
 // Calendar context type
 export type CalendarContextType = {
     today: Date;
+    monthYearList: MonthYearType[];
+    setMonthYearList: Dispatch<SetStateAction<MonthYearType[]>>;
     data: CalendarState;
     setDate: (date: Date) => void;
     open: boolean;
@@ -165,6 +233,12 @@ export type LogoProps = {
     size?: number;
     gap?: number;
     onClick?: () => void;
+};
+
+// Auth layout
+export type AuthLayoutProps = {
+    title: string;
+    description: string;
 };
 
 // Input email props

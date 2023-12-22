@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { signInWithEmail, signOutSystem, signUpWithEmail } from "@/helpers";
 import { useAuth } from "@/hooks";
+import { signInWithEmail, signOutSystem, signUpWithEmail } from "@/services";
 
 const SignUp = () => {
     const { user } = useAuth();
