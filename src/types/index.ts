@@ -158,3 +158,11 @@ export type DividerProps = {
     color?: string;
     className?: string;
 };
+
+// Logo props
+export type LogoProps = {
+    className?: string;
+    size?: number;
+    gap?: number;
+    onClick?: () => void;
+};

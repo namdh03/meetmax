@@ -4,6 +4,7 @@ import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import DatePicker from "@/components/DatePicker";
+import Logo from "@/components/Logo";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
 
@@ -24,6 +25,9 @@ const Home = () => {
                     <Link to={configs.routes.notFound}>Not Found</Link>
                 </li>
             </ul>
+
+            <br />
+            <Logo />
 
             <br />
             <Checkbox id="hihi" label="hihihi" className="hihi" />
