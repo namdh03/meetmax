@@ -1,0 +1,23 @@
+@use "../abstracts";
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: var(--gap);
+
+    cursor: pointer;
+    user-select: none;
+
+    &__icon {
+        width: var(--size);
+        height: var(--size);
+        object-fit: cover;
+    }
+
+    &__text {
+        @extend %third-heading;
+
+        color: var(--logo-color);
+    }
+}

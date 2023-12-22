@@ -1,6 +1,13 @@
 @use "../abstracts";
 
 html {
+    // Icon
+    --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
+        saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
+
+    // Error message
+    --error-msg-color: #{abstracts.$red-primary-color};
+
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-color-w-5};
     --button-color: #{abstracts.$grayscale-gray-color};
@@ -18,12 +25,51 @@ html {
 
     // Button - Button outline
     --button-bg-outline-color: transparent;
-    --button-outline-color: #{abstracts.$grayscale-color-w-20};
+    --button-outline-color: #{abstracts.$grayscale-color-w-60};
     --button-border-outline-color: #{abstracts.$grayscale-color-w-20};
 
-    // Button icon
-    --button-icon-color: brightness(0) saturate(100%) invert(36%) sepia(8%)
-        saturate(1944%) hue-rotate(180deg) brightness(88%) contrast(79%);
+    // Input radio
+    --input-radio-color-checked: #{abstracts.$grayscale-gray-color};
+    --input-radio-color: #{abstracts.$grayscale-color-w-60};
+    --input-radio-label-color: #{abstracts.$grayscale-gray-color};
+    --input-radio-label-color-checked: #{abstracts.$blue-primary-color};
+
+    // Input checkbox
+    --input-checkbox-color-checked: #{abstracts.$blue-primary-color};
+    --input-checkbox-color: #{abstracts.$grayscale-gray-color};
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-text-date-color: #{abstracts.$grayscale-gray-color};
+    --calendar-text-standard-color: #{abstracts.$grayscale-gray-color};
+    --calendar-text-today-color: #{abstracts.$green-primary-color};
+    --calendar-text-highlighted-color: #{abstracts.$grayscale-white-color};
+    --calendar-text-outer-color: #{abstracts.$grayscale-color-w-60};
+    --calendar-bg-highlighted-color: #{abstracts.$blue-primary-color};
+    --calendar-divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --calendar-dropdown-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-dropdown-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-month-year-item-text-color: #{abstracts.$grayscale-gray-color};
+    --calendar-month-year-item-active-text-color: #{abstracts.$blue-primary-color};
+    --calendar-month-year-item-active-bg-color: #{abstracts.$blue-primary-color-w-80};
+    --calendar-scrollbar-track-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-scrollbar-shadow-color: #eff3f4;
+    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-color-w-20};
+
+    // Date picker
+    --date-picker-bg-color: #{abstracts.$grayscale-white-color};
+    --date-picker-border-color: #{abstracts.$grayscale-color-w-20};
+    --date-picker-default-text-color: #{abstracts.$grayscale-color-w-60};
+    --date-picker-date-text-color: #{abstracts.$grayscale-gray-color};
+    --date-picker-cancel-btn-color: #{abstracts.$grayscale-color-w-60};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --divider-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Logo
+    --logo-color: #{abstracts.$grayscale-gray-color};
 
     // Input - Input sign up
     --input-border-color: #{abstracts.$grayscale-color-w-20};
