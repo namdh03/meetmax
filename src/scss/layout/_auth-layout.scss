@@ -1,0 +1,101 @@
+@use "../abstracts";
+
+.auth {
+    --header-height: 80px;
+
+    position: relative;
+    background-color: var(--auth-background-color);
+    overflow: hidden;
+
+    &__background {
+        content: "";
+        position: absolute;
+
+        opacity: 0.15;
+        border-radius: 50%;
+        background: var(--auth-background-filter-color);
+
+        &--first-blur {
+            bottom: 50%;
+            left: -15px;
+            width: 170px;
+            height: 170px;
+        }
+
+        &--second-blur {
+            bottom: -200px;
+            right: 50%;
+            width: 310px;
+            height: 310px;
+        }
+    }
+
+    &__filter {
+        backdrop-filter: blur(150px);
+        background: linear-gradient(
+            180deg,
+            var(--auth-body-bg-from-color) 0%,
+            var(--auth-body-bg-to-color) 100%
+        );
+    }
+
+    &__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+
+        height: var(--header-height);
+        padding: 25px 30px;
+
+        background: var(--auth-header-bg-color);
+    }
+
+    &__content {
+        @include abstracts.display-flex(center);
+        flex-direction: column;
+        padding-top: var(--header-height);
+        padding-bottom: var(--header-height);
+
+        min-height: 100vh;
+    }
+
+    &__title {
+        @extend %first-heading;
+
+        color: var(--auth-title-color);
+    }
+
+    &__desc {
+        @extend %display-m;
+
+        margin-top: 10px;
+
+        color: var(--auth-title-color);
+    }
+
+    &__form {
+        width: 580px;
+        margin-top: 30px;
+        padding: 40px;
+
+        border-radius: 20px;
+        background: var(--auth-form-bg-color);
+        box-shadow: 3px -5px 35px 0px var(--auth-form-shadow-color);
+    }
+
+    &__actions {
+        @include abstracts.display-flex(center);
+        column-gap: 20px;
+    }
+
+    &__button {
+        flex: 1;
+        border-radius: 10px;
+    }
+
+    &__divider {
+        margin: 30px 0;
+    }
+}
