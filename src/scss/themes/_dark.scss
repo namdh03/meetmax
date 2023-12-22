@@ -1,6 +1,10 @@
 @use "../abstracts";
 
 html.dark {
+    // Icon
+    --icon-filter-color: brightness(0) saturate(100%) invert(88%) sepia(56%)
+        saturate(1476%) hue-rotate(180deg) brightness(114%) contrast(89%);
+
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-gray-color};
     --button-color: #{abstracts.$grayscale-color-w-10};
@@ -11,4 +15,24 @@ html.dark {
 
     // Input checkbox
     --input-checkbox-color: #{abstracts.$grayscale-color-w-10};
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$dark-color-2};
+    --calendar-text-date-color: #{abstracts.$grayscale-color-w-10};
+    --calendar-text-standard-color: #{abstracts.$grayscale-color-w-10};
+    --calendar-text-outer-color: #{abstracts.$grayscale-gray-color};
+    --calendar-divider-bg-color: #{abstracts.$dark-color-1};
+    --calendar-dropdown-bg-color: #{abstracts.$dark-color-1};
+    --calendar-scrollbar-track-bg-color: #{abstracts.$dark-color-2};
+    --calendar-scrollbar-shadow-color: #{abstracts.$grayscale-gray-color};
+    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-gray-color};
+
+    // Date picker
+    --date-picker-bg-color: #{abstracts.$dark-color-2};
+    --date-picker-border-color: #{abstracts.$grayscale-gray-color};
+    --date-picker-date-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-gray-color};
+    --divider-text-color: #{abstracts.$grayscale-color-w-10};
 }

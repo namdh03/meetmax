@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
+import DatePicker from "@/components/DatePicker";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
 
@@ -36,6 +37,27 @@ const Home = () => {
             <Radio id="3" name="ahha" />
             <Radio id="4" name="ahha" />
             <br />
+
+            <div
+                style={{
+                    padding: 300,
+                }}
+            >
+                <DatePicker
+                    label="Date of birth"
+                    position={{
+                        x: -219,
+                        y: 42,
+                    }}
+                />
+
+                <br />
+
+                <DatePicker
+                    label="Date of birth"
+                    errorMsg="Please enter a valid email address."
+                />
+            </div>
 
             <Button
                 children="Log in with Google"

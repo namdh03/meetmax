@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, Dispatch, ReactNode } from "react";
+import {
+    ComponentPropsWithoutRef,
+    Dispatch,
+    ReactNode,
+    RefObject,
+} from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -48,7 +53,7 @@ export type ReducerHandlers = {
 
 // Role based guard types
 export type RoleBasedGuardProps = {
-    children: React.ReactNode;
+    children: ReactNode;
     accessibleRoles: Role[];
 };
 
@@ -94,5 +99,62 @@ export type RadioProps = ComponentPropsWithoutRef<"input"> & {
 export type CheckboxProps = ComponentPropsWithoutRef<"input"> & {
     id: string;
     label?: string;
+    className?: string;
+};
+
+// Coords type
+export type Coords = {
+    x?: number;
+    y?: number;
+};
+
+// Calendar state
+export type CalendarState = {
+    current: Date | null;
+    month: number;
+    year: number;
+};
+
+// Calender props
+export type CalendarProps = {
+    date?: Date;
+    onDateChanged?: (date: Date) => void;
+    coords?: Coords;
+    actions?: ReactNode;
+};
+
+// Calendar context type
+export type CalendarContextType = {
+    today: Date;
+    data: CalendarState;
+    setDate: (date: Date) => void;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    toggle: () => void;
+    ref?: RefObject<HTMLLIElement>;
+};
+
+// Date props
+export type DateProps = {
+    children: ReactNode;
+    date: Date;
+    className?: string;
+};
+
+// Date picker props
+export type DatePickerProps = {
+    icon?: string;
+    label?: string;
+    position?: Coords;
+    className?: string;
+    value?: Date;
+    errorMsg?: string;
+    onChanged?: (date: Date) => void;
+};
+
+// Divider props
+export type DividerProps = {
+    children?: ReactNode;
+    color?: string;
     className?: string;
 };
