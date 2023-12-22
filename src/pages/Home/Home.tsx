@@ -92,12 +92,12 @@ const Home = () => {
             </Button>
             <br />
 
+            <Email id="email" name="email" placeholder="Your Email" />
             <Email
                 id="email"
                 name="email"
                 placeholder="Your Email"
                 icon={icons.mail}
-                errorMessage="Please enter a valid email address."
             />
             <Text
                 id="fullName"

@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { ComponentPropsWithoutRef, Dispatch } from "react";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -84,12 +84,10 @@ export type ButtonProps = {
 };
 
 // Input email props
-export type InputEmailProps = {
-    id: string;
-    name: string;
-    placeholder?: string;
+export type InputEmailProps = ComponentPropsWithoutRef<"input"> & {
     icon?: string;
-    errorMessage: string;
+    errorMessage?: string;
+    className?: string;
 };
 
 // Input text props
@@ -102,7 +100,7 @@ export type InputTextProps = {
 
 // Input password props
 export type InputPassProps = {
-    id:string;
+    id: string;
     name: string;
     placeholder?: string;
     icon1?: string;
