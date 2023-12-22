@@ -8,6 +8,7 @@ html.dark {
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-gray-color};
     --button-color: #{abstracts.$grayscale-color-w-10};
+    --button-border-color: #{abstracts.$grayscale-gray-color};
 
     // Input radio
     --input-radio-color-checked: #{abstracts.$grayscale-color-w-10};
@@ -38,4 +39,12 @@ html.dark {
 
     // Logo
     --logo-color: #{abstracts.$grayscale-color-w-10};
+
+    // Auth layout
+    --auth-header-bg-color: #{abstracts.$dark-color-1};
+    --auth-body-bg-from-color: rgb(24, 28, 35);
+    --auth-body-bg-to-color: rgb(25, 29, 34);
+    --auth-title-color: #{abstracts.$grayscale-color-w-10};
+    --auth-form-bg-color: #{abstracts.$dark-color-2};
+    --auth-form-shadow-color: rgba(51, 62, 82, 0.1);
 }

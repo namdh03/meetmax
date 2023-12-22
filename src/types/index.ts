@@ -167,7 +167,8 @@ export type LogoProps = {
     onClick?: () => void;
 };
 
-// Auth layout header
-export type AuthLayoutHeaderProps = {
-    className?: string;
+// Auth layout
+export type AuthLayoutProps = {
+    title: string;
+    description: string;
 };

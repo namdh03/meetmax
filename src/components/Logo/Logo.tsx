@@ -1,11 +1,14 @@
 import { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
+import configs from "@/configs";
 import { LogoProps } from "@/types";
 
 function Logo({ className = "", size, gap, onClick }: LogoProps) {
     return (
-        <div
+        <Link
+            to={configs.routes.home}
             onClick={onClick}
             className={`logo ${className}`.trim()}
             style={
@@ -17,7 +20,7 @@ function Logo({ className = "", size, gap, onClick }: LogoProps) {
         >
             <img className="logo__icon" src={icons.logo} alt="logo-icon" />
             <span className="logo__text">Meetmax</span>
-        </div>
+        </Link>
     );
 }
 

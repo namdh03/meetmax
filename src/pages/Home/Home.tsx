@@ -7,12 +7,10 @@ import DatePicker from "@/components/DatePicker";
 import Logo from "@/components/Logo";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
-import AuthHeader from "@/layout/AuthLayout/components/AuthHeader";
 
 const Home = () => {
     return (
         <>
-            <AuthHeader />
             <img src={icons.logo} alt="Meetmax" />
             <span>Meetmax</span>
 
