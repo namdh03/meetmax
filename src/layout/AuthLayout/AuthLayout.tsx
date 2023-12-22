@@ -9,13 +9,15 @@ import { AuthLayoutProps } from "@/types";
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
     return (
         <div className="auth">
+            <header className="auth__header">
+                <Logo />
+            </header>
+
             <span className="auth__background auth__background--first-blur"></span>
             <span className="auth__background auth__background--second-blur"></span>
+
             <div className="auth__filter">
-                <header className="auth__header">
-                    <Logo />
-                </header>
-                <section className="auth__body">
+                <section className="auth__content">
                     <h1 className="auth__title">{title}</h1>
                     <p className="auth__desc">{description}</p>
                     <div className="auth__form">

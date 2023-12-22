@@ -1,6 +1,8 @@
 @use "../abstracts";
 
 .auth {
+    --header-height: 80px;
+
     position: relative;
     background-color: var(--auth-background-color);
     overflow: hidden;
@@ -43,16 +45,20 @@
         left: 0;
         right: 0;
         z-index: 10;
+
+        height: var(--header-height);
         padding: 25px 30px;
 
         background: var(--auth-header-bg-color);
     }
 
-    &__body {
+    &__content {
         @include abstracts.display-flex(center);
         flex-direction: column;
+        padding-top: var(--header-height);
+        padding-bottom: var(--header-height);
 
-        height: calc(100vh);
+        min-height: 100vh;
     }
 
     &__title {
