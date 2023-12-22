@@ -7,19 +7,15 @@ const Email = ({
     ...props
 }: InputEmailProps) => {
     return (
-        <div className={`input__email ${className}`.trim()}>
-            <div className="input__email-inner">
-                {icon && (
-                    <img className="input__email-icon" src={icon} alt="" />
-                )}
+        <>
+            <div className={`input ${className}`.trim()}>
+                {icon && <img className="icon input__icon" src={icon} alt="" />}
 
-                <input {...props} type="email" className="input__email-input" />
+                <input {...props} type="email" className="input__children" />
             </div>
-
-            {errorMessage && (
-                <p className="input__email--error">{errorMessage}</p>
-            )}
-        </div>
+            
+            {errorMessage && <p className="error-msg">{errorMessage}</p>}
+        </>
     );
 };
 

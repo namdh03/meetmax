@@ -10,24 +10,19 @@
 }
 
 .input {
-    &__text,
-    &__password {
-        @include abstracts.display-flex($align: center, $justify: null);
-        @extend %inputStyle;
-    }
+    @include abstracts.display-flex($align: center, $justify: null);
+    @extend %inputStyle;
 
-    &__email-inner {
-        @include abstracts.display-flex($align: center, $justify: null);
-        @extend %inputStyle;
-    }
-
-    &__email-icon {
+    &__icon {
         width: 16px;
         height: 16px;
-        filter: var(--input-icon-color);
+
+        &--password {
+            margin-left: 10px;
+        }
     }
 
-    &__email-input {
+    &__children {
         @extend %body-m-1;
 
         flex: 1;
@@ -35,48 +30,5 @@
         &::placeholder {
             color: var(--input-placeholder-color);
         }
-    }
-    &__email--error {
-        @extend %body-r-1;
-        color: red;
-    }
-
-    &__text-icon {
-        width: 16px;
-        height: 16px;
-        filter: var(--input-icon-color);
-    }
-
-    &__text-input {
-        @extend %body-m-1;
-
-        flex: 1;
-
-        &::placeholder {
-            color: var(--input-placeholder-color);
-        }
-    }
-
-    &__password-icon1 {
-        width: 16px;
-        height: 16px;
-        filter: var(--input-icon-color);
-    }
-
-    &__password-input {
-        @extend %body-m-1;
-
-        flex: 1;
-
-        &::placeholder {
-            color: var(--input-placeholder-color);
-        }
-    }
-
-    &__password-icon2 {
-        margin-left: 10px;
-        width: 16px;
-        height: 16px;
-        filter: var(--input-icon-color);
     }
 }
