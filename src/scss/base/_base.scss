@@ -53,3 +53,10 @@ textarea {
 .icon {
     filter: var(--icon-filter-color);
 }
+
+.error-msg {
+    display: inline-block;
+    margin-top: 10px;
+    @extend %body-r-1;
+    color: var(--error-msg-color);
+}

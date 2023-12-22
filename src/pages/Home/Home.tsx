@@ -40,7 +40,7 @@ const Home = () => {
 
             <div
                 style={{
-                    padding: 500,
+                    padding: 300,
                 }}
             >
                 <DatePicker
@@ -49,6 +49,13 @@ const Home = () => {
                         x: -219,
                         y: 42,
                     }}
+                />
+
+                <br />
+
+                <DatePicker
+                    label="Date of birth"
+                    errorMsg="Please enter a valid email address."
                 />
             </div>
 

@@ -148,6 +148,7 @@ export type DatePickerProps = {
     position?: Coords;
     className?: string;
     value?: Date;
+    errorMsg?: string;
     onChanged?: (date: Date) => void;
 };
 

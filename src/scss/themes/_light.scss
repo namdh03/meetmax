@@ -4,6 +4,9 @@ html {
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
         saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
+    
+    // Error message
+    --error-msg-color: #{abstracts.$red-primary-color};
 
     // Button - Button default
     --button-bg-color: #{abstracts.$grayscale-color-w-5};

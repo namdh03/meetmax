@@ -15,6 +15,7 @@ const DatePicker = ({
     position,
     className = "",
     value,
+    errorMsg,
     onChanged,
 }: DatePickerProps) => {
     const { render } = usePortal();
@@ -117,6 +118,8 @@ const DatePicker = ({
                     <span className="date-picker__default-text">{label}</span>
                 )}
             </div>
+
+            {errorMsg && <span className="error-msg">{errorMsg}</span>}
 
             {calendarOpen && <CalendarPortal />}
         </>
