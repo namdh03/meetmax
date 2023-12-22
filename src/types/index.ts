@@ -166,3 +166,8 @@ export type LogoProps = {
     gap?: number;
     onClick?: () => void;
 };
+
+// Auth layout header
+export type AuthLayoutHeaderProps = {
+    className?: string;
+};
