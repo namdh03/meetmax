@@ -8,33 +8,37 @@ import { AuthLayoutProps } from "@/types";
 
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
     return (
-        <>
-            <header className="auth-header">
-                <Logo />
-            </header>
-            <section className="auth-body">
-                <h1 className="auth-body__title">{title}</h1>
-                <p className="auth-body__desc">{description}</p>
-                <div className="auth-body__form">
-                    <div className="auth-body__actions">
-                        <Button
-                            className="auth-body__button"
-                            icon={{ src: icons.google, gutter: 25 }}
-                        >
-                            Log in with Google
-                        </Button>
-                        <Button
-                            className="auth-body__button"
-                            icon={{ src: icons.facebook, gutter: 25 }}
-                        >
-                            Log in with Facebook
-                        </Button>
+        <div className="auth">
+            <span className="auth__background auth__background--first-blur"></span>
+            <span className="auth__background auth__background--second-blur"></span>
+            <div className="auth__filter">
+                <header className="auth__header">
+                    <Logo />
+                </header>
+                <section className="auth__body">
+                    <h1 className="auth__title">{title}</h1>
+                    <p className="auth__desc">{description}</p>
+                    <div className="auth__form">
+                        <div className="auth__actions">
+                            <Button
+                                className="auth__button"
+                                icon={{ src: icons.google, gutter: 25 }}
+                            >
+                                Log in with Google
+                            </Button>
+                            <Button
+                                className="auth__button"
+                                icon={{ src: icons.facebookCircle, gutter: 25 }}
+                            >
+                                Log in with Facebook
+                            </Button>
+                        </div>
+                        <Divider className="auth__divider">OR</Divider>
+                        <Outlet />
                     </div>
-                    <Divider className="auth-body__divider">OR</Divider>
-                    <Outlet />
-                </div>
-            </section>
-        </>
+                </section>
+            </div>
+        </div>
     );
 };
 

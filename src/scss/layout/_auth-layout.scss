@@ -1,28 +1,59 @@
 @use "../abstracts";
 
-.auth-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    padding: 25px 30px;
+.auth {
+    position: relative;
+    background-color: var(--auth-background-color);
+    overflow: hidden;
 
-    background: var(--auth-header-bg-color);
-}
+    &__background {
+        content: "";
+        position: absolute;
 
-.auth-body {
-    @include abstracts.display-flex(center);
-    flex-direction: column;
+        opacity: 0.15;
+        border-radius: 50%;
+        background: var(--auth-background-filter-color);
 
-    height: calc(100vh);
+        &--first-blur {
+            bottom: 50%;
+            left: -15px;
+            width: 170px;
+            height: 170px;
+        }
 
-    background: linear-gradient(
-        180deg,
-        var(--auth-body-bg-from-color) 0%,
-        var(--auth-body-bg-to-color) 100%
-    );
-    backdrop-filter: blur(150px);
+        &--second-blur {
+            bottom: -200px;
+            right: 50%;
+            width: 310px;
+            height: 310px;
+        }
+    }
+
+    &__filter {
+        backdrop-filter: blur(150px);
+        background: linear-gradient(
+            180deg,
+            var(--auth-body-bg-from-color) 0%,
+            var(--auth-body-bg-to-color) 100%
+        );
+    }
+
+    &__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        padding: 25px 30px;
+
+        background: var(--auth-header-bg-color);
+    }
+
+    &__body {
+        @include abstracts.display-flex(center);
+        flex-direction: column;
+
+        height: calc(100vh);
+    }
 
     &__title {
         @extend %first-heading;

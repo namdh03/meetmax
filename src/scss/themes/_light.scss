@@ -78,4 +78,6 @@ html {
     --auth-title-color: #{abstracts.$grayscale-gray-color};
     --auth-form-bg-color: #{abstracts.$grayscale-white-color};
     --auth-form-shadow-color: rgba(205, 205, 212, 0.1);
+    --auth-background-color: #{abstracts.$grayscale-white-color};
+    --auth-background-filter-color: #{abstracts.$blue-primary-color};
 }

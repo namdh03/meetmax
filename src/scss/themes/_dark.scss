@@ -42,9 +42,10 @@ html.dark {
 
     // Auth layout
     --auth-header-bg-color: #{abstracts.$dark-color-1};
-    --auth-body-bg-from-color: rgb(24, 28, 35);
-    --auth-body-bg-to-color: rgb(25, 29, 34);
+    --auth-body-bg-from-color: rgba(22, 28, 39, 0.4);
+    --auth-body-bg-to-color: rgba(22, 28, 39, 0.1);
     --auth-title-color: #{abstracts.$grayscale-color-w-10};
     --auth-form-bg-color: #{abstracts.$dark-color-2};
     --auth-form-shadow-color: rgba(51, 62, 82, 0.1);
+    --auth-background-color: #{abstracts.$dark-color-1};
 }
