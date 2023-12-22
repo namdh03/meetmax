@@ -129,8 +129,7 @@ const Home = () => {
                 id="password"
                 name="password"
                 placeholder="Create Password"
-                icon1={icons.lock}
-                icon2={icons.eyeOff}
+                icon={icons.lock}
             />
         </>
     );

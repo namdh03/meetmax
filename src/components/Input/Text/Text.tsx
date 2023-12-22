@@ -1,16 +1,21 @@
 import { InputTextProps } from "@/types";
 
-const Text = ({ id, name, placeholder, icon }: InputTextProps) => {
+const Text = ({
+    icon,
+    errorMessage,
+    className = "",
+    ...props
+}: InputTextProps) => {
     return (
-        <div className="input__text">
-            <img className="input__text-icon" src={icon} alt="" />
-            <input
-                className="input__text-input"
-                id={id}
-                name={name}
-                placeholder={placeholder}
-            />
-        </div>
+        <>
+            <div className={`input ${className}`.trim()}>
+                {icon && <img className="icon input__icon" src={icon} alt="" />}
+
+                <input {...props} type="text" className="input__children" />
+            </div>
+
+            {errorMessage && <p className="error-msg">{errorMessage}</p>}
+        </>
     );
 };
 

@@ -175,18 +175,16 @@ export type InputEmailProps = ComponentPropsWithoutRef<"input"> & {
 };
 
 // Input text props
-export type InputTextProps = {
-    id: string;
-    name: string;
-    placeholder?: string;
+export type InputTextProps = ComponentPropsWithoutRef<"input"> & {
     icon?: string;
+    errorMessage?: string;
+    className?: string;
 };
 
 // Input password props
-export type InputPassProps = {
-    id: string;
-    name: string;
-    placeholder?: string;
-    icon1?: string;
-    icon2?: string;
+export type InputPasswordProps = ComponentPropsWithoutRef<"input"> & {
+    errorMessage?: string;
+    className?: string;
+    icon?: string;
+    iconPassword?: string;
 };

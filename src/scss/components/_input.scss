@@ -23,11 +23,13 @@
     }
 
     &__children {
-        @extend %body-m-1;
+        @extend %display-m;
+        color: var(--input-text-color);
 
         flex: 1;
 
         &::placeholder {
+            @extend %body-m-1;
             color: var(--input-placeholder-color);
         }
     }
