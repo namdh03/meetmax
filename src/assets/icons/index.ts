@@ -31,6 +31,7 @@ import explore from "@/assets/icons/explore.svg";
 import eye from "@/assets/icons/eye.svg";
 import eyeOff from "@/assets/icons/eye-off.svg";
 import facebook from "@/assets/icons/facebook.svg";
+import facebookCircle from "@/assets/icons/facebook-circle.svg";
 import feed from "@/assets/icons/feed.svg";
 import female from "@/assets/icons/female.svg";
 import gif from "@/assets/icons/gif.svg";
@@ -119,6 +120,7 @@ const icons = {
     eye,
     eyeOff,
     facebook,
+    facebookCircle,
     feed,
     female,
     gif,
