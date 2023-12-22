@@ -44,7 +44,7 @@ const Home = () => {
 
             <div
                 style={{
-                    padding: 300,
+                    padding: 200,
                 }}
             >
                 <DatePicker

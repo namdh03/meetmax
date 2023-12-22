@@ -38,7 +38,6 @@ const CalendarDate = memo(() => {
             : inMonth
             ? "calendar__label-date--standard"
             : "calendar__label-date--outer";
-        // The click handler
         const props = {
             className,
             date: _date,

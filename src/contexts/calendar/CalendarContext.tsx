@@ -7,7 +7,7 @@ import {
     useState,
 } from "react";
 
-import { isDate } from "@/helpers/calendar";
+import { getMonthYearList, isDate } from "@/helpers/calendar";
 import { CalendarContextType, CalendarProps, CalendarState } from "@/types";
 
 const initialDate: CalendarState = {
@@ -16,8 +16,11 @@ const initialDate: CalendarState = {
     year: new Date().getFullYear(),
 };
 
+// Create context
 const CalendarContext = createContext<CalendarContextType>({
     today: new Date(),
+    monthYearList: getMonthYearList(initialDate.year),
+    setMonthYearList: () => {},
     data: initialDate,
     setDate: () => {},
     open: false,
@@ -25,6 +28,7 @@ const CalendarContext = createContext<CalendarContextType>({
     toggle: () => {},
 });
 
+// Create provider
 const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
     children,
     date,
@@ -36,10 +40,19 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
         month: date ? date.getMonth() + 1 : initialDate.month,
         year: date ? date.getFullYear() : initialDate.year,
     });
+
+    // Dropdown month and year list
+    const [monthYearList, setMonthYearList] = useState(() =>
+        getMonthYearList(data.year)
+    );
+
+    // Dropdown month and year list
     const [monthYearListOpen, setMonthYearListOpen] = useState<boolean>(false);
+
+    // For cleanup functions
     const dayTimeout = useRef<NodeJS.Timeout | null>(null);
-    const pressureTimer = useRef<NodeJS.Timeout | null>(null);
-    const pressureTimeout = useRef<NodeJS.Timeout | null>(null);
+
+    // Refs: Control dropdown scroll
     const dropdownRef = useRef<HTMLLIElement | null>(null);
 
     // Component lifecycle hooks
@@ -55,7 +68,6 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
 
         return () => {
             clearDayTimeout();
-            clearPressureTimer();
         };
     }, []);
 
@@ -68,16 +80,6 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
     const clearDayTimeout = () => {
         if (dayTimeout.current) {
             clearTimeout(dayTimeout.current);
-        }
-    };
-
-    const clearPressureTimer = () => {
-        if (pressureTimer.current) {
-            clearInterval(pressureTimer.current);
-        }
-
-        if (pressureTimeout.current) {
-            clearTimeout(pressureTimeout.current);
         }
     };
 
@@ -97,6 +99,8 @@ const CalendarProvider: FC<PropsWithChildren & CalendarProps> = ({
 
     const contextValue: CalendarContextType = {
         today,
+        monthYearList,
+        setMonthYearList,
         data,
         setDate,
         ref: dropdownRef,
