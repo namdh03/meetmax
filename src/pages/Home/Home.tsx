@@ -4,10 +4,12 @@ import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 import DatePicker from "@/components/DatePicker";
+import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
 
+const { Email, Text, Password } = Input;
 const Home = () => {
     return (
         <>
@@ -109,6 +111,26 @@ const Home = () => {
                 Sign up
             </Button>
             <br />
+
+            <Email id="email" name="email" placeholder="Your Email" />
+            <Email
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                icon={icons.mail}
+            />
+            <Text
+                id="fullName"
+                name="fullName"
+                placeholder="Your Name"
+                icon={icons.smile}
+            />
+            <Password
+                id="password"
+                name="password"
+                placeholder="Create Password"
+                icon={icons.lock}
+            />
         </>
     );
 };

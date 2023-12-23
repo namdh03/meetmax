@@ -48,4 +48,9 @@ html.dark {
     --auth-form-bg-color: #{abstracts.$dark-color-2};
     --auth-form-shadow-color: rgba(51, 62, 82, 0.1);
     --auth-background-color: #{abstracts.$dark-color-1};
+
+    // Input
+    --input-border-color: #{abstracts.$grayscale-gray-color};
+    --input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --input-text-color: #{abstracts.$grayscale-color-w-10};
 }

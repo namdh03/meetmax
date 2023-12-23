@@ -240,3 +240,26 @@ export type AuthLayoutProps = {
     title: string;
     description: string;
 };
+
+// Input email props
+export type InputEmailProps = ComponentPropsWithoutRef<"input"> & {
+    icon?: string;
+    errorMessage?: string;
+    className?: string;
+};
+
+// Input text props
+export type InputTextProps = ComponentPropsWithoutRef<"input"> & {
+    icon?: string;
+    errorMessage?: string;
+    className?: string;
+};
+
+// Input password props
+export type InputPasswordProps = ComponentPropsWithoutRef<"input"> & {
+    errorMessage?: string;
+    className?: string;
+    icon?: string;
+    iconPasswordHide?: string;
+    iconPasswordShow?: string;
+};
