@@ -10,14 +10,10 @@ export default async function setDocument<T extends object>(
     id: string,
     data: T
 ) {
-    try {
-        const docRef = doc(configs.firebase.db, _collection, id);
+    const docRef = doc(configs.firebase.db, _collection, id);
 
-        await setDoc(docRef, {
-            ...data,
-            createdAt: serverTimestamp(),
-        });
-    } catch (error) {
-        console.log(error);
-    }
+    await setDoc(docRef, {
+        ...data,
+        createdAt: serverTimestamp(),
+    });
 }

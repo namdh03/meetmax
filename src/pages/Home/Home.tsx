@@ -8,6 +8,7 @@ import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
+import { signOutSystem } from "@/services";
 
 const { Email, Text, Password } = Input;
 const Home = () => {
@@ -15,6 +16,8 @@ const Home = () => {
         <>
             <img src={icons.logo} alt="Meetmax" />
             <span>Meetmax</span>
+
+            <Button onClick={() => signOutSystem()}>Sign Out</Button>
 
             <ul>
                 <li>
@@ -113,12 +116,6 @@ const Home = () => {
             <br />
 
             <Email id="email" name="email" placeholder="Your Email" />
-            <Email
-                id="email"
-                name="email"
-                placeholder="Your Email"
-                icon={icons.mail}
-            />
             <Text
                 id="fullName"
                 name="fullName"

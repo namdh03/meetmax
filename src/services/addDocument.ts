@@ -9,13 +9,10 @@ export default async function addDocument<T extends object>(
     _collection: CollectionValue,
     data: T
 ) {
-    try {
-        const colRef = collection(configs.firebase.db, _collection);
-        await addDoc(colRef, {
-            ...data,
-            createdAt: serverTimestamp(),
-        });
-    } catch (error) {
-        console.log(error);
-    }
+    const colRef = collection(configs.firebase.db, _collection);
+
+    await addDoc(colRef, {
+        ...data,
+        createdAt: serverTimestamp(),
+    });
 }
