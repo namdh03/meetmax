@@ -7,8 +7,8 @@ let iconComponent;
 
 const Password = ({
     icon,
-    iconPassword = icons.eyeOff,
-    iconShowPassword = icons.eye,
+    iconPasswordHide = icons.eyeOff,
+    iconPasswordShow = icons.eye,
     errorMessage,
     className = "",
     ...props
@@ -16,9 +16,9 @@ const Password = ({
     const [visible, setVisible] = useState(false);
 
     if (visible) {
-        iconComponent = iconShowPassword;
+        iconComponent = iconPasswordShow;
     } else {
-        iconComponent = iconPassword;
+        iconComponent = iconPasswordHide;
     }
 
     const handleVisible = () => setVisible(!visible);
