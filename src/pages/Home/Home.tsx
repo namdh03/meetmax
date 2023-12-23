@@ -6,7 +6,6 @@ import Checkbox from "@/components/Checkbox";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
-import Radio from "@/components/Radio";
 import configs from "@/configs";
 import { signOutSystem } from "@/services";
 
@@ -38,13 +37,6 @@ const Home = () => {
             <Checkbox id="hihi" label="hihihi" className="hihi" />
             <Checkbox id="hehe" />
 
-            <br />
-            <Radio id="1" label="hello" name="hihi" />
-            <Radio id="2" label="Bye" name="hihi" />
-            <br />
-
-            <Radio id="3" name="ahha" />
-            <Radio id="4" name="ahha" />
             <br />
 
             <div

@@ -1,9 +1,25 @@
+import { FieldPath, FieldValues, useController } from "react-hook-form";
+
 import { RadioProps } from "@/types";
 
-const Radio = ({ id, label, className = "", ...props }: RadioProps) => {
+const Radio = <
+    TFieldValues extends FieldValues = FieldValues,
+    TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>(
+    props: RadioProps<TFieldValues, TName>
+) => {
+    const { id, label, className, value, ...rest } = props;
+    const { field } = useController(rest);
+
     return (
         <label className={`radio ${className}`.trim()} htmlFor={id}>
-            <input {...props} type="radio" id={id} className="radio__input" />
+            <input
+                {...field}
+                id={id}
+                type="radio"
+                className="radio__input"
+                value={value}
+            />
             {label && <span className="radio__text">{label}</span>}
         </label>
     );

@@ -5,6 +5,7 @@ import {
     RefObject,
     SetStateAction,
 } from "react";
+import { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -150,10 +151,14 @@ export type ButtonProps = {
 };
 
 //Radio props
-export type RadioProps = ComponentPropsWithoutRef<"input"> & {
+export type RadioProps<
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
     id: string;
     label?: string;
     className?: string;
+    value: string;
 };
 
 // Checkbox props
