@@ -261,4 +261,5 @@ export type InputPasswordProps = ComponentPropsWithoutRef<"input"> & {
     className?: string;
     icon?: string;
     iconPassword?: string;
+    iconShowPassword?: string;
 };
