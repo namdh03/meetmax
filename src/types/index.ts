@@ -156,9 +156,9 @@ export type RadioProps<
     TName extends FieldPath<TFieldValues>
 > = UseControllerProps<TFieldValues, TName> & {
     id: string;
+    value: string;
     label?: string;
     className?: string;
-    value: string;
 };
 
 // Checkbox props
