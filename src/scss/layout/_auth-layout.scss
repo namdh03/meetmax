@@ -7,36 +7,30 @@
     background-color: var(--auth-background-color);
     overflow: hidden;
 
-    &__background {
+    &::before,
+    &::after {
         content: "";
         position: absolute;
+        z-index: 9;
 
         opacity: 0.15;
         border-radius: 50%;
         background: var(--auth-background-filter-color);
-
-        &--first-blur {
-            bottom: 50%;
-            left: -15px;
-            width: 170px;
-            height: 170px;
-        }
-
-        &--second-blur {
-            bottom: -200px;
-            right: 50%;
-            width: 310px;
-            height: 310px;
-        }
+        filter: blur(150px);
     }
 
-    &__filter {
-        backdrop-filter: blur(150px);
-        background: linear-gradient(
-            180deg,
-            var(--auth-body-bg-from-color) 0%,
-            var(--auth-body-bg-to-color) 100%
-        );
+    &::before {
+        bottom: 50%;
+        left: -15px;
+        width: 170px;
+        height: 170px;
+    }
+
+    &::after {
+        bottom: -200px;
+        right: 50%;
+        width: 310px;
+        height: 310px;
     }
 
     &__header {
@@ -44,7 +38,7 @@
         top: 0;
         left: 0;
         right: 0;
-        z-index: 10;
+        z-index: 11;
 
         height: var(--header-height);
         padding: 25px 30px;
@@ -55,10 +49,16 @@
     &__content {
         @include abstracts.display-flex(center);
         flex-direction: column;
+        min-height: 100vh;
+
         padding-top: var(--header-height);
         padding-bottom: var(--header-height);
 
-        min-height: 100vh;
+        background: linear-gradient(
+            180deg,
+            var(--auth-body-bg-from-color) 0%,
+            var(--auth-body-bg-to-color) 100%
+        );
     }
 
     &__title {
@@ -76,6 +76,7 @@
     }
 
     &__form {
+        z-index: 10;
         width: 580px;
         margin-top: 30px;
         padding: 40px;
