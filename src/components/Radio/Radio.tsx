@@ -19,6 +19,7 @@ const Radio = <
                 type="radio"
                 className="radio__input"
                 value={value}
+                checked={field.value === value}
             />
             {label && <span className="radio__text">{label}</span>}
         </label>
