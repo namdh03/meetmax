@@ -21,6 +21,8 @@ const Password = ({
         iconComponent = iconPassword;
     }
 
+    const handleVisible = () => setVisible(!visible);
+
     return (
         <>
             <div className={`input ${className}`.trim()}>
@@ -34,7 +36,7 @@ const Password = ({
 
                 <img
                     className=" icon input__icon input__icon--password"
-                    onClick={() => setVisible(!visible)}
+                    onClick={handleVisible}
                     src={iconComponent}
                     alt=""
                 />
