@@ -1,79 +1,58 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import { useAuth } from "@/hooks";
-import { signInWithEmail, signOutSystem, signUpWithEmail } from "@/services";
+import Button from "@/components/Button";
+import Radio from "@/components/Radio";
+import { Gender } from "@/utils/enum";
 
 const SignUp = () => {
-    const { user } = useAuth();
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting, isValid },
+    } = useForm({
+        defaultValues: {
+            gender: Gender.MALE,
+        },
     });
 
-    const handleSignIn = async () => {
+    const handleSignIn = async (values: any) => {
         try {
-            await signInWithEmail(formData.email, formData.password);
+            if (!isValid) return;
 
-            console.log("User signed in successfully");
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleSignUp = async () => {
-        try {
-            await signUpWithEmail(formData.email, formData.password);
-
-            console.log("User created successfully");
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleSignOut = async () => {
-        try {
-            await signOutSystem();
-            console.log("Sign out");
+            console.log(values);
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <div>
-            <h1>{user?.email}</h1>
+        <form
+            className="form form--sign-in"
+            onSubmit={handleSubmit(handleSignIn)}
+        >
+            <Radio
+                id="male"
+                name="gender"
+                label="Male"
+                control={control}
+                value={Gender.MALE}
+            />
+            <Radio
+                id="female"
+                name="gender"
+                label="Female"
+                control={control}
+                value={Gender.FEMALE}
+            />
 
-            <form action="">
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            email: e.target.value,
-                        })
-                    }
-                />
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            password: e.target.value,
-                        })
-                    }
-                />
-                <button type="button" onClick={handleSignUp}>
-                    Sign Up
-                </button>
-            </form>
-
-            <button onClick={handleSignOut}>Sign Out</button>
-            <button onClick={handleSignIn}>Sign In</button>
-        </div>
+            <Button
+                variant="primary"
+                className="form__btn"
+                loading={isSubmitting}
+            >
+                Sign In
+            </Button>
+        </form>
     );
 };
 
