@@ -5,6 +5,7 @@ import {
     RefObject,
     SetStateAction,
 } from "react";
+import { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
@@ -242,24 +243,42 @@ export type AuthLayoutProps = {
 };
 
 // Input email props
-export type InputEmailProps = ComponentPropsWithoutRef<"input"> & {
+export type InputEmailProps<
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
+    id: string;
     icon?: string;
-    errorMessage?: string;
     className?: string;
+    placeholder?: string;
 };
 
 // Input text props
-export type InputTextProps = ComponentPropsWithoutRef<"input"> & {
+export type InputTextProps<
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
+    id: string;
     icon?: string;
-    errorMessage?: string;
     className?: string;
+    placeholder?: string;
 };
 
 // Input password props
-export type InputPasswordProps = ComponentPropsWithoutRef<"input"> & {
-    errorMessage?: string;
-    className?: string;
+export type InputPasswordProps<
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
+    id: string;
     icon?: string;
+    className?: string;
     iconPasswordHide?: string;
     iconPasswordShow?: string;
+    placeholder?: string;
+};
+
+// Sign-in form type
+export type SignInFormType = {
+    email: string;
+    password: string;
 };

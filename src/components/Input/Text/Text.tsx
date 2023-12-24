@@ -1,20 +1,33 @@
+import { FieldPath, FieldValues, useController } from "react-hook-form";
+
 import { InputTextProps } from "@/types";
 
-const Text = ({
-    icon,
-    errorMessage,
-    className = "",
-    ...props
-}: InputTextProps) => {
+const Text = <
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+>(
+    props: InputTextProps<TFieldValues, TName>
+) => {
+    const { id, icon, className = "", placeholder = "", ...rest } = props;
+    const { field, fieldState } = useController(rest);
+
     return (
         <>
             <div className={`input ${className}`.trim()}>
                 {icon && <img className="icon input__icon" src={icon} alt="" />}
 
-                <input {...props} type="text" className="input__children" />
+                <input
+                    {...field}
+                    id={id}
+                    type="text"
+                    className="input__children"
+                    placeholder={placeholder}
+                />
             </div>
 
-            {errorMessage && <p className="error-msg">{errorMessage}</p>}
+            {fieldState.error && (
+                <p className="error-msg">{fieldState.error.message}</p>
+            )}
         </>
     );
 };
