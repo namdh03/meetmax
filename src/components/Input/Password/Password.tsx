@@ -1,18 +1,28 @@
 import { useState } from "react";
+import { FieldPath, FieldValues, useController } from "react-hook-form";
 
 import icons from "@/assets/icons";
 import { InputPasswordProps } from "@/types";
 
 let iconComponent;
 
-const Password = ({
-    icon,
-    iconPasswordHide = icons.eyeOff,
-    iconPasswordShow = icons.eye,
-    errorMessage,
-    className = "",
-    ...props
-}: InputPasswordProps) => {
+const Password = <
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+>(
+    props: InputPasswordProps<TFieldValues, TName>
+) => {
+    const {
+        id,
+        icon,
+        className = "",
+        iconPasswordHide = icons.eyeOff,
+        iconPasswordShow = icons.eye,
+        placeholder = "",
+        ...rest
+    } = props;
+    const { field, fieldState } = useController(rest);
+
     const [visible, setVisible] = useState(false);
 
     if (visible) {
@@ -29,9 +39,11 @@ const Password = ({
                 {icon && <img className="icon input__icon" src={icon} alt="" />}
 
                 <input
-                    {...props}
+                    {...field}
                     type={visible ? "text" : "password"}
+                    id={id}
                     className="input__children"
+                    placeholder={placeholder}
                 />
 
                 <img
@@ -42,7 +54,9 @@ const Password = ({
                 />
             </div>
 
-            {errorMessage && <p className="error-msg">{errorMessage}</p>}
+            {fieldState.error && (
+                <p className="error-msg">{fieldState.error.message}</p>
+            )}
         </>
     );
 };
