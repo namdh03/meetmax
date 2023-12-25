@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Checkboxes from "@/components/Checkboxes";
 import Input from "@/components/Input";
 import configs from "@/configs";
+import { rememberMe, signInWithEmail } from "@/services";
 import { SignInFormType } from "@/types";
 
 import schema from "./SignIn.schema";
@@ -18,6 +19,7 @@ const SignIn = () => {
         handleSubmit,
         formState: { isSubmitting },
     } = useForm<SignInFormType>({
+        mode: "onTouched",
         resolver: yupResolver(schema),
         defaultValues: {
             email: "",
@@ -26,9 +28,13 @@ const SignIn = () => {
         },
     });
 
+    const navigate = useNavigate();
+
     const handleSignIn = async (values: SignInFormType) => {
         try {
-            console.log(values);
+            await signInWithEmail(values.email, values.password);
+            await rememberMe(values.rememberMe?.includes(true));
+            navigate(configs.routes.home);
         } catch (error) {
             console.log(error);
         }
