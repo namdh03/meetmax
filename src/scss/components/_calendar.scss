@@ -5,6 +5,7 @@
         position: absolute;
         top: var(--coord-y);
         left: var(--coord-x);
+        z-index: 999;
     }
 
     max-width: 285px;
