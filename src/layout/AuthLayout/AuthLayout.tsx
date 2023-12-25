@@ -13,10 +13,10 @@ const AuthLayout = ({ title, description }: AuthLayoutProps) => {
                 <Logo />
             </header>
 
-            <section className="auth__content">
+            <section className="auth__wrapper">
                 <h1 className="auth__title">{title}</h1>
                 <p className="auth__desc">{description}</p>
-                <div className="auth__form">
+                <div className="auth__content">
                     <div className="auth__actions">
                         <Button
                             className="auth__button"

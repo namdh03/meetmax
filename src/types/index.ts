@@ -289,3 +289,12 @@ export type SignInFormType = {
     email: string;
     password: string;
 };
+
+// Sign-up form type
+export type SignUpFormData = {
+    email: string;
+    full_name: string;
+    password: string;
+    birthday: Date;
+    gender: Gender;
+};
