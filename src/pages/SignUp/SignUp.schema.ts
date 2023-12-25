@@ -7,7 +7,7 @@ const schema = Yup.object({
         .required("Email is required")
         .email("Email invalid")
         .max(320, "Email must be at most 320 characters"),
-    full_name: Yup.string()
+    fullName: Yup.string()
         .required("Name is required")
         .min(2, "Name must be at least 2 characters")
         .max(50, "Name must be at most 50 characters"),

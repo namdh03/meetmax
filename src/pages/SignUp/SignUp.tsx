@@ -24,7 +24,7 @@ const SignUp = () => {
         resolver: yupResolver(schema),
         defaultValues: {
             email: "",
-            full_name: "",
+            fullName: "",
             password: "",
             birthday: undefined,
             gender: Gender.MALE,
@@ -54,8 +54,8 @@ const SignUp = () => {
             <div className="auth__form-group">
                 <Input.Text
                     control={control}
-                    name="full_name"
-                    id="full_name"
+                    name="fullName"
+                    id="fullName"
                     placeholder="Your Name"
                     icon={icons.smile}
                 />
