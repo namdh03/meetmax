@@ -93,6 +93,7 @@ const DatePicker = ({
                 onDateChanged={handleDateChange}
                 coords={coords}
                 actions={<Actions />}
+                className="date-picker__calendar"
             />
         );
 

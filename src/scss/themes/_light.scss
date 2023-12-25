@@ -80,6 +80,9 @@ html {
     --auth-form-shadow-color: rgba(205, 205, 212, 0.1);
     --auth-background-color: #{abstracts.$grayscale-white-color};
     --auth-background-filter-color: #{abstracts.$blue-primary-color};
+    --auth-radio-wrapper-border-color: #{abstracts.$grayscale-color-w-20};
+    --auth-footer-text-color: #{abstracts.$grayscale-gray-color};
+    --auth-footer-link-color: #{abstracts.$blue-primary-color};
 
     // Input
     --input-border-color: #{abstracts.$grayscale-color-w-20};

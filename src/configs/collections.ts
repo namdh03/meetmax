@@ -3,15 +3,15 @@ import { CollectionType } from "@/types";
 const collections: CollectionType = {
     users: "users",
     rooms: "rooms",
-    userRooms: "user_rooms",
+    userRooms: "userRooms",
     messages: "messages",
-    passwordHistory: "password_history",
+    passwordHistory: "passwordHistory",
     followers: "followers",
     followings: "followings",
-    blockList: "block_list",
+    blockList: "blockList",
     posts: "posts",
-    postImages: "post_images",
-    postTags: "post_tags",
+    postImages: "postImages",
+    postTags: "postTags",
 };
 
 export default collections;
