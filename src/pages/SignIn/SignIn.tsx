@@ -16,7 +16,6 @@ const SignIn = () => {
     const {
         control,
         handleSubmit,
-        register,
         formState: { isSubmitting, isValid },
     } = useForm<SignInFormType>({
         resolver: yupResolver(schema),
@@ -49,20 +48,20 @@ const SignIn = () => {
             <div>
                 <Input.Email
                     id="email"
+                    name="email"
                     icon={icons.mail}
                     placeholder="Your email"
                     control={control}
-                    {...register("email")}
                 />
             </div>
 
             <div>
                 <Input.Password
                     id="password"
+                    name="password"
                     icon={icons.lock}
                     placeholder="Inter Password"
                     control={control}
-                    {...register("password")}
                 />
             </div>
 
