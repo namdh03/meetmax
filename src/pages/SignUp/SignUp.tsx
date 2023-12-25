@@ -54,7 +54,10 @@ const SignUp = () => {
                 configs.collections.users,
                 configs.firebase.auth.currentUser.uid,
                 {
-                    ...values,
+                    email: values.email,
+                    fullName: values.fullName,
+                    birthday: values.birthday,
+                    gender: values.gender,
                     providerId: configs.firebase.auth.currentUser.providerId,
                     bio: "",
                     phone: "",
