@@ -161,10 +161,19 @@ export type RadioProps<
     className?: string;
 };
 
-// Checkbox props
-export type CheckboxProps = ComponentPropsWithoutRef<"input"> & {
+// Checkboxes option type
+export type CheckboxesOptionType = {
     id: string;
+    value: string;
     label?: string;
+};
+
+// Checkboxes props
+export type CheckboxesProps<
+    TFieldValues extends FieldValues,
+    TName extends FieldPath<TFieldValues>
+> = UseControllerProps<TFieldValues, TName> & {
+    options: CheckboxesOptionType[];
     className?: string;
 };
 

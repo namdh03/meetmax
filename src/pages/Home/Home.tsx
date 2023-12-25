@@ -1,8 +1,9 @@
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
-import Checkbox from "@/components/Checkbox";
+import Checkboxes from "@/components/Checkboxes";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
@@ -11,6 +12,20 @@ import { signOutSystem } from "@/services";
 
 const { Email, Text, Password } = Input;
 const Home = () => {
+    const { control, handleSubmit } = useForm({
+        defaultValues: {
+            checkboxes: [],
+        },
+    });
+
+    const handleSignUp = async (values: any) => {
+        try {
+            console.log(values);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
             <img src={icons.logo} alt="Meetmax" />
@@ -34,9 +49,17 @@ const Home = () => {
             <Logo />
 
             <br />
-            <Checkbox id="hihi" label="hihihi" className="hihi" />
-            <Checkbox id="hehe" />
-
+            <form onSubmit={handleSubmit(handleSignUp)}>
+                <Checkboxes
+                    name="checkboxes"
+                    options={[
+                        { id: "1", value: "1", label: "1" },
+                        { id: "2", value: "2", label: "2" },
+                    ]}
+                    control={control}
+                />
+                <Button type="submit">Submit</Button>
+            </form>
             <br />
 
             <div
