@@ -31,8 +31,6 @@ const SignUp = () => {
         },
     });
 
-    console.log(errors);
-
     const handleSignIn = async (values: SignUpFormData) => {
         try {
             console.log(values);
@@ -42,7 +40,7 @@ const SignUp = () => {
     };
 
     return (
-        <form className="auth__form" onSubmit={handleSubmit(handleSignIn)}>
+        <form onSubmit={handleSubmit(handleSignIn)}>
             <div className="auth__form-group">
                 <Input.Email
                     control={control}
@@ -73,24 +71,27 @@ const SignUp = () => {
                 />
             </div>
 
-            <div className="auth__form-wrapper">
-                <DatePicker
-                    label="Date of birth"
-                    position={{
-                        x: -219,
-                        y: 42,
-                    }}
-                    onChanged={(date) => setValue("birthday", date)}
-                />
+            <div className="auth__form-group auth__form-group--radio">
+                <div className="auth__form-date-picker">
+                    <DatePicker
+                        label="Date of birth"
+                        position={{
+                            x: -219,
+                            y: 42,
+                        }}
+                        errorMsg={errors.birthday?.message}
+                        onChanged={(date) => setValue("birthday", date)}
+                    />
+                </div>
 
-                <div className="auth__form-radio">
+                <div className="auth__form-radio-wrapper">
                     <img
                         src={icons.male}
                         alt="radio-icon"
-                        className="auth__form-icon"
+                        className="icon auth__form-radio-icon"
                     />
 
-                    <div className="auth__form-radio-group">
+                    <div className="auth__form-radio">
                         <Radio
                             control={control}
                             name="gender"
@@ -99,7 +100,8 @@ const SignUp = () => {
                             value={Gender.MALE}
                         />
                     </div>
-                    <div className="auth__form-radio-group">
+
+                    <div className="auth__form-radio">
                         <Radio
                             control={control}
                             name="gender"

@@ -48,6 +48,8 @@ html.dark {
     --auth-form-bg-color: #{abstracts.$dark-color-2};
     --auth-form-shadow-color: rgba(51, 62, 82, 0.1);
     --auth-background-color: #{abstracts.$dark-color-1};
+    --auth-radio-wrapper-border-color: #{abstracts.$grayscale-gray-color};
+    --auth-footer-text-color: #{abstracts.$grayscale-color-w-10};
 
     // Input
     --input-border-color: #{abstracts.$grayscale-gray-color};

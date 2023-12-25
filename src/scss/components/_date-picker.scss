@@ -42,4 +42,8 @@
             border-color: transparent;
         }
     }
+
+    &__calendar {
+        z-index: 9999;
+    }
 }

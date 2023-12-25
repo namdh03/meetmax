@@ -190,6 +190,7 @@ export type CalendarProps = {
     onDateChanged?: (date: Date) => void;
     coords?: Coords;
     actions?: ReactNode;
+    className?: string;
 };
 
 export type MonthYearType = {
