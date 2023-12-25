@@ -47,7 +47,7 @@
     }
 
     &__wrapper {
-        @include abstracts.display-flex(center);
+        @include abstracts.display-flex(center, null);
         flex-direction: column;
         min-height: 100vh;
 
