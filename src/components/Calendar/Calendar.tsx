@@ -11,10 +11,12 @@ import TextDate from "./components/TextDate";
 
 const Calendar = forwardRef(
     (
-        { date, onDateChanged, coords, actions }: CalendarProps,
+        { date, onDateChanged, coords, actions, className = "" }: CalendarProps,
         ref: LegacyRef<HTMLElement>
     ) => {
-        const classNames = ["calendar"];
+        const classNames = `calendar ${
+            coords ? "calendar--coords" : ""
+        } ${className}`;
 
         // Position the calendar based on the coordinates
         const coordStyle = useMemo(() => {
@@ -26,13 +28,11 @@ const Calendar = forwardRef(
             };
         }, [coords]);
 
-        if (coords) classNames.push("calendar--coords");
-
         return (
             <CalendarProvider date={date} onDateChanged={onDateChanged}>
                 <article
                     ref={ref}
-                    className={classNames.join(" ")}
+                    className={classNames.trim()}
                     style={coordStyle as CSSProperties}
                 >
                     <header className="calendar__header">

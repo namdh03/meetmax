@@ -39,15 +39,15 @@ export type CollectionKey =
 export type CollectionValue =
     | "users"
     | "rooms"
-    | "user_rooms"
+    | "userRooms"
     | "messages"
-    | "password_history"
+    | "passwordHistory"
     | "followers"
     | "followings"
-    | "block_list"
+    | "blockList"
     | "posts"
-    | "post_images"
-    | "post_tags";
+    | "postImages"
+    | "postTags";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -66,7 +66,7 @@ export type ProviderId = "firebase";
 export type UserType = {
     id: string;
     email: string;
-    full_name: string;
+    fullName: string;
     birthday: Date;
     gender: Gender;
     providerId: ProviderId;
@@ -74,15 +74,15 @@ export type UserType = {
     phone: string;
     website: string;
     location: string;
-    facebook_link: string;
-    twitter_link: string;
-    instagram_link: string;
-    linkedIn_link: string;
-    avatar_url: string;
-    avatar_name: string;
-    cover_photo_url: string;
-    cover_photo_name: string;
-    created_at: FieldValue;
+    facebookLink: string;
+    twitterLink: string;
+    instagramLink: string;
+    linkedInLink: string;
+    avatarUrl: string;
+    avatarName: string;
+    coverPhotoUrl: string;
+    coverPhotoName: string;
+    createdAt: FieldValue;
 };
 
 // Authentication types
@@ -190,6 +190,7 @@ export type CalendarProps = {
     onDateChanged?: (date: Date) => void;
     coords?: Coords;
     actions?: ReactNode;
+    className?: string;
 };
 
 export type MonthYearType = {
@@ -293,7 +294,7 @@ export type SignInFormType = {
 // Sign-up form type
 export type SignUpFormData = {
     email: string;
-    full_name: string;
+    fullName: string;
     password: string;
     birthday: Date;
     gender: Gender;
