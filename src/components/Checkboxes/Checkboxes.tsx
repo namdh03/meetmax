@@ -42,7 +42,7 @@ const Checkboxes = <
                 {...field}
                 type="checkbox"
                 id={option.id}
-                value={option.value}
+                value={option.value.toString()}
                 checked={values.includes(option.value as never)}
                 onChange={() => handleCheckboxesChange(option.value as never)}
                 className="checkbox__input"

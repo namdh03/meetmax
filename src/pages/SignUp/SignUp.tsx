@@ -51,8 +51,8 @@ const SignUp = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(handleSignIn)}>
-            <div className="auth__form-group">
+        <form className="auth-form" onSubmit={handleSubmit(handleSignIn)}>
+            <div className="auth-form__group">
                 <Input.Email
                     control={control}
                     name="email"
@@ -62,7 +62,7 @@ const SignUp = () => {
                 />
             </div>
 
-            <div className="auth__form-group">
+            <div className="auth-form__group">
                 <Input.Text
                     control={control}
                     name="fullName"
@@ -72,7 +72,7 @@ const SignUp = () => {
                 />
             </div>
 
-            <div className="auth__form-group">
+            <div className="auth-form__group">
                 <Input.Password
                     control={control}
                     name="password"
@@ -82,8 +82,8 @@ const SignUp = () => {
                 />
             </div>
 
-            <div className="auth__form-group auth__form-group--radio">
-                <div className="auth__form-date-picker">
+            <div className="auth-form__group auth-form__group--radio">
+                <div className="auth-form__date-picker">
                     <DatePicker
                         label="Date of birth"
                         position={{
@@ -95,14 +95,14 @@ const SignUp = () => {
                     />
                 </div>
 
-                <div className="auth__form-radio-wrapper">
+                <div className="auth-form__radio-wrapper">
                     <img
                         src={icons.male}
                         alt="radio-icon"
-                        className="icon auth__form-radio-icon"
+                        className="icon auth-form__radio-icon"
                     />
 
-                    <div className="auth__form-radio">
+                    <div className="auth-form__radio">
                         <Radio
                             control={control}
                             name="gender"
@@ -112,7 +112,7 @@ const SignUp = () => {
                         />
                     </div>
 
-                    <div className="auth__form-radio">
+                    <div className="auth-form__radio">
                         <Radio
                             control={control}
                             name="gender"
@@ -126,15 +126,15 @@ const SignUp = () => {
 
             <Button
                 variant="primary"
-                className="auth__form-btn"
+                className="auth-form__btn"
                 loading={isSubmitting}
             >
-                Sign In
+                Sign Up
             </Button>
 
-            <div className="auth__form-footer">
-                <p className="auth__form-text">Already have an account?</p>
-                <Link to={configs.routes.signIn} className="auth__form-link">
+            <div className="auth-form__footer">
+                <p className="auth-form__text">Already have an account?</p>
+                <Link to={configs.routes.signIn} className="auth-form__link">
                     Sign In
                 </Link>
             </div>
