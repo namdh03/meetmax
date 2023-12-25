@@ -9,6 +9,7 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
+import { isDate } from "@/helpers/calendar";
 import { SignUpFormData } from "@/types";
 import { Gender } from "@/utils/enum";
 
@@ -18,9 +19,11 @@ const SignUp = () => {
     const {
         control,
         setValue,
+        clearErrors,
         handleSubmit,
         formState: { isSubmitting, errors },
     } = useForm<SignUpFormData>({
+        mode: "onTouched",
         resolver: yupResolver(schema),
         defaultValues: {
             email: "",
@@ -30,6 +33,14 @@ const SignUp = () => {
             gender: Gender.MALE,
         },
     });
+
+    const handleChangeBirthday = (date: Date) => {
+        setValue("birthday", date);
+
+        if (isDate(date)) {
+            clearErrors("birthday");
+        }
+    };
 
     const handleSignIn = async (values: SignUpFormData) => {
         try {
@@ -80,7 +91,7 @@ const SignUp = () => {
                             y: 42,
                         }}
                         errorMsg={errors.birthday?.message}
-                        onChanged={(date) => setValue("birthday", date)}
+                        onChanged={handleChangeBirthday}
                     />
                 </div>
 

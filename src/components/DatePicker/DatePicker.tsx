@@ -49,7 +49,6 @@ const DatePicker = ({
 
     const handleDateChange = (date: Date) => {
         dateTemp.current = date;
-        onChanged && onChanged(date);
     };
 
     const formatDate = (date: Date) => {
@@ -63,8 +62,9 @@ const DatePicker = ({
     const handleCancelCalendar = () => setCalendarOpen(false);
 
     const handleSaveCalendar = () => {
-        setDate(dateTemp.current);
         setCalendarOpen(false);
+        setDate(dateTemp.current);
+        onChanged && onChanged(dateTemp.current);
     };
 
     const Actions = () => (
