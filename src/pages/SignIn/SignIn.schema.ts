@@ -14,6 +14,9 @@ const schema = Yup.object({
         .matches(/[A-Z]/, "Password must contain an uppercase letter")
         .matches(/\d/, "Password must contain a number"),
 
+    rememberMe: Yup.array()
+        .of(Yup.boolean().oneOf([true]))
+        .optional(),
 });
 
 export default schema;

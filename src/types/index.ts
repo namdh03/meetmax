@@ -158,7 +158,7 @@ export type RadioProps<
 // Checkboxes option type
 export type CheckboxesOptionType = {
     id: string;
-    value: string;
+    value: string | number | boolean;
     label?: string;
 };
 
@@ -289,6 +289,7 @@ export type InputPasswordProps<
 export type SignInFormType = {
     email: string;
     password: string;
+    rememberMe?: (boolean | undefined)[];
 };
 
 // Sign-up form type

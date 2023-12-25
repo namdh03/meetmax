@@ -88,4 +88,7 @@ html {
     --input-border-color: #{abstracts.$grayscale-color-w-20};
     --input-placeholder-color: #{abstracts.$grayscale-color-w-60};
     --input-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Remember me checkbox
+    --checkbox-text-color: #{abstracts.$grayscale-gray-color};
 }

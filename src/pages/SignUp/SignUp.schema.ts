@@ -14,7 +14,10 @@ const schema = Yup.object({
     password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters")
-        .max(12, "Password must be at most 12 characters"),
+        .max(12, "Password must be at most 12 characters")
+        .matches(/[a-z]/, "Password must contain a lowercase letter")
+        .matches(/[A-Z]/, "Password must contain an uppercase letter")
+        .matches(/\d/, "Password must contain a number"),
     birthday: Yup.date().required("Date of birth is required"),
     gender: Yup.mixed<Gender>()
         .oneOf([Gender.MALE, Gender.FEMALE])
