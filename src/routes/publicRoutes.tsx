@@ -1,16 +1,11 @@
 import configs from "@/configs";
 import { GuestGuard } from "@/guards";
 import AuthLayout from "@/layout/AuthLayout";
-import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 
 const publicRoutes = [
-    {
-        path: configs.routes.home,
-        element: <Home />,
-    },
     {
         element: (
             <GuestGuard>

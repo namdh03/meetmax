@@ -48,6 +48,7 @@ const SignUp = () => {
     const handleSignIn = async (values: SignUpFormData) => {
         try {
             await signUpWithEmail(values.email, values.password);
+            navigate(configs.routes.home);
 
             if (!configs.firebase.auth.currentUser) return;
             await setDocument(
@@ -73,8 +74,6 @@ const SignUp = () => {
                     coverPhotoName: "",
                 }
             );
-
-            navigate(configs.routes.home);
         } catch (error) {
             console.log(error);
         }
