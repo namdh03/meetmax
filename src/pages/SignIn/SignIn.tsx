@@ -32,6 +32,8 @@ const SignIn = () => {
 
     const navigate = useNavigate();
 
+    const handleShowToast = () => toast.error("This feature is not available!");
+
     const handleSignIn = async (values: SignInFormType) => {
         try {
             await signInWithEmail(values.email, values.password);
@@ -83,12 +85,12 @@ const SignIn = () => {
                         control={control}
                     />
 
-                    <Link
-                        to={configs.routes.home}
+                    <span
                         className="auth-form__forgot"
+                        onClick={handleShowToast}
                     >
                         Forgot Password?
-                    </Link>
+                    </span>
                 </div>
 
                 <Button

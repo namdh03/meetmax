@@ -160,6 +160,7 @@
         &__forgot {
             @extend %body-m-1;
             color: var(--checkbox-text-color);
+            cursor: pointer;
         }
     }
 }
