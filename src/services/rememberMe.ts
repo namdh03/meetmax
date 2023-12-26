@@ -1,7 +1,14 @@
-import { browserSessionPersistence, setPersistence } from "firebase/auth";
+import {
+    browserLocalPersistence,
+    browserSessionPersistence,
+    setPersistence,
+} from "firebase/auth";
 
 import configs from "@/configs";
 
-export default async function rememberMe() {
-    await setPersistence(configs.firebase.auth, browserSessionPersistence);
+export default async function rememberMe(checked: boolean = false) {
+    await setPersistence(
+        configs.firebase.auth,
+        checked ? browserLocalPersistence : browserSessionPersistence
+    );
 }
