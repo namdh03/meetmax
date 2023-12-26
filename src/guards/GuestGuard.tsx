@@ -1,8 +1,9 @@
 import { FC, PropsWithChildren } from "react";
+import { Navigate } from "react-router-dom";
 
 import Loading from "@/components/Loading";
+import configs from "@/configs";
 import { useAuth } from "@/hooks";
-import NotFound from "@/pages/NotFound";
 
 // GuestGuard is a component that will be used to protect routes
 // that should only be accessed by unauthenticated users.
@@ -11,7 +12,7 @@ const GuestGuard: FC<PropsWithChildren> = ({ children }) => {
 
     if (!isInitialized) return <Loading />;
 
-    if (isAuthenticated) return <NotFound />;
+    if (isAuthenticated) return <Navigate to={configs.routes.home} replace />;
 
     return <>{children}</>;
 };
