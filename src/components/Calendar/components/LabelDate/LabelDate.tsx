@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 
-import useCalendar from "@/hooks/useCalendar";
+import { useCalendar } from "@/hooks";
 import { DateProps } from "@/types";
 
 const LabelDate: FC<DateProps> = memo(({ children, date, className }) => {

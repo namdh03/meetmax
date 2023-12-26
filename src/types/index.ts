@@ -9,9 +9,9 @@ import { FieldValue, Firestore } from "firebase/firestore";
 import { AuthActionType, Gender, Role } from "@/utils/enum";
 
 // Config types
-export type RouteKey = "home" | "signIn" | "signUp" | "notFound";
+export type RouteKey = "home" | "signIn" | "signUp" | "messages" | "notFound";
 
-export type RouteValue = "/" | "/sign-in" | "/sign-up" | "*";
+export type RouteValue = "/" | "/sign-in" | "/sign-up" | "/messages" | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
 
@@ -238,6 +238,7 @@ export type DividerProps = {
 
 // Logo props
 export type LogoProps = {
+    to?: string;
     className?: string;
     size?: number;
     gap?: number;

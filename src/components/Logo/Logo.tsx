@@ -5,10 +5,16 @@ import icons from "@/assets/icons";
 import configs from "@/configs";
 import { LogoProps } from "@/types";
 
-function Logo({ className = "", size, gap, onClick }: LogoProps) {
+function Logo({
+    to = configs.routes.home,
+    className = "",
+    size,
+    gap,
+    onClick,
+}: LogoProps) {
     return (
         <Link
-            to={configs.routes.home}
+            to={to}
             onClick={onClick}
             className={`logo ${className}`.trim()}
             style={

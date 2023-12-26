@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +9,7 @@ import Button from "@/components/Button";
 import Checkboxes from "@/components/Checkboxes";
 import Input from "@/components/Input";
 import configs from "@/configs";
+import isFirebaseError from "@/helpers/isFirebaseError";
 import { rememberMe, signInWithEmail } from "@/services";
 import { SignInFormType } from "@/types";
 
@@ -34,10 +36,13 @@ const SignIn = () => {
         try {
             await signInWithEmail(values.email, values.password);
             await rememberMe(values.rememberMe?.includes(true));
-
             navigate(configs.routes.home);
+
+            toast.success("Sign in successfully!");
         } catch (error) {
-            console.log(error);
+            if (isFirebaseError(error)) {
+                toast.error(error.message);
+            }
         }
     };
 

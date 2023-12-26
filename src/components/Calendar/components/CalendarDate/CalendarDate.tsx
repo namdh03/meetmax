@@ -1,11 +1,8 @@
 import { memo, useMemo } from "react";
 
-import calendar, {
-    getDateISO,
-    isSameDay,
-    isSameMonth,
-} from "@/helpers/calendar";
-import useCalendar from "@/hooks/useCalendar";
+import { calendar } from "@/helpers";
+import { getDateISO, isSameDay, isSameMonth } from "@/helpers/calendar";
+import { useCalendar } from "@/hooks";
 
 import LabelDate from "../LabelDate";
 

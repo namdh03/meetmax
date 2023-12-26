@@ -1,16 +1,20 @@
+import toast from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 import Logo from "@/components/Logo";
+import configs from "@/configs";
 import { AuthLayoutProps } from "@/types";
 
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
+    const handleShowToast = () => toast.error("Please sign in to continue!");
+
     return (
         <div className="auth">
             <header className="auth__header">
-                <Logo />
+                <Logo to={configs.routes.signIn} onClick={handleShowToast} />
             </header>
 
             <section className="auth__wrapper">

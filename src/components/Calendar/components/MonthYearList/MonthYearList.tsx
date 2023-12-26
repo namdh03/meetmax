@@ -4,7 +4,7 @@ import {
     getMonthYearList,
     isSameMonth,
 } from "@/helpers/calendar";
-import useCalendar from "@/hooks/useCalendar";
+import { useCalendar } from "@/hooks";
 
 const MonthYearList = () => {
     const { data, monthYearList, setMonthYearList, setDate, toggle, ref } =

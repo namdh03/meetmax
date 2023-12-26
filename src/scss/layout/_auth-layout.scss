@@ -51,7 +51,7 @@
         flex-direction: column;
         min-height: 100vh;
 
-        padding-top: var(--header-height);
+        padding: var(--header-height) 0;
 
         background: linear-gradient(
             180deg,
