@@ -47,38 +47,37 @@ const SignUp = () => {
         }
     };
 
-    const handleSignIn = async (values: SignUpFormData) => {
+    const handleSignUpWithEmail = async (values: SignUpFormData) => {
         try {
-            await signUpWithEmail(values.email, values.password);
-            navigate(configs.routes.home);
-
-            if (!configs.firebase.auth.currentUser) return;
-            await setDocument(
-                configs.collections.users,
-                configs.firebase.auth.currentUser.uid,
-                {
-                    email: values.email,
-                    fullName: values.fullName,
-                    birthday: values.birthday,
-                    gender: values.gender,
-                    providerId: configs.firebase.auth.currentUser.providerId,
-                    bio: "",
-                    phone: "",
-                    website: "",
-                    location: "",
-                    facebookLink: "",
-                    twitterLink: "",
-                    instagramLink: "",
-                    linkedInLink: "",
-                    avatarUrl: "",
-                    avatarName: "",
-                    coverPhotoUrl: "",
-                    coverPhotoName: "",
-                    keywords: generateKeyword(values.fullName),
-                }
+            const { providerId, user } = await signUpWithEmail(
+                values.email,
+                values.password
             );
-
+            navigate(configs.routes.home);
             toast.success("Sign up successfully!");
+
+            await setDocument(configs.collections.users, user.uid, {
+                email: values.email,
+                emailVerified: user.emailVerified,
+                isAnonymous: user.isAnonymous,
+                fullName: values.fullName,
+                birthday: values.birthday,
+                gender: values.gender,
+                providerId: providerId,
+                bio: null,
+                phone: null,
+                website: null,
+                location: null,
+                facebookLink: null,
+                twitterLink: null,
+                instagramLink: null,
+                linkedInLink: null,
+                avatarUrl: null,
+                avatarName: null,
+                coverPhotoUrl: null,
+                coverPhotoName: null,
+                keywords: generateKeyword(values.fullName),
+            });
         } catch (error) {
             if (isFirebaseError(error)) {
                 console.log(error.code);
@@ -89,7 +88,10 @@ const SignUp = () => {
 
     return (
         <>
-            <form className="auth-form" onSubmit={handleSubmit(handleSignIn)}>
+            <form
+                className="auth-form"
+                onSubmit={handleSubmit(handleSignUpWithEmail)}
+            >
                 <div className="auth-form__group">
                     <Input.Email
                         control={control}

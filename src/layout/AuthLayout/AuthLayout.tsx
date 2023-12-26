@@ -1,14 +1,20 @@
 import toast from "react-hot-toast";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
+import { signInWithGoogle } from "@/services";
 import { AuthLayoutProps } from "@/types";
 
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
+    const { pathname } = useLocation();
+    const wrapperClass = `auth__wrapper ${
+        pathname.includes(configs.routes.signUp) && "auth__wrapper--sign-up"
+    }`.trim();
+
     const handleShowToast = () => toast.error("Please sign in to continue!");
 
     return (
@@ -17,7 +23,7 @@ const AuthLayout = ({ title, description }: AuthLayoutProps) => {
                 <Logo to={configs.routes.signIn} onClick={handleShowToast} />
             </header>
 
-            <section className="auth__wrapper">
+            <section className={wrapperClass}>
                 <h1 className="auth__title">{title}</h1>
                 <p className="auth__desc">{description}</p>
                 <div className="auth__content">
@@ -25,6 +31,7 @@ const AuthLayout = ({ title, description }: AuthLayoutProps) => {
                         <Button
                             className="auth__button"
                             icon={{ src: icons.google, gutter: 25 }}
+                            onClick={signInWithGoogle}
                         >
                             Log in with Google
                         </Button>
