@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 
 import icons from "@/assets/icons";
 import { getMonthAndYearFormat } from "@/helpers/calendar";
-import { useOnClickOutside } from "@/hooks/useOnClickOutside";
-import { usePortal } from "@/hooks/usePortal";
+import { useOnClickOutside, usePortal } from "@/hooks";
 import { Coords, DatePickerProps } from "@/types";
 
 import Button from "../Button";

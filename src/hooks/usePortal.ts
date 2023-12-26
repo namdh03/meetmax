@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 // usePortal is an implementation of the facade pattern.
-const usePortal = () => {
+export default function usePortal() {
     // Creates only one instance of div.
     const wrapper = useMemo(() => document.createElement("div"), []);
 
@@ -23,6 +23,4 @@ const usePortal = () => {
         render: (children: ReactNode): ReactPortal | null =>
             createPortal(children, wrapper),
     };
-};
-
-export { usePortal };
+}

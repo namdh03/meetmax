@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import icons from "@/assets/icons";
 import { getMonthAndYearFormat } from "@/helpers/calendar";
-import useCalendar from "@/hooks/useCalendar";
+import { useCalendar } from "@/hooks";
 
 import MonthYearList from "../MonthYearList";
 

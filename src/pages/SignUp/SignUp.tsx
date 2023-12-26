@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,6 +10,7 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
+import { generateKeyword, isFirebaseError } from "@/helpers";
 import { isDate } from "@/helpers/calendar";
 import { setDocument, signUpWithEmail } from "@/services";
 import { SignUpFormData } from "@/types";
@@ -48,6 +50,7 @@ const SignUp = () => {
     const handleSignIn = async (values: SignUpFormData) => {
         try {
             await signUpWithEmail(values.email, values.password);
+            navigate(configs.routes.home);
 
             if (!configs.firebase.auth.currentUser) return;
             await setDocument(
@@ -71,12 +74,16 @@ const SignUp = () => {
                     avatarName: "",
                     coverPhotoUrl: "",
                     coverPhotoName: "",
+                    keywords: generateKeyword(values.fullName),
                 }
             );
 
-            navigate(configs.routes.home);
+            toast.success("Sign up successfully!");
         } catch (error) {
-            console.log(error);
+            if (isFirebaseError(error)) {
+                console.log(error.code);
+                toast.error(error.message);
+            }
         }
     };
 

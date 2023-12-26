@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import { getDateISO } from "@/helpers/calendar";
-import useCalendar from "@/hooks/useCalendar";
+import { useCalendar } from "@/hooks";
 
 const TextDate = memo(() => {
     const { data } = useCalendar();
