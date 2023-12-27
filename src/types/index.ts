@@ -301,3 +301,28 @@ export type SignUpFormData = {
     birthday: Date;
     gender: Gender;
 };
+
+// Header-layout props
+export type HeaderLayoutProps = {
+    to?: string;
+    name?: string;
+    src?: string;
+    className?: string;
+};
+
+// Site-bar item props
+export type SiteBarItemProps = {
+    key: string;
+    to: string;
+    text: string;
+    icon: string;
+    count?: number;
+    className?: string;
+    onClick?: () => void;
+};
+
+// Site-bar props
+export type SiteBarProps = {
+    list: SiteBarItemProps[];
+    className?: string;
+};

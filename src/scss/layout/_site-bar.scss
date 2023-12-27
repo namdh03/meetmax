@@ -1,0 +1,69 @@
+@use "../abstracts";
+
+.site-bar {
+    // @include abstracts.display-flex(center);
+
+    width: 240px;
+    height: calc(100vh - 78px);
+
+    padding: 10px 20px;
+
+    background: var(--site-bar-layout-bg-color);
+
+    &__list {
+        @include abstracts.display-flex(center);
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    &__item {
+        @include abstracts.display-flex(center, flex-start);
+
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 10px;
+        background: var(--site-bar-layout-item-bg-color);
+
+        cursor: pointer;
+
+        &.active {
+            background: var(--site-bar-layout-item-active-bg-color);
+
+            .site-bar__icon {
+                filter: var(--site-bar-layout-item-active-icon-color);
+            }
+
+            .site-bar__text {
+                color: var(--site-bar-layout-item-active-color);
+            }
+        }
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+
+        filter: var(--site-bar-layout-item-icon-color);
+    }
+
+    &__text {
+        margin-left: 20px;
+
+        @extend %display-m;
+        color: var(--site-bar-layout-item-color);
+    }
+
+    &__counter {
+        @include abstracts.display-flex(center);
+
+        width: 16px;
+        height: 16px;
+        margin-left: 13px;
+        border-radius: 50%;
+
+        background: var(--site-bar-layout-counter-bg-color);
+
+        @extend %body-r-2;
+        color: var(--site-bar-layout-counter-color);
+    }
+}

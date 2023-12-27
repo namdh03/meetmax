@@ -58,4 +58,27 @@ html.dark {
 
     // Remember me checkbox
     --checkbox-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Header layout
+    --header-layout-color: #{abstracts.$grayscale-white-color};
+    --header-layout-bg-color: #{abstracts.$dark-color-1};
+    --header-layout-wrapper-color: #{abstracts.$dark-color-2};
+    --header-layout-shadow-color: rgba(0, 0, 0, 0.02);
+
+    // Site bar layout
+    --site-bar-layout-bg-color: #{abstracts.$dark-color-1};
+    --site-bar-layout-item-bg-color: #{abstracts.$dark-color-1};
+    --site-bar-layout-item-color: #{abstracts.$grayscale-color-w-10};
+    --site-bar-layout-item-icon-color: brightness(0) saturate(100%) invert(100%)
+        sepia(100%) saturate(244%) hue-rotate(121deg) brightness(114%)
+        contrast(90%);
+    --site-bar-layout-item-active-bg-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
+        invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
+        brightness(99%) contrast(103%);
+
+    // Main layout
+    --main-layout-bg-color: #{abstracts.$dark-color-1};
+    --main-layout-content-bg-color: #{abstracts.$dark-color-2};
 }
