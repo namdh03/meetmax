@@ -7,41 +7,40 @@ import { Gender } from "@/utils/enum";
 import { getDocument, setDocument } from ".";
 
 export default async function signInWithGoogle(): Promise<UserCredential> {
-    const { operationType, providerId, user } = await signInWithPopup(
+    const result = await signInWithPopup(
         configs.firebase.auth,
         configs.firebase.googleProvider
     );
 
-    const docSnap = await getDocument(configs.collections.users, user.uid);
+    const docSnap = await getDocument(
+        configs.collections.users,
+        result.user.uid
+    );
 
     if (!docSnap.exists()) {
-        await setDocument(configs.collections.users, user.uid, {
-            email: user.email,
-            emailVerified: user.emailVerified,
-            isAnonymous: user.isAnonymous,
-            fullName: user.displayName,
+        await setDocument(configs.collections.users, result.user.uid, {
+            email: result.user.email,
+            fullName: result.user.displayName,
             birthday: null,
             gender: Gender.OTHER,
-            providerId: providerId,
+            providerId: result.providerId,
             bio: null,
-            phone: user.phoneNumber,
+            phone: result.user.phoneNumber,
             website: null,
             location: null,
             facebookLink: null,
             twitterLink: null,
             instagramLink: null,
             linkedInLink: null,
-            avatarUrl: user.photoURL,
+            avatarUrl: result.user.photoURL,
             avatarName: null,
             coverPhotoUrl: null,
             coverPhotoName: null,
-            keywords: generateKeyword(user.displayName || ""),
+            keywords: result.user.displayName
+                ? generateKeyword(result.user.displayName)
+                : null,
         });
     }
 
-    return {
-        operationType,
-        providerId,
-        user,
-    };
+    return result;
 }

@@ -10,9 +10,9 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
-import { generateKeyword, isFirebaseError } from "@/helpers";
+import { isFirebaseError } from "@/helpers";
 import { isDate } from "@/helpers/calendar";
-import { setDocument, signUpWithEmail } from "@/services";
+import { signUpWithEmail } from "@/services";
 import { SignUpFormData } from "@/types";
 import { Gender } from "@/utils/enum";
 
@@ -49,38 +49,17 @@ const SignUp = () => {
 
     const handleSignUpWithEmail = async (values: SignUpFormData) => {
         try {
-            const { providerId, user } = await signUpWithEmail(
+            await signUpWithEmail(
                 values.email,
-                values.password
+                values.password,
+                values.fullName,
+                values.birthday,
+                values.gender
             );
-            navigate(configs.routes.home);
-            toast.success("Sign up successfully!");
 
-            await setDocument(configs.collections.users, user.uid, {
-                email: values.email,
-                emailVerified: user.emailVerified,
-                isAnonymous: user.isAnonymous,
-                fullName: values.fullName,
-                birthday: values.birthday,
-                gender: values.gender,
-                providerId: providerId,
-                bio: null,
-                phone: null,
-                website: null,
-                location: null,
-                facebookLink: null,
-                twitterLink: null,
-                instagramLink: null,
-                linkedInLink: null,
-                avatarUrl: null,
-                avatarName: null,
-                coverPhotoUrl: null,
-                coverPhotoName: null,
-                keywords: generateKeyword(values.fullName),
-            });
+            navigate(configs.routes.home);
         } catch (error) {
             if (isFirebaseError(error)) {
-                console.log(error.code);
                 toast.error(error.message);
             }
         }

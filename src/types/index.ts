@@ -67,8 +67,6 @@ export type ProviderId = "firebase" | "google.com";
 export type UserType = {
     id: string;
     email: string;
-    emailVerified: boolean;
-    isAnonymous: boolean;
     fullName: string;
     birthday: Date;
     gender: Gender;

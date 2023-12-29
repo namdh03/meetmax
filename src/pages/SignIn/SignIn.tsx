@@ -38,8 +38,8 @@ const SignIn = () => {
         try {
             await signInWithEmail(values.email, values.password);
             await rememberMe(values.rememberMe?.includes(true));
+
             navigate(configs.routes.home);
-            toast.success("Sign in successfully!");
         } catch (error) {
             if (isFirebaseError(error)) {
                 toast.error(error.message);

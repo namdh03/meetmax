@@ -11,19 +11,19 @@ import { AuthLayoutProps } from "@/types";
 
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
     const { pathname } = useLocation();
-    const wrapperClass = `auth__wrapper ${
-        pathname.includes(configs.routes.signUp) && "auth__wrapper--sign-up"
+    const authClassNames = `auth ${
+        pathname.includes(configs.routes.signUp) && "auth--sign-up"
     }`.trim();
 
     const handleShowToast = () => toast.error("Please sign in to continue!");
 
     return (
-        <div className="auth">
+        <div className={authClassNames}>
             <header className="auth__header">
                 <Logo to={configs.routes.signIn} onClick={handleShowToast} />
             </header>
 
-            <section className={wrapperClass}>
+            <section className="auth__wrapper">
                 <h1 className="auth__title">{title}</h1>
                 <p className="auth__desc">{description}</p>
                 <div className="auth__content">
