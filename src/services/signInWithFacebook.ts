@@ -6,7 +6,7 @@ import { Gender } from "@/utils/enum";
 
 import { getDocument, setDocument } from ".";
 
-export default async function signInWithGoogle(): Promise<UserCredential> {
+export default async function signInWithFacebook(): Promise<UserCredential> {
     const result = await signInWithPopup(
         configs.firebase.auth,
         configs.firebase.facebookProvider
