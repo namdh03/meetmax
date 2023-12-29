@@ -1,19 +1,22 @@
+import images from "@/assets/images";
 import Logo from "@/components/Logo";
-import { HeaderLayoutProps } from "@/types";
+import configs from "@/configs";
 
-const Header = ({ src, name, to, className }: HeaderLayoutProps) => {
+const Header = () => {
     return (
-        <div className={`header ${className}`.trim()}>
-            <Logo to={to} className="header__logo" />
-            <div className="header__wrapper">
-                <p className="header__name">{name ? name : "Nam Duong"}</p>
+        <header className="header">
+            <Logo to={configs.routes.home} />
+
+            <div className="header__user">
+                <p className="header__name">Nam Duong</p>
+
                 <img
                     className="header__avatar"
-                    src={src ? src : "https://i.pravatar.cc/150?img=3"}
+                    src={images.avatar}
                     alt="avatar"
                 />
             </div>
-        </div>
+        </header>
     );
 };
 

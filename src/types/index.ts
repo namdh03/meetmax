@@ -302,16 +302,8 @@ export type SignUpFormData = {
     gender: Gender;
 };
 
-// Header-layout props
-export type HeaderLayoutProps = {
-    to?: string;
-    name?: string;
-    src?: string;
-    className?: string;
-};
-
-// Site-bar item props
-export type SiteBarItemProps = {
+// Site-bar item
+export type SiteBarItemType = {
     key: string;
     to: string;
     text: string;
@@ -323,6 +315,6 @@ export type SiteBarItemProps = {
 
 // Site-bar props
 export type SiteBarProps = {
-    list: SiteBarItemProps[];
+    list: SiteBarItemType[];
     className?: string;
 };

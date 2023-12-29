@@ -8,9 +8,10 @@ import SiteBar from "./components/SiteBar";
 
 const MainLayout = () => {
     return (
-        <div className="main-layout">
-            <Header className="main-layout__header" />
-            <div className="main-layout__body">
+        <main>
+            <Header />
+            
+            <div className="body">
                 <SiteBar
                     list={[
                         {
@@ -28,13 +29,12 @@ const MainLayout = () => {
                         },
                     ]}
                 />
-                <div className="main-layout__wrapper">
-                    <div className="main-layout__content">
-                        <Outlet />
-                    </div>
+
+                <div className="body__content">
+                    <Outlet />
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

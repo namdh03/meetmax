@@ -95,16 +95,13 @@ html {
     // Header layout
     --header-layout-color: #{abstracts.$grayscale-gray-color};
     --header-layout-bg-color: #{abstracts.$grayscale-white-color};
-    --header-layout-wrapper-color: #{abstracts.$grayscale-white-color};
+    --header-layout-user-color: #{abstracts.$grayscale-white-color};
     --header-layout-shadow-color: rgba(0, 0, 0, 0.02);
 
     // Site bar layout
     --site-bar-layout-bg-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-item-bg-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-item-color: #{abstracts.$grayscale-gray-color};
-    --site-bar-layout-item-icon-color: brightness(0) saturate(100%) invert(33%)
-        sepia(49%) saturate(313%) hue-rotate(181deg) brightness(92%)
-        contrast(87%);
     --site-bar-layout-item-active-bg-color: #{abstracts.$grayscale-gray-color};
     --site-bar-layout-item-active-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
