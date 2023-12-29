@@ -302,3 +302,20 @@ export type SignUpFormData = {
     birthday: Date;
     gender: Gender;
 };
+
+// Site-bar item
+export type SiteBarItemType = {
+    key: string;
+    to: string;
+    text: string;
+    icon: string;
+    count?: number;
+    className?: string;
+    onClick?: () => void;
+};
+
+// Site-bar props
+export type SiteBarProps = {
+    list: SiteBarItemType[];
+    className?: string;
+};

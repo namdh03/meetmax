@@ -19,7 +19,7 @@ function Logo({
             className={`logo ${className}`.trim()}
             style={
                 {
-                    "--size": (size || 26) + "px",
+                    "--size": (size || 28) + "px",
                     "--gap": (gap || 10) + "px",
                 } as CSSProperties
             }

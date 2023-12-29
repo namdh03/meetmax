@@ -91,4 +91,26 @@ html {
 
     // Remember me checkbox
     --checkbox-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Header layout
+    --header-layout-color: #{abstracts.$grayscale-gray-color};
+    --header-layout-bg-color: #{abstracts.$grayscale-white-color};
+    --header-layout-user-color: #{abstracts.$grayscale-white-color};
+    --header-layout-shadow-color: rgba(0, 0, 0, 0.02);
+
+    // Site bar layout
+    --site-bar-layout-bg-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-bg-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-bg-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
+        invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
+        brightness(99%) contrast(103%);
+    --site-bar-layout-counter-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-counter-bg-color: #{abstracts.$red-primary-color};
+
+    // Main layout
+    --main-layout-bg-color: #{abstracts.$grayscale-white-color};
+    --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
 }
