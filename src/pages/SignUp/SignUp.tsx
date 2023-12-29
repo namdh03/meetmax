@@ -10,9 +10,9 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
-import { generateKeyword, isFirebaseError } from "@/helpers";
+import { isFirebaseError } from "@/helpers";
 import { isDate } from "@/helpers/calendar";
-import { setDocument, signUpWithEmail } from "@/services";
+import { signUpWithEmail } from "@/services";
 import { SignUpFormData } from "@/types";
 import { Gender } from "@/utils/enum";
 
@@ -47,41 +47,19 @@ const SignUp = () => {
         }
     };
 
-    const handleSignIn = async (values: SignUpFormData) => {
+    const handleSignUpWithEmail = async (values: SignUpFormData) => {
         try {
-            await signUpWithEmail(values.email, values.password);
-            navigate(configs.routes.home);
-
-            if (!configs.firebase.auth.currentUser) return;
-            await setDocument(
-                configs.collections.users,
-                configs.firebase.auth.currentUser.uid,
-                {
-                    email: values.email,
-                    fullName: values.fullName,
-                    birthday: values.birthday,
-                    gender: values.gender,
-                    providerId: configs.firebase.auth.currentUser.providerId,
-                    bio: "",
-                    phone: "",
-                    website: "",
-                    location: "",
-                    facebookLink: "",
-                    twitterLink: "",
-                    instagramLink: "",
-                    linkedInLink: "",
-                    avatarUrl: "",
-                    avatarName: "",
-                    coverPhotoUrl: "",
-                    coverPhotoName: "",
-                    keywords: generateKeyword(values.fullName),
-                }
+            await signUpWithEmail(
+                values.email,
+                values.password,
+                values.fullName,
+                values.birthday,
+                values.gender
             );
 
-            toast.success("Sign up successfully!");
+            navigate(configs.routes.home);
         } catch (error) {
             if (isFirebaseError(error)) {
-                console.log(error.code);
                 toast.error(error.message);
             }
         }
@@ -89,7 +67,10 @@ const SignUp = () => {
 
     return (
         <>
-            <form className="auth-form" onSubmit={handleSubmit(handleSignIn)}>
+            <form
+                className="auth-form"
+                onSubmit={handleSubmit(handleSignUpWithEmail)}
+            >
                 <div className="auth-form__group">
                     <Input.Email
                         control={control}

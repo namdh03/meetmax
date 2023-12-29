@@ -4,8 +4,14 @@
     --header-height: 80px;
 
     position: relative;
+    min-height: 100vh;
+    padding-top: var(--header-height);
     background-color: var(--auth-background-color);
     overflow: hidden;
+
+    &--sign-up {
+        padding-bottom: var(--header-height);
+    }
 
     &::before,
     &::after {
@@ -49,9 +55,6 @@
     &__wrapper {
         @include abstracts.display-flex(center, null);
         flex-direction: column;
-        min-height: 100vh;
-
-        padding: var(--header-height) 0;
 
         background: linear-gradient(
             180deg,
@@ -160,6 +163,9 @@
         &__forgot {
             @extend %body-m-1;
             color: var(--checkbox-text-color);
+        }
+
+        &__forgot {
             cursor: pointer;
         }
     }
