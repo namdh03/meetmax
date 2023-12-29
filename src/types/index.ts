@@ -3,7 +3,12 @@ import { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
 
 import { Analytics } from "firebase/analytics";
 import { FirebaseApp } from "firebase/app";
-import { Auth, GoogleAuthProvider, User } from "firebase/auth";
+import {
+    Auth,
+    FacebookAuthProvider,
+    GoogleAuthProvider,
+    User,
+} from "firebase/auth";
 import { FieldValue, Firestore } from "firebase/firestore";
 
 import { AuthActionType, Gender, Role } from "@/utils/enum";
@@ -21,6 +26,7 @@ export type FirebaseConfigType = {
     auth: Auth;
     db: Firestore;
     googleProvider: GoogleAuthProvider;
+    facebookProvider: FacebookAuthProvider;
 };
 
 // Collection types
