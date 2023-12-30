@@ -18,6 +18,7 @@ const Email = <
                 <input
                     {...field}
                     id={id}
+                    type="email"
                     className="input__children"
                     placeholder={placeholder}
                 />
