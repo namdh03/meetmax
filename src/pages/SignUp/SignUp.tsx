@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -36,8 +36,6 @@ const SignUp = () => {
         },
     });
 
-    const navigate = useNavigate();
-
     const handleChangeBirthday = (date: Date) => {
         setValue("birthday", date);
 
@@ -55,8 +53,6 @@ const SignUp = () => {
                 values.birthday,
                 values.gender
             );
-
-            navigate(configs.routes.home);
         } catch (error) {
             handleFirebaseError(error);
         }

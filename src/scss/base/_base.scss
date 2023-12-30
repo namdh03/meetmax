@@ -1,5 +1,9 @@
 @use "../abstracts";
 
+:root {
+    --header-height: 78px;
+}
+
 *,
 ::before,
 ::after {
@@ -17,6 +21,7 @@ html {
 body {
     font-family: "Roboto", sans-serif;
     font-size: 1.6rem;
+    background-color: var(--body-bg-color);
 }
 
 a {

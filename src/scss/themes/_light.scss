@@ -1,6 +1,9 @@
 @use "../abstracts";
 
 html {
+    // Body 
+    --body-bg-color: #{abstracts.$grayscale-white-color};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
         saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);

@@ -2,38 +2,36 @@ import { NavLink } from "react-router-dom";
 
 import { SiteBarProps } from "@/types";
 
-const SiteBar = ({ list, className = "" }: SiteBarProps) => {
+const SiteBar = ({ list }: SiteBarProps) => {
     return (
-        <aside className={`site-bar ${className}`.trim()}>
-            <div className="site-bar__list">
-                {list.map((item) => {
-                    const classNameItem = item.className || "";
+        <nav className="site-bar">
+            {list.map((item) => {
+                return (
+                    <NavLink
+                        key={item.to}
+                        to={item.to}
+                        className="site-bar__item"
+                        onClick={item.onClick}
+                    >
+                        <img
+                            className="icon site-bar__icon"
+                            src={item.icon}
+                            alt="icon-site-bar"
+                        />
 
-                    return (
-                        <NavLink
-                            key={item.key}
-                            to={item.to}
-                            className={`site-bar__item ${classNameItem}`.trim()}
-                            onClick={item.onClick}
-                        >
-                            <img
-                                className="site-bar__icon icon"
-                                src={item.icon}
-                                alt="icon-site-bar"
-                            />
+                        <div className="site-bar__info">
+                            <span className="site-bar__text">{item.label}</span>
 
-                            <p className="site-bar__text">{item.text}</p>
-
-                            {item.count && (
-                                <p className="site-bar__counter">
+                            {item.count > 0 && (
+                                <span className="site-bar__counter">
                                     {item.count}
-                                </p>
+                                </span>
                             )}
-                        </NavLink>
-                    );
-                })}
-            </div>
-        </aside>
+                        </div>
+                    </NavLink>
+                );
+            })}
+        </nav>
     );
 };
 

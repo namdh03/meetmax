@@ -1,6 +1,9 @@
 @use "../abstracts";
 
 html.dark {
+    // Body
+    --body-bg-color: #{abstracts.$dark-color-1};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(88%) sepia(56%)
         saturate(1476%) hue-rotate(180deg) brightness(114%) contrast(89%);

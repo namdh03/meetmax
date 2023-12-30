@@ -1,30 +1,19 @@
 @use "../abstracts";
 
 .site-bar {
-    width: 240px;
-    min-height: calc(100vh - 78px);
-
     padding: 10px 20px;
-
     background: var(--site-bar-layout-bg-color);
 
-    &__list {
-        @include abstracts.display-flex(center);
-        flex-direction: column;
-        row-gap: 10px;
-    }
-
     &__item {
-        @include abstracts.display-flex(center, flex-start);
+        @include abstracts.display-flex(center, null);
+        gap: 20px;
 
-        width: 100%;
-        padding: 15px 20px;
-        border-radius: 10px;
+        min-width: 200px;
+        padding: 11px 20px;
         background: var(--site-bar-layout-item-bg-color);
 
-        cursor: pointer;
-
         &.active {
+            border-radius: 10px;
             background: var(--site-bar-layout-item-active-bg-color);
 
             .site-bar__icon {
@@ -32,6 +21,7 @@
             }
 
             .site-bar__text {
+                @extend %display-b;
                 color: var(--site-bar-layout-item-active-color);
             }
         }
@@ -42,24 +32,24 @@
         height: 16px;
     }
 
-    &__text {
-        margin-left: 20px;
+    &__info {
+        @include abstracts.display-flex(center, null);
+        gap: 14px;
+    }
 
+    &__text {
         @extend %display-m;
         color: var(--site-bar-layout-item-color);
     }
 
     &__counter {
         @include abstracts.display-flex(center);
+        @extend %body-r-3;
 
         width: 16px;
         height: 16px;
-        margin-left: 13px;
         border-radius: 50%;
-
-        background: var(--site-bar-layout-counter-bg-color);
-
-        @extend %body-r-2;
         color: var(--site-bar-layout-counter-color);
+        background: var(--site-bar-layout-counter-bg-color);
     }
 }
