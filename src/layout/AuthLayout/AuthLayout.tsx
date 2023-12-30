@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
-import { signInWithGoogle } from "@/services";
+import { signInWithFacebook, signInWithGoogle } from "@/services";
 import { AuthLayoutProps } from "@/types";
 
 const AuthLayout = ({ title, description }: AuthLayoutProps) => {
@@ -38,6 +38,7 @@ const AuthLayout = ({ title, description }: AuthLayoutProps) => {
                         <Button
                             className="auth__button"
                             icon={{ src: icons.facebookCircle, gutter: 25 }}
+                            onClick={signInWithFacebook}
                         >
                             Log in with Facebook
                         </Button>
