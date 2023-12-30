@@ -40,8 +40,8 @@ const Password = <
 
                 <input
                     {...field}
-                    type={visible ? "text" : "password"}
                     id={id}
+                    type={visible ? "text" : "password"}
                     className="input__children"
                     placeholder={placeholder}
                 />
