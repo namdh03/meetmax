@@ -9,7 +9,7 @@ import Button from "@/components/Button";
 import Checkboxes from "@/components/Checkboxes";
 import Input from "@/components/Input";
 import configs from "@/configs";
-import isFirebaseError from "@/helpers/isFirebaseError";
+import { handleFirebaseError } from "@/helpers";
 import { rememberMe, signInWithEmail } from "@/services";
 import { SignInFormType } from "@/types";
 
@@ -41,9 +41,7 @@ const SignIn = () => {
 
             navigate(configs.routes.home);
         } catch (error) {
-            if (isFirebaseError(error)) {
-                toast.error(error.message);
-            }
+            handleFirebaseError(error);
         }
     };
 

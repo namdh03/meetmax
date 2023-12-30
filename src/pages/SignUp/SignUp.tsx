@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +9,7 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import Radio from "@/components/Radio";
 import configs from "@/configs";
-import { isFirebaseError } from "@/helpers";
+import { handleFirebaseError } from "@/helpers";
 import { isDate } from "@/helpers/calendar";
 import { signUpWithEmail } from "@/services";
 import { SignUpFormData } from "@/types";
@@ -59,9 +58,7 @@ const SignUp = () => {
 
             navigate(configs.routes.home);
         } catch (error) {
-            if (isFirebaseError(error)) {
-                toast.error(error.message);
-            }
+            handleFirebaseError(error);
         }
     };
 

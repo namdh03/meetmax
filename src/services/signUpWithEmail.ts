@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+} from "firebase/auth";
 
 import configs from "@/configs";
 import { generateKeyword } from "@/helpers";
@@ -18,6 +21,8 @@ export default async function signUpWithEmail(
         email,
         password
     );
+
+    await sendEmailVerification(result.user);
 
     await setDocument(configs.collections.users, result.user.uid, {
         email: email,
