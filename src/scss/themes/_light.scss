@@ -1,8 +1,11 @@
 @use "../abstracts";
 
 html {
-    // Body 
+    // Body
     --body-bg-color: #{abstracts.$grayscale-white-color};
+
+    // Container
+    --app-container-bg-color: #{abstracts.$grayscale-color-w-3};
 
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
@@ -112,8 +115,4 @@ html {
         brightness(99%) contrast(103%);
     --site-bar-layout-counter-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-counter-bg-color: #{abstracts.$red-primary-color};
-
-    // Main layout
-    --main-layout-bg-color: #{abstracts.$grayscale-white-color};
-    --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
 }

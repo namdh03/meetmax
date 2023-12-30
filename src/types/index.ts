@@ -136,6 +136,15 @@ export type ReducerHandlers = {
     SIGN_OUT(state: AuthState): AuthState;
 };
 
+// Grid System - Container props
+export type MaxWithKey = "sm" | "md" | "lg" | "xl" | "xxl";
+
+export type ContainerProps = {
+    children: ReactNode;
+    className?: string;
+    maxWidth?: MaxWithKey;
+};
+
 // Role based guard types
 export type RoleBasedGuardProps = {
     children: ReactNode;

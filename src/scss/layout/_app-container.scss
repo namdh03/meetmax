@@ -1,0 +1,9 @@
+#app-container {
+    --container-gutter: 30px;
+
+    width: calc(100% - var(--container-gutter));
+    height: 100%;
+    padding: var(--container-gutter) calc(var(--container-gutter) - 12px);
+    background-color: var(--app-container-bg-color);
+    border-radius: 16px 16px 0 0;
+}

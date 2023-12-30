@@ -1,9 +1,13 @@
-import { useAuth } from "@/hooks";
+import Container from "@/components/Container";
 
 const Messages = () => {
-    const { user } = useAuth();
-
-    return user?.photoURL && <img src={user.photoURL} alt="" />;
+    return (
+        <section id="app-container" className="messages">
+            <Container>
+                <h1>Testing</h1>
+            </Container>
+        </section>
+    );
 };
 
 export default Messages;

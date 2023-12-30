@@ -3,4 +3,8 @@
 .body {
     @include abstracts.display-flex();
     min-height: calc(100vh - var(--header-height));
+
+    main {
+        flex: 1;
+    }
 }

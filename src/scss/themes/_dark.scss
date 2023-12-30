@@ -4,6 +4,9 @@ html.dark {
     // Body
     --body-bg-color: #{abstracts.$dark-color-1};
 
+    // Container
+    --app-container-bg-color: #{abstracts.$dark-color-2};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(88%) sepia(56%)
         saturate(1476%) hue-rotate(180deg) brightness(114%) contrast(89%);
@@ -77,8 +80,4 @@ html.dark {
     --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
         invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
         brightness(99%) contrast(103%);
-
-    // Main layout
-    --main-layout-bg-color: #{abstracts.$dark-color-1};
-    --main-layout-content-bg-color: #{abstracts.$dark-color-2};
 }
