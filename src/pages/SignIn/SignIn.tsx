@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -30,16 +30,12 @@ const SignIn = () => {
         },
     });
 
-    const navigate = useNavigate();
-
     const handleShowToast = () => toast.error("This feature is not available!");
 
     const handleSignIn = async (values: SignInFormType) => {
         try {
             await signInWithEmail(values.email, values.password);
             await rememberMe(values.rememberMe?.includes(true));
-
-            navigate(configs.routes.home);
         } catch (error) {
             handleFirebaseError(error);
         }

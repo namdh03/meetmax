@@ -1,7 +1,9 @@
+import { Navigate } from "react-router-dom";
+
 import configs from "@/configs";
 import { AuthGuard } from "@/guards";
 import MainLayout from "@/layout/MainLayout";
-import Home from "@/pages/Home";
+import Messages from "@/pages/Messages";
 import NotFound from "@/pages/NotFound";
 
 const privateRoutes = [
@@ -14,7 +16,12 @@ const privateRoutes = [
         children: [
             {
                 path: configs.routes.home,
-                element: <Home />,
+                index: true,
+                element: <Navigate to={configs.routes.messages} />,
+            },
+            {
+                path: configs.routes.messages,
+                element: <Messages />,
             },
         ],
     },

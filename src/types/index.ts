@@ -14,9 +14,31 @@ import { FieldValue, Firestore } from "firebase/firestore";
 import { AuthActionType, Gender, Role } from "@/utils/enum";
 
 // Config types
-export type RouteKey = "home" | "signIn" | "signUp" | "messages" | "notFound";
+export type RouteKey =
+    | "home"
+    | "signIn"
+    | "signUp"
+    | "feed"
+    | "community"
+    | "messages"
+    | "notification"
+    | "explore"
+    | "profile"
+    | "settings"
+    | "notFound";
 
-export type RouteValue = "/" | "/sign-in" | "/sign-up" | "/messages" | "*";
+export type RouteValue =
+    | "/"
+    | "/sign-in"
+    | "/sign-up"
+    | "/feed"
+    | "/community"
+    | "/messages"
+    | "/notification"
+    | "/explore"
+    | "/profile"
+    | "/settings"
+    | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
 
@@ -311,17 +333,14 @@ export type SignUpFormData = {
 
 // Site-bar item
 export type SiteBarItemType = {
-    key: string;
     to: string;
-    text: string;
+    label: string;
     icon: string;
-    count?: number;
-    className?: string;
+    count: number;
     onClick?: () => void;
 };
 
 // Site-bar props
 export type SiteBarProps = {
     list: SiteBarItemType[];
-    className?: string;
 };
