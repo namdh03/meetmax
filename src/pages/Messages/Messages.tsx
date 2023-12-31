@@ -1,12 +1,21 @@
 import Container from "@/components/Container";
+import { MessageProvider } from "@/contexts/message/MessageContext";
+
+import MessageBox from "./components/MessageBox";
+import MessageList from "./components/MessageList";
 
 const Messages = () => {
     return (
-        <section id="app-container" className="messages">
-            <Container>
-                <h1>Testing</h1>
-            </Container>
-        </section>
+        <MessageProvider>
+            <section id="app-container" className="messages">
+                <Container>
+                    <div className="messages__inner">
+                        <MessageList />
+                        <MessageBox />
+                    </div>
+                </Container>
+            </section>
+        </MessageProvider>
     );
 };
 

@@ -115,4 +115,11 @@ html {
         brightness(99%) contrast(103%);
     --site-bar-layout-counter-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-counter-bg-color: #{abstracts.$red-primary-color};
+
+    // Messages
+    --message-list-bg-color: #{abstracts.$grayscale-white-color};
+    --message-search-border-color: #{abstracts.$grayscale-color-w-40};
+    --input-search-text-color: #{abstracts.$grayscale-gray-color};
+    --input-search-placeholder-color: #{abstracts.$grayscale-color-w-80};
+    --message-wishlist-bg-color: #{abstracts.$grayscale-color-w-3};
 }

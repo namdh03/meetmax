@@ -1,7 +1,7 @@
 import { ContainerProps } from "@/types";
 
 const Container = ({ children, className = "", maxWidth }: ContainerProps) => {
-    const classes = `app-container ${
+    const classes = `${
         maxWidth ? `container-${maxWidth}` : `container`
     }  ${className}`;
 

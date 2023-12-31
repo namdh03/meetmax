@@ -353,3 +353,24 @@ export type SiteBarItemType = {
 export type SiteBarProps = {
     list: SiteBarItemType[];
 };
+
+// Messages context type
+export type MessageItemType = {
+    id: string;
+};
+
+export type MessageContextType = {
+    messageList: MessageItemType[];
+    setMessageList: Dispatch<SetStateAction<MessageItemType[]>>;
+};
+
+export type SearchProps = {
+    id: string;
+    name: string;
+    value: string;
+    onSearch: (value: SearchFormProp) => void;
+    placeholder?: string;
+    className?: string;
+};
+
+export type SearchFormProp = { [name: string]: string };

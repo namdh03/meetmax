@@ -80,4 +80,11 @@ html.dark {
     --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
         invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
         brightness(99%) contrast(103%);
+
+    // Messages
+    --message-list-bg-color: #{abstracts.$dark-color-1};
+    --message-search-border-color: #{abstracts.$grayscale-color-w-60};
+    --input-search-text-color: #{abstracts.$grayscale-color-w-10};
+    --input-search-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-wishlist-bg-color: #{abstracts.$dark-color-2};
 }

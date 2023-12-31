@@ -1,0 +1,44 @@
+@use "../abstracts";
+
+.messages {
+    &__inner {
+        @include abstracts.display-flex();
+        column-gap: var(--container-gutter);
+        height: 100%;
+    }
+
+    &__list {
+        min-width: 364px;
+        padding: 20px;
+        border-radius: 16px 16px 0 0;
+        background-color: var(--message-list-bg-color);
+
+        &-heading {
+            @include abstracts.display-flex();
+            column-gap: 20px;
+        }
+
+        &-wishlist {
+            @include abstracts.display-flex(center);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background-color: var(--message-wishlist-bg-color);
+        }
+    }
+
+    &__search {
+        height: 42px;
+        border-color: var(--message-search-border-color);
+
+        .input__children {
+            @extend %body-r-1;
+            color: var(--input-search-text-color);
+
+            &::placeholder {
+                font-weight: 400;
+                color: var(--input-search-placeholder-color);
+            }
+        }
+    }
+}
