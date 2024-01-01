@@ -10,23 +10,48 @@
     }
 
     &__content {
+        position: relative;
         @include abstracts.display-flex(center);
         flex-direction: column;
 
         height: calc(100vh - 78px);
 
         padding-bottom: 40px;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            border-radius: 50%;
+            background: var(--not-found-number-color);
+            filter: blur(50px);
+        }
+
+        &::before {
+            bottom: -60px;
+            left: -60px;
+        }
+
+        &::after {
+            bottom: 50%;
+            right: -100px;
+        }
     }
 
     &__number {
+        margin-top: 10px;
+
         font-size: 20rem;
         font-weight: 700;
         color: var(--not-found-number-color);
-        margin: 0;
     }
 
     &__text {
-        @extend %first-heading;
+        @extend %second-heading;
         color: var(--not-found-text-color);
     }
 
