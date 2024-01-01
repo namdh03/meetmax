@@ -87,4 +87,8 @@ html.dark {
     --input-search-text-color: #{abstracts.$grayscale-color-w-10};
     --input-search-placeholder-color: #{abstracts.$grayscale-color-w-60};
     --message-wishlist-bg-color: #{abstracts.$dark-color-2};
+    --message-icon-color: brightness(0) saturate(100%) invert(90%) sepia(3%)
+        saturate(3648%) hue-rotate(187deg) brightness(74%) contrast(75%);
+    --message-item-bg-color: #{abstracts.$dark-color-2};
+    --message-author-name-color: #{abstracts.$grayscale-color-w-10};
 }

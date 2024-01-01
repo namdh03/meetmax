@@ -122,4 +122,15 @@ html {
     --input-search-text-color: #{abstracts.$grayscale-gray-color};
     --input-search-placeholder-color: #{abstracts.$grayscale-color-w-80};
     --message-wishlist-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-icon-color: brightness(0) saturate(100%) invert(94%) sepia(10%)
+        saturate(94%) hue-rotate(178deg) brightness(97%) contrast(87%);
+    --message-icon-active-color: brightness(0) saturate(100%) invert(65%)
+        sepia(80%) saturate(363%) hue-rotate(100deg) brightness(89%)
+        contrast(88%);
+    --message-item-bg-color: #{abstracts.$grayscale-color-w-5};
+    --message-author-name-color: #{abstracts.$grayscale-gray-color};
+    --message-last-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-time-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-count-text-color: #{abstracts.$grayscale-white-color};
+    --message-count-bg-color: #{abstracts.$red-primary-color};
 }
