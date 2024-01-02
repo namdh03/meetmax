@@ -1,7 +1,7 @@
 @use "../abstracts";
 
 html {
-    // Body 
+    // Body
     --body-bg-color: #{abstracts.$grayscale-white-color};
 
     // Icon
@@ -116,4 +116,14 @@ html {
     // Main layout
     --main-layout-bg-color: #{abstracts.$grayscale-white-color};
     --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
+
+    // Page not found
+    --not-found-bg-color: #f7f7f7 linear-gradient(to bottom, #ffffff, #efefef);
+    --not-found-circle-bg-color: #ccc;
+    --not-found-text-primary-color: #333;
+    --not-found-text-secondary-color: #777;
+    --not-found-text-shadow-color: #ddd;
+    --not-found-box-shadow-primary-color: #eee;
+    --not-found-box-shadow-secondary-color: #ccc;
+    --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
 }

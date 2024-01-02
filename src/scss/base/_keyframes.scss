@@ -6,3 +6,12 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes circle-around {
+    0% {
+        transform: translate(-2.5rem, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(-2.5rem, 0) rotate(360deg);
+    }
+}
