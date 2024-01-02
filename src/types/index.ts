@@ -9,7 +9,7 @@ import {
     GoogleAuthProvider,
     User,
 } from "firebase/auth";
-import { FieldValue, Firestore } from "firebase/firestore";
+import { Firestore, Timestamp } from "firebase/firestore";
 
 import { AuthActionType, Gender, Role } from "@/utils/enum";
 
@@ -111,7 +111,17 @@ export type UserType = {
     avatarName: string;
     coverPhotoUrl: string;
     coverPhotoName: string;
-    createdAt: FieldValue;
+    createdAt: Timestamp;
+};
+
+// Rooms collection types
+export type RoomType = {
+    id: string;
+    members: string[];
+    leaderId: string;
+    isGroup: boolean;
+    groupName: string | null;
+    createdAt: Timestamp;
 };
 
 // Authentication types
@@ -360,6 +370,8 @@ export type MessageItemType = {
 };
 
 export type MessageContextType = {
+    rooms: RoomType[];
+    setRooms: Dispatch<SetStateAction<RoomType[]>>;
     messageList: MessageItemType[];
     setMessageList: Dispatch<SetStateAction<MessageItemType[]>>;
 };
@@ -367,10 +379,8 @@ export type MessageContextType = {
 export type SearchProps = {
     id: string;
     name: string;
-    value: string;
-    onSearch: (value: SearchFormProp) => void;
+    value?: string;
+    onSearch?: (value: string) => void;
     placeholder?: string;
     className?: string;
 };
-
-export type SearchFormProp = { [name: string]: string };

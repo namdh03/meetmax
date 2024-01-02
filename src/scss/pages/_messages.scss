@@ -37,6 +37,7 @@
 
     &__wishlist {
         @include abstracts.display-flex(center);
+        flex-shrink: 0;
         width: 42px;
         height: 42px;
         border-radius: 10px;

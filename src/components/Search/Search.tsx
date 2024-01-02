@@ -1,30 +1,28 @@
+import { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import icons from "@/assets/icons";
-import { SearchFormProp, SearchProps } from "@/types";
+import { useDebounce } from "@/hooks";
+import { SearchProps } from "@/types";
 
 import Input from "../Input";
 
-const Search = ({
-    id,
-    name,
-    value,
-    onSearch,
-    placeholder,
-    className,
-}: SearchProps) => {
-    const { control, handleSubmit } = useForm<SearchFormProp>({
-        defaultValues: {
-            [name]: value,
-        },
-    });
+const Search = memo(
+    ({ id, name, value, onSearch, placeholder, className }: SearchProps) => {
+        const { control, watch } = useForm<{ [name: string]: string }>({
+            defaultValues: {
+                [name]: value,
+            },
+        });
+        const searchWatch = watch(name, value);
+        const searchDebounce = useDebounce(searchWatch);
 
-    const handleSearch = (value: SearchFormProp) => {
-        onSearch(value);
-    };
+        useEffect(() => {
+            onSearch && onSearch(searchDebounce);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [searchDebounce]);
 
-    return (
-        <form onSubmit={handleSubmit(handleSearch)}>
+        return (
             <Input.Text
                 id={id}
                 name={name}
@@ -33,8 +31,8 @@ const Search = ({
                 placeholder={placeholder}
                 className={className}
             />
-        </form>
-    );
-};
+        );
+    }
+);
 
 export default Search;

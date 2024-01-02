@@ -1,13 +1,13 @@
 import icons from "@/assets/icons";
 import Search from "@/components/Search";
-import { SearchFormProp } from "@/types";
+import { useMessage } from "@/hooks";
 
 import MessageItem from "../MessageItem";
 
 const MessageList = () => {
-    const handleSearch = (value: SearchFormProp) => {
-        console.log(value);
-    };
+    const { rooms } = useMessage();
+
+    console.log(rooms);
 
     return (
         <div className="messages__list">
@@ -18,7 +18,7 @@ const MessageList = () => {
                     value=""
                     placeholder="Search"
                     className="messages__search"
-                    onSearch={handleSearch}
+                    onSearch={() => {}}
                 />
 
                 <div className="messages__wishlist">
