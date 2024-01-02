@@ -5,27 +5,20 @@ const NotFound = () => {
     return (
         <div className="not-found">
             <div id="particles" className="not-found__particles">
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
-                <span className="not-found__star"></span>
+                {[...Array(12)].map(() => (
+                    <span className="not-found__star"></span>
+                ))}
             </div>
 
             <section className="not-found__body">
                 <h1 className="not-found__title">Page Not Found!</h1>
+
                 <div className="not-found__number">
                     <span className="not-found__span">4</span>
                     <span className="not-found__circle">0</span>
                     <span className="not-found__span">4</span>
                 </div>
+
                 <p className="not-found__text">
                     We are unable to find the page you're looking for.
                 </p>

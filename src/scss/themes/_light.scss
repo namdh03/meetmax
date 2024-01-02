@@ -118,11 +118,12 @@ html {
     --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
 
     // Page not found
-    --not-found-bg-color: #e6f1a3 radial-gradient(#f9ffd2, #ecff70);
-    --not-found-circle-bg-color: #124;
-    --not-found-text-primary-color: #efefef;
-    --not-found-text-secondary-color: #fafafa;
-    --not-found-text-shadow-color: #c3d168a2;
-    --not-found-box-shadow-primary-color: #e7f1a3a2;
-    --not-found-box-shadow-secondary-color: #e1f17859;
+    --not-found-bg-color: #f7f7f7 linear-gradient(to bottom, #ffffff, #efefef);
+    --not-found-circle-bg-color: #ccc;
+    --not-found-text-primary-color: #333;
+    --not-found-text-secondary-color: #777;
+    --not-found-text-shadow-color: #ddd;
+    --not-found-box-shadow-primary-color: #eee;
+    --not-found-box-shadow-secondary-color: #ccc;
+    --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
 }
