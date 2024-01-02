@@ -116,4 +116,13 @@ html {
     // Main layout
     --main-layout-bg-color: #{abstracts.$grayscale-white-color};
     --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
+
+    // Page not found
+    --not-found-bg-color: #e6f1a3 radial-gradient(#f9ffd2, #ecff70);
+    --not-found-circle-bg-color: #124;
+    --not-found-text-primary-color: #efefef;
+    --not-found-text-secondary-color: #fafafa;
+    --not-found-text-shadow-color: #c3d168a2;
+    --not-found-box-shadow-primary-color: #e7f1a3a2;
+    --not-found-box-shadow-secondary-color: #e1f17859;
 }
