@@ -378,7 +378,6 @@ export type SearchProps = {
 };
 
 // Forgot Password
-export type ForgotPasswordProps = {
+export type ForgotPasswordFormData = {
     email: string;
-    icon?: string;
 };
