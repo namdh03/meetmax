@@ -1,6 +1,7 @@
 import active from "@/assets/icons/active.svg";
 import add from "@/assets/icons/add.svg";
 import angleDown from "@/assets/icons/angle-down.svg";
+import angleLeft from "@/assets/icons/angle-left.svg";
 import angleRight from "@/assets/icons/angle-right.svg";
 import angleUp from "@/assets/icons/angle-up.svg";
 import apple from "@/assets/icons/apple.svg";
@@ -91,6 +92,7 @@ const icons = {
     active,
     add,
     angleDown,
+    angleLeft,
     angleRight,
     angleUp,
     apple,
