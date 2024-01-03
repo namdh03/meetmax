@@ -6,7 +6,7 @@
 
     &__item {
         @include abstracts.display-flex(center, null);
-        gap: 20px;
+        column-gap: 20px;
 
         min-width: 200px;
         padding: 11px 20px;
@@ -34,7 +34,7 @@
 
     &__info {
         @include abstracts.display-flex(center, null);
-        gap: 14px;
+        column-gap: 14px;
     }
 
     &__text {

@@ -9,7 +9,7 @@ import {
     GoogleAuthProvider,
     User,
 } from "firebase/auth";
-import { FieldValue, Firestore } from "firebase/firestore";
+import { Firestore, Timestamp } from "firebase/firestore";
 
 import { AuthActionType, Gender, Role } from "@/utils/enum";
 
@@ -52,31 +52,9 @@ export type FirebaseConfigType = {
 };
 
 // Collection types
-export type CollectionKey =
-    | "users"
-    | "rooms"
-    | "userRooms"
-    | "messages"
-    | "passwordHistory"
-    | "followers"
-    | "followings"
-    | "blockList"
-    | "posts"
-    | "postImages"
-    | "postTags";
+export type CollectionKey = "users" | "conversations" | "participants";
 
-export type CollectionValue =
-    | "users"
-    | "rooms"
-    | "userRooms"
-    | "messages"
-    | "passwordHistory"
-    | "followers"
-    | "followings"
-    | "blockList"
-    | "posts"
-    | "postImages"
-    | "postTags";
+export type CollectionValue = "users" | "conversations" | "participants";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -111,7 +89,26 @@ export type UserType = {
     avatarName: string;
     coverPhotoUrl: string;
     coverPhotoName: string;
-    createdAt: FieldValue;
+    createdAt: Timestamp;
+};
+
+// Conversation collection types
+export type ConversationType = {
+    id: string;
+    creatorId: string;
+    title: string;
+    avatarUrl: string;
+    avatarName: string;
+    createdAt: Timestamp;
+};
+
+// Participant collection types
+export type ParticipantType = {
+    id: string;
+    conversationId: string;
+    userId: string;
+    type: ParticipantType;
+    createdAt: Timestamp;
 };
 
 // Authentication types
@@ -134,6 +131,15 @@ export type ReducerHandlers = {
     INITIALIZE(state: AuthState, action: PayloadAction<AuthState>): AuthState;
     SIGN_IN(state: AuthState, action: PayloadAction<AuthState>): AuthState;
     SIGN_OUT(state: AuthState): AuthState;
+};
+
+// Grid System - Container props
+export type MaxWithKey = "sm" | "md" | "lg" | "xl" | "xxl";
+
+export type ContainerProps = {
+    children: ReactNode;
+    className?: string;
+    maxWidth?: MaxWithKey;
 };
 
 // Role based guard types
@@ -349,4 +355,22 @@ export type SiteBarProps = {
 export type LoaderProps = {
     children?: ReactNode;
     loading?: boolean;
+};
+
+// Messages context type
+export type MessageItemType = {
+    id: string;
+};
+
+export type MessageContextType = {
+    conversations: ConversationType[];
+};
+
+export type SearchProps = {
+    id: string;
+    name: string;
+    value?: string;
+    onSearch?: (value: string) => void;
+    placeholder?: string;
+    className?: string;
 };
