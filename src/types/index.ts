@@ -351,6 +351,12 @@ export type SiteBarProps = {
     list: SiteBarItemType[];
 };
 
+// Loader props
+export type LoaderProps = {
+    children?: ReactNode;
+    loading?: boolean;
+};
+
 // Messages context type
 export type MessageItemType = {
     id: string;

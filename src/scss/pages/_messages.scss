@@ -26,11 +26,11 @@
 
         .input__children {
             @extend %body-r-1;
-            color: var(--input-search-text-color);
+            color: var(--message-input-search-text-color);
 
             &::placeholder {
                 font-weight: 400;
-                color: var(--input-search-placeholder-color);
+                color: var(--message-input-search-placeholder-color);
             }
         }
     }

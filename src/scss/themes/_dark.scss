@@ -81,11 +81,26 @@ html.dark {
         invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
         brightness(99%) contrast(103%);
 
+    // Page not found
+    --not-found-bg-color: #e6f1a3 radial-gradient(#f9ffd2, #ecff70);
+    --not-found-circle-bg-color: #124;
+    --not-found-text-primary-color: #efefef;
+    --not-found-text-secondary-color: #fafafa;
+    --not-found-text-shadow-color: #c3d168a2;
+    --not-found-box-shadow-primary-color: #e7f1a3a2;
+    --not-found-box-shadow-secondary-color: #e1f17859;
+    --not-found-gradient-color: radial-gradient(
+        circle,
+        rgb(28, 27, 90) 0%,
+        rgb(15, 18, 44) 30%,
+        rgb(15, 13, 31) 100%
+    );
+
     // Messages
     --message-list-bg-color: #{abstracts.$dark-color-1};
     --message-search-border-color: #{abstracts.$grayscale-color-w-60};
-    --input-search-text-color: #{abstracts.$grayscale-color-w-10};
-    --input-search-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-input-search-text-color: #{abstracts.$grayscale-color-w-10};
+    --message-input-search-placeholder-color: #{abstracts.$grayscale-color-w-60};
     --message-wishlist-bg-color: #{abstracts.$dark-color-2};
     --message-icon-color: brightness(0) saturate(100%) invert(90%) sepia(3%)
         saturate(3648%) hue-rotate(187deg) brightness(74%) contrast(75%);

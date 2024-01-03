@@ -2,7 +2,7 @@
 
 .body {
     @include abstracts.display-flex();
-    min-height: calc(100vh - var(--header-height));
+    min-height: 100vh; 
     padding-top: var(--header-height);
 
     main {

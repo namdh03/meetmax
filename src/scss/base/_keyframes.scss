@@ -6,3 +6,28 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes circle-around {
+    0% {
+        transform: translate(-2.5rem, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(-2.5rem, 0) rotate(360deg);
+    }
+}
+
+// Loading keyframes
+@keyframes flash {
+    0% {
+        background-color: var(--loading-color);
+        box-shadow: 20px 0 var(--loading-color), -20px 0 var(--loading-color-2);
+    }
+    50% {
+        background-color: var(--loading-color-2);
+        box-shadow: 20px 0 var(--loading-color), -20px 0 var(--loading-color);
+    }
+    100% {
+        background-color: var(--loading-color);
+        box-shadow: 20px 0 var(--loading-color-2), -20px 0 var(--loading-color);
+    }
+}
