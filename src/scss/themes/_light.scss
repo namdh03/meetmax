@@ -4,6 +4,9 @@ html {
     // Body
     --body-bg-color: #{abstracts.$grayscale-white-color};
 
+    // Container
+    --app-container-bg-color: #{abstracts.$grayscale-color-w-3};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
         saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
@@ -113,10 +116,6 @@ html {
     --site-bar-layout-counter-color: #{abstracts.$grayscale-white-color};
     --site-bar-layout-counter-bg-color: #{abstracts.$red-primary-color};
 
-    // Main layout
-    --main-layout-bg-color: #{abstracts.$grayscale-white-color};
-    --main-layout-content-bg-color: #{abstracts.$grayscale-color-w-3};
-
     // Page not found
     --not-found-bg-color: #f7f7f7 linear-gradient(to bottom, #ffffff, #efefef);
     --not-found-circle-bg-color: #ccc;
@@ -126,6 +125,32 @@ html {
     --not-found-box-shadow-primary-color: #eee;
     --not-found-box-shadow-secondary-color: #ccc;
     --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
+
+    // Loading
+    --loading-bg-color: #{abstracts.$blue-primary-color};
+    --loading-color: #{abstracts.$grayscale-white-color};
+    --loading-color-2: #{abstracts.$grayscale-color-w-40};
+
+    // Loader
+    --loader-border-color: #{abstracts.$blue-primary-color};
+
+    // Messages
+    --message-list-bg-color: #{abstracts.$grayscale-white-color};
+    --message-search-border-color: #{abstracts.$grayscale-color-w-40};
+    --message-input-search-text-color: #{abstracts.$grayscale-gray-color};
+    --message-input-search-placeholder-color: #{abstracts.$grayscale-color-w-80};
+    --message-wishlist-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-icon-color: brightness(0) saturate(100%) invert(94%) sepia(10%)
+        saturate(94%) hue-rotate(178deg) brightness(97%) contrast(87%);
+    --message-icon-active-color: brightness(0) saturate(100%) invert(65%)
+        sepia(80%) saturate(363%) hue-rotate(100deg) brightness(89%)
+        contrast(88%);
+    --message-item-bg-color: #{abstracts.$grayscale-color-w-5};
+    --message-author-name-color: #{abstracts.$grayscale-gray-color};
+    --message-last-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-time-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-count-text-color: #{abstracts.$grayscale-white-color};
+    --message-count-bg-color: #{abstracts.$red-primary-color};
 
     // Forgot password
     --forgot-password-title-color: #{abstracts.$grayscale-gray-color};

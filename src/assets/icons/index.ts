@@ -74,7 +74,8 @@ import setting from "@/assets/icons/setting.svg";
 import share from "@/assets/icons/share.svg";
 import shareColor from "@/assets/icons/share-color.svg";
 import smile from "@/assets/icons/smile.svg";
-import star from "@/assets/icons/star.svg";
+import starSolid from "@/assets/icons/star-solid.svg";
+import starThin from "@/assets/icons/star-thin.svg";
 import twitter from "@/assets/icons/twitter.svg";
 import unExpand from "@/assets/icons/un-expand.svg";
 import unFollow from "@/assets/icons/un-follow.svg";
@@ -163,7 +164,8 @@ const icons = {
     share,
     shareColor,
     smile,
-    star,
+    starSolid,
+    starThin,
     twitter,
     unExpand,
     unFollow,
