@@ -44,20 +44,20 @@ const ForgotPassword = () => {
                     >
                         Send
                     </Button>
+                    <div className="forgot-password__back">
+                        <img
+                            src={icons.angleLeft}
+                            alt=""
+                            className="icon forgot-password__icon"
+                        />
+                        <Link
+                            to={configs.routes.signIn}
+                            className="forgot-password__link"
+                        >
+                            Back to Sign In
+                        </Link>
+                    </div>
                 </form>
-                <div className="forgot-password__back">
-                    <img
-                        src={icons.angleLeft}
-                        alt=""
-                        className="icon forgot-password__icon"
-                    />
-                    <Link
-                        to={configs.routes.signIn}
-                        className="forgot-password__link"
-                    >
-                        Back to Sign In
-                    </Link>
-                </div>
             </div>
         </div>
     );
