@@ -106,4 +106,10 @@ html.dark {
         saturate(3648%) hue-rotate(187deg) brightness(74%) contrast(75%);
     --message-item-bg-color: #{abstracts.$dark-color-2};
     --message-author-name-color: #{abstracts.$grayscale-color-w-10};
+
+    // Box message
+    --message-bg-color: #{abstracts.$dark-color-1};
+    --message-name-color: #{abstracts.$grayscale-color-w-10};
+    --message-active-color: #{abstracts.$green-primary-color};
+    --message-border-color: #{abstracts.$grayscale-gray-color};
 }

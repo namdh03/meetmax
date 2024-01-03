@@ -143,4 +143,77 @@
             }
         }
     }
+
+    &__box {
+        flex: 1;
+        background: var(--message-bg-color);
+        border-radius: 16px 16px 0 0;
+
+        overflow: hidden;
+    }
+
+    &__header {
+        @include abstracts.display-flex(center, space-between);
+        padding: 18px;
+        border-bottom: solid 1px var(--message-border-color);
+
+        &-user {
+            @include abstracts.display-flex(center);
+            column-gap: 18px;
+
+            cursor: pointer;
+        }
+
+        &-name {
+            @extend %display-m;
+            color: var(--message-name-color);
+        }
+
+        &-status {
+            @extend %body-m-3;
+            color: var(--message-status-color);
+
+            &--active {
+                position: relative;
+
+                &::after {
+                    display: inline-block;
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    right: -10px;
+                    transform: translateY(-50%);
+
+                    width: 10px;
+                    height: 10px;
+                    border: 1px solid var(--message-border-active-color);
+                    border-radius: 50%;
+                    background: var(--message-active-color);
+                }
+            }
+        }
+
+        &-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        &-actions {
+            @include abstracts.display-flex(center);
+            column-gap: 20px;
+        }
+
+        &-button {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        &-icon {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
