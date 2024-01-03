@@ -344,3 +344,9 @@ export type SiteBarItemType = {
 export type SiteBarProps = {
     list: SiteBarItemType[];
 };
+
+// Loader props
+export type LoaderProps = {
+    children?: ReactNode;
+    loading?: boolean;
+};

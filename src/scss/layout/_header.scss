@@ -13,6 +13,7 @@
     &__user {
         @include abstracts.display-flex(center);
 
+        column-gap: 20px;
         border-radius: 10px;
         background: var(--header-layout-user-color);
         box-shadow: 0px 4px 10px 0px var(--header-layout-shadow-color);
@@ -20,8 +21,6 @@
     }
 
     &__name {
-        padding: 9px 20px;
-
         @extend %display-m;
         color: var(--header-layout-color);
     }
