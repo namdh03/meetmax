@@ -12,6 +12,7 @@ const routes: RouteConfigType = {
     profile: "/profile",
     settings: "/settings",
     notFound: "*",
+    forgotPassword: "/forgot-password",
 };
 
 export default routes;

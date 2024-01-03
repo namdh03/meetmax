@@ -126,4 +126,14 @@ html {
     --not-found-box-shadow-primary-color: #eee;
     --not-found-box-shadow-secondary-color: #ccc;
     --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-gray-color};
+    --forgot-password-header-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-bg-color-1: rgba(255, 255, 255, 0.4);
+    --forgot-password-bg-color-2: rgba(255, 255, 255, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-shadow-form-color: rgba(205, 205, 212, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
 }

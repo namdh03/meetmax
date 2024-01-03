@@ -96,4 +96,14 @@ html.dark {
         rgb(15, 18, 44) 30%,
         rgb(15, 13, 31) 100%
     );
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-color-w-10};
+    --forgot-password-header-color: #{abstracts.$dark-color-1};
+    --forgot-password-bg-color-1: rgba(22, 28, 39, 0.4);
+    --forgot-password-bg-color-2: rgba(22, 28, 39, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$dark-color-2};
+    --forgot-password-shadow-form-color: rgba(51, 62, 82, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
 }

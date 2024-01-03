@@ -25,6 +25,7 @@ export type RouteKey =
     | "explore"
     | "profile"
     | "settings"
+    | "forgotPassword"
     | "notFound";
 
 export type RouteValue =
@@ -38,6 +39,7 @@ export type RouteValue =
     | "/explore"
     | "/profile"
     | "/settings"
+    | "/forgot-password"
     | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
@@ -343,4 +345,10 @@ export type SiteBarItemType = {
 // Site-bar props
 export type SiteBarProps = {
     list: SiteBarItemType[];
+};
+
+// Forgot Password
+export type ForgotPasswordProps = {
+    email: string;
+    icon?: string;
 };
