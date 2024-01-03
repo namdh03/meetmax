@@ -1,0 +1,51 @@
+@use "../abstracts";
+
+.loader {
+    @include abstracts.display-flex(center);
+
+    width: 100%;
+    height: 100%;
+
+    // Background just use one time so that don't need to create a variable
+    background: rgba(0, 0, 0, 0.3);
+
+    &__icon {
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+        position: relative;
+        background-color: var(--loader-border-color);
+        background: radial-gradient(
+            ellipse at center,
+            var(--loader-stick-color) 0%,
+            var(--loader-stick-color) 14%,
+            var(--loader-border-color) 15%,
+            var(--loader-border-color) 100%
+        );
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+
+        &::after,
+        &::before {
+            content: "";
+            position: absolute;
+            height: 16px;
+            width: 4px;
+            background: var(--loader-stick-color);
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            transform-origin: 25% 0;
+            box-sizing: border-box;
+            animation: rotation 10s linear infinite;
+        }
+
+        &::before {
+            height: 22px;
+            width: 2px;
+            transform: translateX(-50%) rotate(0deg);
+            animation-duration: 1s;
+        }
+    }
+}
