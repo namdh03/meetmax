@@ -126,4 +126,12 @@ html {
     --not-found-box-shadow-primary-color: #eee;
     --not-found-box-shadow-secondary-color: #ccc;
     --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
+
+    // Loading
+    --loading-bg-color: #{abstracts.$blue-primary-color};
+    --loading-color: #{abstracts.$grayscale-white-color};
+    --loading-color-2: #{abstracts.$grayscale-color-w-40};
+
+    // Loader
+    --loader-border-color: #{abstracts.$blue-primary-color};
 }

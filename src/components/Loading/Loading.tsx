@@ -1,5 +1,9 @@
 const Loading = () => {
-    return <div>Loading</div>;
+    return (
+        <div className="loading">
+            <span className="loading__icon"></span>
+        </div>
+    );
 };
 
 export default Loading;
