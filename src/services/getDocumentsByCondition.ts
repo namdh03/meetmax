@@ -9,26 +9,23 @@ import {
 import configs from "@/configs";
 import { CollectionValue } from "@/types";
 
-type DataResult = {
-    id: string;
-    data: DocumentData;
-};
-
-export default async function getDocumentsByCondition(
+const getDocumentsByCondition = async (
     _collection: CollectionValue,
     ...queryConstraints: QueryConstraint[]
-) {
-    const data: DataResult[] = [];
+) => {
+    const data: DocumentData[] = [];
     const colRef = collection(configs.firebase.db, _collection);
     const q = query(colRef, ...queryConstraints);
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
         data.push({
+            ...doc.data(),
             id: doc.id,
-            data: doc.data(),
         });
     });
 
     return data;
-}
+};
+
+export default getDocumentsByCondition;

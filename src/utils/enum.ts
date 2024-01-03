@@ -14,3 +14,8 @@ export enum Gender {
     FEMALE = "FEMALE",
     OTHER = "OTHER",
 }
+
+export enum ParticipantType {
+    SINGLE = "SINGLE",
+    GROUP = "GROUP",
+}

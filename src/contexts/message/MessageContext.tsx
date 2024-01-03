@@ -3,61 +3,58 @@ import {
     FC,
     PropsWithChildren,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 
-import { where } from "firebase/firestore";
-
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth } from "@/hooks";
+import { useAuth, useFirestore } from "@/hooks";
+import { getDocumentId, queryConstraints } from "@/services";
 import getDocumentsByCondition from "@/services/getDocumentsByCondition";
-import { MessageContextType, MessageItemType, RoomType } from "@/types";
+import { ConversationType, MessageContextType } from "@/types";
 
 // Create context
 const MessageContext = createContext<MessageContextType>({
-    rooms: [],
-    setRooms: () => {},
-    messageList: [],
-    setMessageList: () => {},
+    conversations: [],
 });
 
 // Create provider
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const { user } = useAuth();
-    const [rooms, setRooms] = useState<RoomType[]>([]);
-    const [messageList, setMessageList] = useState<MessageItemType[]>([]);
+    const [conversations, setConversations] = useState<ConversationType[]>([]);
+    const participants = useFirestore(
+        configs.collections.participants,
+        queryConstraints.where("userId", "==", user?.uid)
+    );
+    const conversationIds = useMemo(
+        () => participants.map((participant) => participant.conversationId),
+        [participants]
+    );
 
     useEffect(() => {
         (async () => {
             try {
-                if (!user) return;
+                if (!conversationIds.length) return;
 
-                const documents: RoomType[] = [];
                 const result = await getDocumentsByCondition(
-                    configs.collections.rooms,
-                    where("members", "array-contains", user.uid)
+                    configs.collections.conversations,
+                    queryConstraints.where(
+                        getDocumentId(),
+                        "in",
+                        conversationIds
+                    )
                 );
 
-                result.forEach((room) => {
-                    documents.push({
-                        ...room.data,
-                        id: room.id,
-                    } as RoomType);
-                });
-
-                setRooms(documents);
+                setConversations(result as ConversationType[]);
             } catch (error) {
                 handleFirebaseError(error);
             }
         })();
-    }, [user]);
+    }, [conversationIds]);
 
     const values: MessageContextType = {
-        rooms,
-        setRooms,
-        messageList,
-        setMessageList,
+        conversations,
     };
 
     return (

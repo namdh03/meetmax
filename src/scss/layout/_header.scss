@@ -3,6 +3,12 @@
 .header {
     --header-layout-height: 78px;
 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+
     @include abstracts.display-flex(center, space-between);
 
     padding: 18px 30px;

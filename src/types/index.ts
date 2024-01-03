@@ -52,31 +52,9 @@ export type FirebaseConfigType = {
 };
 
 // Collection types
-export type CollectionKey =
-    | "users"
-    | "rooms"
-    | "userRooms"
-    | "messages"
-    | "passwordHistory"
-    | "followers"
-    | "followings"
-    | "blockList"
-    | "posts"
-    | "postImages"
-    | "postTags";
+export type CollectionKey = "users" | "conversations" | "participants";
 
-export type CollectionValue =
-    | "users"
-    | "rooms"
-    | "userRooms"
-    | "messages"
-    | "passwordHistory"
-    | "followers"
-    | "followings"
-    | "blockList"
-    | "posts"
-    | "postImages"
-    | "postTags";
+export type CollectionValue = "users" | "conversations" | "participants";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -114,13 +92,22 @@ export type UserType = {
     createdAt: Timestamp;
 };
 
-// Rooms collection types
-export type RoomType = {
+// Conversation collection types
+export type ConversationType = {
     id: string;
-    members: string[];
-    leaderId: string;
-    isGroup: boolean;
-    groupName: string | null;
+    creatorId: string;
+    title: string;
+    avatarUrl: string;
+    avatarName: string;
+    createdAt: Timestamp;
+};
+
+// Participant collection types
+export type ParticipantType = {
+    id: string;
+    conversationId: string;
+    userId: string;
+    type: ParticipantType;
     createdAt: Timestamp;
 };
 
@@ -370,10 +357,7 @@ export type MessageItemType = {
 };
 
 export type MessageContextType = {
-    rooms: RoomType[];
-    setRooms: Dispatch<SetStateAction<RoomType[]>>;
-    messageList: MessageItemType[];
-    setMessageList: Dispatch<SetStateAction<MessageItemType[]>>;
+    conversations: ConversationType[];
 };
 
 export type SearchProps = {

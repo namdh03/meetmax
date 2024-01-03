@@ -5,9 +5,7 @@ import { useMessage } from "@/hooks";
 import MessageItem from "../MessageItem";
 
 const MessageList = () => {
-    const { rooms } = useMessage();
-
-    console.log(rooms);
+    const { conversations } = useMessage();
 
     return (
         <div className="messages__list">
@@ -31,7 +29,9 @@ const MessageList = () => {
             </div>
 
             <div className="messages__content">
-                <MessageItem />
+                {conversations.map((conversation) => (
+                    <MessageItem key={conversation.id} />
+                ))}
             </div>
         </div>
     );
