@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { Firestore, Timestamp } from "firebase/firestore";
 
-import { AuthActionType, Gender, Role } from "@/utils/enum";
+import { AuthActionType, Gender, Participant, Role } from "@/utils/enum";
 
 // Config types
 export type RouteKey =
@@ -52,9 +52,9 @@ export type FirebaseConfigType = {
 };
 
 // Collection types
-export type CollectionKey = "users" | "conversations" | "participants";
+export type CollectionKey = "users" | "conversations";
 
-export type CollectionValue = "users" | "conversations" | "participants";
+export type CollectionValue = "users" | "conversations";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -96,18 +96,13 @@ export type UserType = {
 export type ConversationType = {
     id: string;
     creatorId: string;
+    type: Participant;
     title: string;
     avatarUrl: string;
     avatarName: string;
-    createdAt: Timestamp;
-};
-
-// Participant collection types
-export type ParticipantType = {
-    id: string;
-    conversationId: string;
-    userId: string;
-    type: ParticipantType;
+    lastMessage: string;
+    lastMessageTime: Timestamp;
+    participants: string[];
     createdAt: Timestamp;
 };
 
@@ -357,12 +352,18 @@ export type LoaderProps = {
     loading?: boolean;
 };
 
+// Message loading type
+export type MessageLoadingType = {
+    conversationLoading: boolean;
+};
+
 // Messages context type
 export type MessageItemType = {
     id: string;
 };
 
 export type MessageContextType = {
+    loading: MessageLoadingType;
     conversations: ConversationType[];
 };
 
@@ -373,4 +374,13 @@ export type SearchProps = {
     onSearch?: (value: string) => void;
     placeholder?: string;
     className?: string;
+};
+
+export type MessageItemProps = {
+    participants: string[];
+    type: Participant;
+    avatar: string;
+    title: string;
+    lastMessage: string;
+    lastMessageTime: Timestamp;
 };

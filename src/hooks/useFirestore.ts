@@ -16,6 +16,7 @@ const useFirestore = (
     ...queryConstraints: QueryConstraint[]
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const colRef = collection(configs.firebase.db, _collection);
@@ -27,13 +28,14 @@ const useFirestore = (
             }));
 
             setDocuments(result);
+            setLoading(false);
         });
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return documents;
+    return { documents, loading };
 };
 
 export default useFirestore;

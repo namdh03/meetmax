@@ -89,6 +89,12 @@
         &-author-name {
             @extend %display-m;
             color: var(--message-author-name-color);
+
+            display: -webkit-box;
+            -webkit-line-clamp: var(--line-clamp, 1);
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            max-width: 180px;
         }
 
         &-last-msg {

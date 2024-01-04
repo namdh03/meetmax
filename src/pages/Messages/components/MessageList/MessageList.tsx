@@ -1,11 +1,12 @@
 import icons from "@/assets/icons";
+import Loader from "@/components/Loader";
 import Search from "@/components/Search";
 import { useMessage } from "@/hooks";
 
 import MessageItem from "../MessageItem";
 
 const MessageList = () => {
-    const { conversations } = useMessage();
+    const { loading, conversations } = useMessage();
 
     return (
         <div className="messages__list">
@@ -28,11 +29,21 @@ const MessageList = () => {
                 </div>
             </div>
 
-            <div className="messages__content">
-                {conversations.map((conversation) => (
-                    <MessageItem key={conversation.id} />
-                ))}
-            </div>
+            <Loader loading={loading.conversationLoading}>
+                <div className="messages__content">
+                    {conversations.map((conversation) => (
+                        <MessageItem
+                            key={conversation.id}
+                            participants={conversation.participants}
+                            type={conversation.type}
+                            avatar={conversation.avatarUrl}
+                            lastMessageTime={conversation.lastMessageTime}
+                            title={conversation.title}
+                            lastMessage={conversation.lastMessage}
+                        />
+                    ))}
+                </div>
+            </Loader>
         </div>
     );
 };
