@@ -20,7 +20,7 @@ const Header = () => {
                     <img
                         className="header__avatar"
                         src={user?.photoURL || images.avatar}
-                        alt={user?.displayName || user?.email || "Avatar"}
+                        alt={user?.displayName || "Avatar"}
                     />
                 </Loader>
             </div>
