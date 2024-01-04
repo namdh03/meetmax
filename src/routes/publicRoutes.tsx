@@ -1,6 +1,7 @@
 import configs from "@/configs";
 import { GuestGuard } from "@/guards";
 import AuthLayout from "@/layout/AuthLayout";
+import CheckEmail from "@/pages/CheckEmail";
 import ForgotPassword from "@/pages/ForgotPassword";
 import NotFound from "@/pages/NotFound";
 import SignIn from "@/pages/SignIn";
@@ -42,6 +43,10 @@ const publicRoutes = [
     {
         path: configs.routes.forgotPassword,
         element: <ForgotPassword />,
+    },
+    {
+        path: configs.routes.checkEmail,
+        element: <CheckEmail />,
     },
     {
         path: configs.routes.notFound,

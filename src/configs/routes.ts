@@ -13,6 +13,7 @@ const routes: RouteConfigType = {
     settings: "/settings",
     notFound: "*",
     forgotPassword: "/forgot-password",
+    checkEmail: "/check-email",
 };
 
 export default routes;

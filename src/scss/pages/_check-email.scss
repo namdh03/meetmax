@@ -1,0 +1,75 @@
+@use "../abstracts";
+
+.check-email {
+    @include abstracts.display-flex(null, center);
+
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-top: var(--header-height);
+
+    &__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+
+        height: var(--header-height);
+        padding: 25px 30px;
+        background: var(--check-email-header-color);
+    }
+
+    &__wrapper {
+        @include abstracts.display-flex(center, null);
+        flex-direction: column;
+
+        width: 580px;
+        padding: 40px;
+        border-radius: 20px;
+        height: 296px;
+        background: var(--check-email-wrapper-bg-color);
+    }
+
+    &__title {
+        @extend %first-heading;
+
+        color: var(--check-email-title-color);
+    }
+
+    &__link {
+        @include abstracts.display-flex(center, null);
+        margin-top: 20px;
+        gap: 5px;
+    }
+
+    &__desc {
+        @extend %display-m;
+
+        color: var(--check-email-title-color);
+    }
+
+    &__email {
+        @extend %display-m;
+
+        color: var(--check-email-link-email-color);
+    }
+
+    &__button {
+        margin-top: 20px;
+        width: 500px;
+        height: 52px;
+    }
+
+    &__help {
+        @include abstracts.display-flex(center, null);
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    &__resend {
+        @extend %display-m;
+
+        color: var(--check-email-resend-color);
+    }
+}
