@@ -1,12 +1,18 @@
 import icons from "@/assets/icons";
 import Loader from "@/components/Loader";
 import Search from "@/components/Search";
-import { useMessage } from "@/hooks";
+import { useAuth, useMessage } from "@/hooks";
 
 import MessageItem from "../MessageItem";
 
 const MessageList = () => {
-    const { loading, conversations } = useMessage();
+    const { user } = useAuth();
+    const {
+        loading,
+        conversations,
+        selectedConversation,
+        handleSelectedConversation,
+    } = useMessage();
 
     return (
         <div className="messages__list">
@@ -34,12 +40,18 @@ const MessageList = () => {
                     {conversations.map((conversation) => (
                         <MessageItem
                             key={conversation.id}
+                            userId={user?.uid}
+                            active={selectedConversation === conversation.id}
                             participants={conversation.participants}
+                            unreadMessages={conversation.unreadMessages}
                             type={conversation.type}
                             avatar={conversation.avatarUrl}
                             lastMessageTime={conversation.lastMessageTime}
                             title={conversation.title}
                             lastMessage={conversation.lastMessage}
+                            onClick={() =>
+                                handleSelectedConversation(conversation.id)
+                            }
                         />
                     ))}
                 </div>

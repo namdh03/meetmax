@@ -92,6 +92,12 @@ export type UserType = {
     createdAt: Timestamp;
 };
 
+// Unread messages collection types
+export type UnreadMessageType = {
+    userId: string;
+    count: number;
+};
+
 // Conversation collection types
 export type ConversationType = {
     id: string;
@@ -103,6 +109,7 @@ export type ConversationType = {
     lastMessage: string;
     lastMessageTime: Timestamp;
     participants: string[];
+    unreadMessages: UnreadMessageType[];
     createdAt: Timestamp;
 };
 
@@ -365,6 +372,8 @@ export type MessageItemType = {
 export type MessageContextType = {
     loading: MessageLoadingType;
     conversations: ConversationType[];
+    selectedConversation: string | null;
+    handleSelectedConversation: (id: string) => void;
 };
 
 export type SearchProps = {
@@ -377,10 +386,14 @@ export type SearchProps = {
 };
 
 export type MessageItemProps = {
+    userId: string | undefined;
+    active: boolean;
     participants: string[];
+    unreadMessages: UnreadMessageType[];
     type: Participant;
     avatar: string;
     title: string;
     lastMessage: string;
     lastMessageTime: Timestamp;
+    onClick: () => void;
 };

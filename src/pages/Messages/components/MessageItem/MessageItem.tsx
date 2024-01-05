@@ -1,46 +1,57 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import icons from "@/assets/icons";
 import images from "@/assets/images";
 import Loader from "@/components/Loader";
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth } from "@/hooks";
 import { getDocument } from "@/services";
-import { MessageItemProps, UserType } from "@/types";
+import { MessageItemProps, UnreadMessageType, UserType } from "@/types";
 import { Participant } from "@/utils/enum";
 
 const MessageItem = ({
+    userId,
+    active,
     participants,
+    unreadMessages,
     type,
     avatar,
     title,
     lastMessage,
     lastMessageTime,
+    onClick,
 }: MessageItemProps) => {
-    // TODO: Replace with real data
-    const unreadCount = 0;
-
-    const { user } = useAuth();
+    // Participant is using when type is not group, participant is not current user
     const [participant, setParticipant] = useState<UserType | null>(null);
+    // Unread message will check if current user has unread message
+    const [unreadMessage, setUnreadMessage] = useState<UnreadMessageType>();
     const [loading, setLoading] = useState<boolean>(true);
+    const classes = ["messages__item"];
+
+    if (active) classes.push("messages__item--active");
 
     useEffect(() => {
-        if (!user || type === Participant.GROUP) return;
+        if (!userId || type === Participant.GROUP) return setLoading(false);
 
         const participantId = participants.find(
-            (participant) => participant !== user.uid
+            (participant) => participant !== userId
         );
 
         (async () => {
             try {
                 if (!participantId) return;
 
+                // Get participant data
                 const result = await getDocument(
                     configs.collections.users,
                     participantId
                 );
+                // Get unread message
+                const unreadMessage = unreadMessages.find(
+                    (message) => message.userId === userId
+                );
 
+                setUnreadMessage(unreadMessage);
                 setParticipant(result.data() as UserType);
             } catch (error) {
                 handleFirebaseError(error);
@@ -48,7 +59,7 @@ const MessageItem = ({
                 setLoading(false);
             }
         })();
-    }, [participants, type, user]);
+    }, [participants, type, unreadMessages, userId]);
 
     const getDateFormat = (timestamp: number) => {
         const date = new Date(timestamp * 1000);
@@ -60,15 +71,27 @@ const MessageItem = ({
         return `${hours}:${minutes} ${dayPeriod}`;
     };
 
+    // Handle render avatar
+    const handleRenderAvatar = useCallback(() => {
+        const image =
+            avatar || participant?.avatarUrl || type === Participant.GROUP
+                ? images.groupAvatar
+                : images.avatar;
+
+        return (
+            <img
+                src={image}
+                alt={title || participant?.fullName}
+                className="messages__item-avatar-img"
+            />
+        );
+    }, [avatar, participant, title, type]);
+
     return (
-        <article className="messages__item messages__item--active">
+        <article className={classes.join(" ")} onClick={onClick}>
             <Loader loading={loading}>
                 <figure className="messages__item-avatar">
-                    <img
-                        src={avatar || participant?.avatarUrl || images.avatar}
-                        alt={title || participant?.fullName}
-                        className="messages__item-avatar-img"
-                    />
+                    {handleRenderAvatar()}
                 </figure>
 
                 <div className="messages__item-info">
@@ -85,15 +108,17 @@ const MessageItem = ({
                         {getDateFormat(lastMessageTime.seconds)}
                     </span>
 
-                    {unreadCount > 0 ? (
+                    {unreadMessage && unreadMessage.count > 0 ? (
                         <span className="messages__item-count">
-                            {unreadCount}
+                            {unreadMessage.count}
                         </span>
                     ) : (
                         <img
                             src={icons.starSolid}
                             alt=""
-                            className="messages__item-icon messages__item-wishlist-icon messages__item-wishlist-icon--active"
+                            className="messages__item-icon
+                            messages__item-wishlist-icon
+                            messages__item-wishlist-icon--active"
                         />
                     )}
                 </div>
