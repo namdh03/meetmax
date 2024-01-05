@@ -152,11 +152,18 @@ html {
     --message-count-text-color: #{abstracts.$grayscale-white-color};
     --message-count-bg-color: #{abstracts.$red-primary-color};
 
-    // Box message
+    // Message header
     --message-bg-color: #{abstracts.$grayscale-white-color};
     --message-name-color: #{abstracts.$grayscale-gray-color};
     --message-status-color: #{abstracts.$grayscale-color-w-60};
     --message-active-color: #{abstracts.$green-primary-color};
     --message-border-color: #{abstracts.$grayscale-color-w-20};
     --message-border-active-color: #{abstracts.$grayscale-color-w-10};
+
+    // Message footer
+    --message-input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-input-bg-color: #{abstracts.$grayscale-color-w-5};
+    --message-button-color: brightness(0) saturate(100%) invert(46%) sepia(79%)
+        saturate(4198%) hue-rotate(208deg) brightness(103%) contrast(102%);
+    --message-button-bg-color: #ebf2ff;
 }

@@ -145,17 +145,24 @@
     }
 
     &__box {
+        @include abstracts.display-flex(center, null, column);
+
         flex: 1;
         background: var(--message-bg-color);
-        border-radius: 16px 16px 0 0;
+        border-radius: 16px;
 
         overflow: hidden;
     }
 
+    // Header of message box
     &__header {
         @include abstracts.display-flex(center, space-between);
+
+        width: 100%;
+
         padding: 18px;
         border-bottom: solid 1px var(--message-border-color);
+        margin-bottom: auto;
 
         &-user {
             @include abstracts.display-flex(center);
@@ -214,6 +221,75 @@
         &-icon {
             width: 100%;
             height: 100%;
+        }
+    }
+
+    // Footer of message box
+    &__footer {
+        @include abstracts.display-flex(center);
+        column-gap: 20px;
+
+        width: 100%;
+        border-top: solid 1px var(--message-border-color);
+        padding: 20px;
+
+        &-wrapper {
+            position: relative;
+
+            width: calc(100% - 76px);
+            height: 100%;
+        }
+
+        &-input {
+            width: 100%;
+            height: 100%;
+
+            padding: 17px 20px;
+            border: solid 1px var(--message-border-color);
+
+            border-radius: 10px;
+            background: var(--message-input-bg-color);
+
+            &::placeholder {
+                @extend %body-r-1;
+                color: var(--message-input-placeholder-color);
+            }
+        }
+
+        &-actions {
+            @include abstracts.display-flex(center);
+            column-gap: 14px;
+
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        &-action {
+            width: 16px;
+            height: 16px;
+
+            cursor: pointer;
+        }
+
+        &-button {
+            @include abstracts.display-flex(center);
+
+            width: 56px;
+            height: 56px;
+
+            background: var(--message-button-bg-color);
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        &-icon {
+            width: 26px;
+            height: 26px;
+
+            filter: var(--message-button-color);
         }
     }
 }
