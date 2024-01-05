@@ -19,6 +19,9 @@ const MessageContext = createContext<MessageContextType>({
     conversations: [],
     selectedConversation: null,
     handleSelectedConversation: () => {},
+    isOpenCreateConversation: false,
+    handleOpenCreateConversation: () => {},
+    handleCloseCreateConversation: () => {},
 });
 
 // Create provider
@@ -28,23 +31,31 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         useFirestore(
             configs.collections.conversations,
             queryConstraints.where("participants", "array-contains", user?.uid),
-            queryConstraints.orderBy("lastMessageTime", "desc")
+            queryConstraints.orderBy("lastMessageTime", "asc")
         );
     const [selectedConversation, setSelectedConversation] = useState<
         string | null
     >(null);
+    const [isOpenCreateConversation, setIsOpenCreateConversation] =
+        useState<boolean>(false);
 
     // Set selected conversation, first conversation in list
     useEffect(() => {
-        if (conversations && conversations.length > 0) {
+        if (conversations && conversations.length > 0)
             setSelectedConversation(conversations[0].id);
-        }
     }, [conversations]);
 
     // Func: Set selected conversation
-    const handleSelectedConversation = (id: string) => {
+    const handleSelectedConversation = (id: string) =>
         setSelectedConversation(id);
-    };
+
+    // Func: Open create conversation
+    const handleOpenCreateConversation = () =>
+        setIsOpenCreateConversation(true);
+
+    // Func: Close create conversation
+    const handleCloseCreateConversation = () =>
+        setIsOpenCreateConversation(false);
 
     const values: MessageContextType = {
         loading: {
@@ -53,6 +64,9 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         conversations: conversations as ConversationType[],
         selectedConversation,
         handleSelectedConversation,
+        isOpenCreateConversation,
+        handleOpenCreateConversation,
+        handleCloseCreateConversation,
     };
 
     return (

@@ -1,6 +1,5 @@
 import icons from "@/assets/icons";
 import Loader from "@/components/Loader";
-import Search from "@/components/Search";
 import { useAuth, useMessage } from "@/hooks";
 
 import MessageItem from "../MessageItem";
@@ -12,25 +11,18 @@ const MessageList = () => {
         conversations,
         selectedConversation,
         handleSelectedConversation,
+        handleOpenCreateConversation,
     } = useMessage();
 
     return (
         <div className="messages__list">
             <div className="messages__list-heading">
-                <Search
-                    id="search"
-                    name="search"
-                    value=""
-                    placeholder="Search"
-                    className="messages__search"
-                    onSearch={() => {}}
-                />
-
                 <div className="messages__wishlist">
                     <img
-                        src={icons.starSolid}
+                        src={icons.add}
                         alt=""
                         className="messages__wishlist-icon messages__wishlist-icon--active"
+                        onClick={handleOpenCreateConversation}
                     />
                 </div>
             </div>

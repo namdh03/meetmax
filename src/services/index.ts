@@ -1,6 +1,7 @@
 export { default as addDocument } from "./addDocument";
 export { default as getDocument } from "./getDocument";
 export { default as getDocumentId } from "./getDocumentId";
+export { default as getDocumentsByCondition } from "./getDocumentsByCondition";
 export * as queryConstraints from "./queryConstraints";
 export { default as rememberMe } from "./rememberMe";
 export { default as setDocument } from "./setDocument";

@@ -112,6 +112,7 @@ export type ConversationType = {
     lastMessageTime: Timestamp;
     participants: string[];
     unreadMessages: UnreadMessageType[];
+    keywords: string[];
     createdAt: Timestamp;
 };
 
@@ -376,6 +377,9 @@ export type MessageContextType = {
     conversations: ConversationType[];
     selectedConversation: string | null;
     handleSelectedConversation: (id: string) => void;
+    isOpenCreateConversation: boolean;
+    handleOpenCreateConversation: () => void;
+    handleCloseCreateConversation: () => void;
 };
 
 export type SearchProps = {
