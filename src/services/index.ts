@@ -9,3 +9,4 @@ export { default as signInWithFacebook } from "./signInWithFacebook";
 export { default as signInWithGoogle } from "./signInWithGoogle";
 export { default as signOutSystem } from "./signOutSystem";
 export { default as signUpWithEmail } from "./signUpWithEmail";
+export { default as updateDocument } from "./updateDocument";

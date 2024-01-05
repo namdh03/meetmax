@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import icons from "@/assets/icons";
 import images from "@/assets/images";
@@ -30,6 +30,7 @@ const MessageItem = ({
 
     if (active) classes.push("messages__item--active");
 
+    // Get participant data, if use is not group
     useEffect(() => {
         if (!userId || type === Participant.GROUP) return setLoading(false);
 
@@ -46,6 +47,7 @@ const MessageItem = ({
                     configs.collections.users,
                     participantId
                 );
+
                 // Get unread message
                 const unreadMessage = unreadMessages.find(
                     (message) => message.userId === userId
@@ -71,27 +73,21 @@ const MessageItem = ({
         return `${hours}:${minutes} ${dayPeriod}`;
     };
 
-    // Handle render avatar
-    const handleRenderAvatar = useCallback(() => {
-        const image =
-            avatar || participant?.avatarUrl || type === Participant.GROUP
-                ? images.groupAvatar
-                : images.avatar;
-
-        return (
-            <img
-                src={image}
-                alt={title || participant?.fullName}
-                className="messages__item-avatar-img"
-            />
-        );
-    }, [avatar, participant, title, type]);
-
     return (
         <article className={classes.join(" ")} onClick={onClick}>
             <Loader loading={loading}>
                 <figure className="messages__item-avatar">
-                    {handleRenderAvatar()}
+                    <img
+                        src={
+                            avatar ||
+                            participant?.avatarUrl ||
+                            (type === Participant.GROUP
+                                ? images.groupAvatar
+                                : images.avatar)
+                        }
+                        alt={title || participant?.fullName}
+                        className="messages__item-avatar-img"
+                    />
                 </figure>
 
                 <div className="messages__item-info">
