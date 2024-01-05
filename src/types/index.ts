@@ -25,6 +25,7 @@ export type RouteKey =
     | "explore"
     | "profile"
     | "settings"
+    | "forgotPassword"
     | "notFound";
 
 export type RouteValue =
@@ -38,6 +39,7 @@ export type RouteValue =
     | "/explore"
     | "/profile"
     | "/settings"
+    | "/forgot-password"
     | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
@@ -383,6 +385,11 @@ export type SearchProps = {
     onSearch?: (value: string) => void;
     placeholder?: string;
     className?: string;
+};
+
+// Forgot Password
+export type ForgotPasswordFormData = {
+    email: string;
 };
 
 export type MessageItemProps = {

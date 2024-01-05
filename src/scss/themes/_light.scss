@@ -151,4 +151,14 @@ html {
     --message-time-msg-color: #{abstracts.$grayscale-color-w-60};
     --message-count-text-color: #{abstracts.$grayscale-white-color};
     --message-count-bg-color: #{abstracts.$red-primary-color};
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-gray-color};
+    --forgot-password-header-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-bg-color-1: rgba(255, 255, 255, 0.4);
+    --forgot-password-bg-color-2: rgba(255, 255, 255, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-shadow-form-color: rgba(205, 205, 212, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
 }
