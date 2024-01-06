@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 import Button from "@/components/Button";
 import Logo from "@/components/Logo";
@@ -14,6 +14,10 @@ const CheckEmail = () => {
             email: "",
         },
     });
+    const { state } = useLocation();
+
+    if (!state) return <Navigate to={configs.routes.signIn} />;
+
     return (
         <div className="check-email">
             <header className="check-email__header">
@@ -25,7 +29,7 @@ const CheckEmail = () => {
                     <p className="check-email__desc">
                         We’ve sent a link to your email address:
                     </p>
-                    <p className="check-email__email">ahmed@gmail.com</p>
+                    <p className="check-email__email">{state}</p>
                 </div>
 
                 <Button
@@ -39,7 +43,12 @@ const CheckEmail = () => {
                     <p className="check-email__desc">
                         Didn’t receive an email?
                     </p>
-                    <Link to={configs.routes.forgotPassword} className="check-email__resend">Resend</Link>
+                    <Link
+                        to={configs.routes.forgotPassword}
+                        className="check-email__resend"
+                    >
+                        Resend
+                    </Link>
                 </div>
             </div>
         </div>

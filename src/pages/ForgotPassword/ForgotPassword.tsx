@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
@@ -11,12 +11,19 @@ import { ForgotPasswordFormData } from "@/types";
 const ForgotPassword = () => {
     const {
         control,
+        handleSubmit,
         formState: { isSubmitting },
     } = useForm<ForgotPasswordFormData>({
         defaultValues: {
             email: "",
         },
     });
+
+    const navigate = useNavigate();
+
+    const handleSendEmail = (value: ForgotPasswordFormData) => {
+        return navigate(configs.routes.checkEmail, { state: value.email });
+    };
 
     return (
         <div className="forgot-password">
@@ -29,7 +36,10 @@ const ForgotPassword = () => {
                     Enter your details to receive a rest link
                 </p>
 
-                <form className="forgot-password__form">
+                <form
+                    className="forgot-password__form"
+                    onSubmit={handleSubmit(handleSendEmail)}
+                >
                     <Input.Email
                         id="email"
                         name="email"
