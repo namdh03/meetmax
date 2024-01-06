@@ -5,16 +5,11 @@ import Button from "@/components/Button";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
 import { resetPassword } from "@/services";
-import { CheckEmailFormData } from "@/types";
 
 const CheckEmail = () => {
     const {
         formState: { isSubmitting },
-    } = useForm<CheckEmailFormData>({
-        defaultValues: {
-            email: "",
-        },
-    });
+    } = useForm();
     const { state } = useLocation();
 
     const handleSendEmail = async () => {

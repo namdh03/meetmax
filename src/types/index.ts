@@ -383,8 +383,3 @@ export type SearchProps = {
 export type ForgotPasswordFormData = {
     email: string;
 };
-
-// Check Email
-export type CheckEmailFormData = {
-    email: string;
-};
