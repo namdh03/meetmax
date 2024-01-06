@@ -4,6 +4,7 @@ export { default as getDocumentId } from "./getDocumentId";
 export { default as getDocumentsByCondition } from "./getDocumentsByCondition";
 export * as queryConstraints from "./queryConstraints";
 export { default as rememberMe } from "./rememberMe";
+export { default as resetPassword } from "./resetPassword";
 export { default as setDocument } from "./setDocument";
 export { default as signInWithEmail } from "./signInWithEmail";
 export { default as signInWithFacebook } from "./signInWithFacebook";

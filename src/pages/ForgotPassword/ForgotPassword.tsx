@@ -1,22 +1,41 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
+import { handleFirebaseError } from "@/helpers";
+import { resetPassword } from "@/services";
 import { ForgotPasswordFormData } from "@/types";
+
+import schema from "./ForgotPassword.schema";
 
 const ForgotPassword = () => {
     const {
         control,
+        handleSubmit,
         formState: { isSubmitting },
     } = useForm<ForgotPasswordFormData>({
+        resolver: yupResolver(schema),
         defaultValues: {
             email: "",
         },
     });
+
+    const navigate = useNavigate();
+
+    const handleSendEmail = async (value: ForgotPasswordFormData) => {
+        try {
+            await resetPassword(value.email);
+            return navigate(configs.routes.checkEmail, { state: value.email });
+        } catch (error) {
+            handleFirebaseError(error);
+        }
+    };
 
     return (
         <div className="forgot-password">
@@ -29,7 +48,10 @@ const ForgotPassword = () => {
                     Enter your details to receive a rest link
                 </p>
 
-                <form className="forgot-password__form">
+                <form
+                    className="forgot-password__form"
+                    onSubmit={handleSubmit(handleSendEmail)}
+                >
                     <Input.Email
                         id="email"
                         name="email"

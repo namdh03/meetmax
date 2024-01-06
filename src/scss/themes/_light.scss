@@ -167,4 +167,11 @@ html {
     --forgot-password-shadow-form-color: rgba(205, 205, 212, 0.1);
     --forgot-password-icon-color: #{abstracts.$blue-primary-color};
     --forgot-password-link-color: #{abstracts.$blue-primary-color};
+
+    // Check email
+    --check-email-header-color: #{abstracts.$grayscale-white-color};
+    --check-email-wrapper-bg-color: #{abstracts.$grayscale-white-color};
+    --check-email-title-color: #{abstracts.$grayscale-gray-color};
+    --check-email-link-email-color: #{abstracts.$blue-primary-color};
+    --check-email-resend-color: #{abstracts.$blue-primary-color};
 }

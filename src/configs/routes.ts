@@ -11,8 +11,9 @@ const routes: RouteConfigType = {
     explore: "/explore",
     profile: "/profile",
     settings: "/settings",
-    notFound: "*",
     forgotPassword: "/forgot-password",
+    checkEmail: "/check-email",
+    notFound: "*",
 };
 
 export default routes;

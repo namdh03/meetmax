@@ -26,6 +26,7 @@ export type RouteKey =
     | "profile"
     | "settings"
     | "forgotPassword"
+    | "checkEmail"
     | "notFound";
 
 export type RouteValue =
@@ -40,6 +41,7 @@ export type RouteValue =
     | "/profile"
     | "/settings"
     | "/forgot-password"
+    | "/check-email"
     | "*";
 
 export type RouteConfigType = { [K in RouteKey]: RouteValue };
