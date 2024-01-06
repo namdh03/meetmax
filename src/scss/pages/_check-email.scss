@@ -71,5 +71,6 @@
         @extend %display-m;
 
         color: var(--check-email-resend-color);
+        cursor: pointer;
     }
 }

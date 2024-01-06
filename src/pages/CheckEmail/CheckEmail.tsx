@@ -4,6 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import Button from "@/components/Button";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
+import { resetPassword } from "@/services";
 import { CheckEmailFormData } from "@/types";
 
 const CheckEmail = () => {
@@ -15,6 +16,12 @@ const CheckEmail = () => {
         },
     });
     const { state } = useLocation();
+
+    const handleSendEmail = async () => {
+        if (state) {
+            await resetPassword(state);
+        }
+    };
 
     if (!state) return <Navigate to={configs.routes.signIn} />;
 
@@ -43,7 +50,12 @@ const CheckEmail = () => {
                     <p className="check-email__desc">
                         Didn’t receive an email?
                     </p>
-                    <p className="check-email__resend">Resend</p>
+                    <span
+                        className="check-email__resend"
+                        onClick={handleSendEmail}
+                    >
+                        Resend
+                    </span>
                 </div>
             </div>
         </div>
