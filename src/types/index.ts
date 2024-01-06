@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { Firestore, Timestamp } from "firebase/firestore";
 
-import { AuthActionType, Gender, Role } from "@/utils/enum";
+import { AuthActionType, Gender, Participant, Role } from "@/utils/enum";
 
 // Config types
 export type RouteKey =
@@ -56,9 +56,9 @@ export type FirebaseConfigType = {
 };
 
 // Collection types
-export type CollectionKey = "users" | "conversations" | "participants";
+export type CollectionKey = "users" | "conversations";
 
-export type CollectionValue = "users" | "conversations" | "participants";
+export type CollectionValue = "users" | "conversations";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -96,22 +96,25 @@ export type UserType = {
     createdAt: Timestamp;
 };
 
+// Unread messages collection types
+export type UnreadMessageType = {
+    userId: string;
+    count: number;
+};
+
 // Conversation collection types
 export type ConversationType = {
     id: string;
     creatorId: string;
+    type: Participant;
     title: string;
     avatarUrl: string;
     avatarName: string;
-    createdAt: Timestamp;
-};
-
-// Participant collection types
-export type ParticipantType = {
-    id: string;
-    conversationId: string;
-    userId: string;
-    type: ParticipantType;
+    lastMessage: string;
+    lastMessageTime: Timestamp;
+    participants: string[];
+    unreadMessages: UnreadMessageType[];
+    keywords: string[];
     createdAt: Timestamp;
 };
 
@@ -361,13 +364,31 @@ export type LoaderProps = {
     loading?: boolean;
 };
 
+// Message loading type
+export type MessageLoadingType = {
+    userListLoading: boolean;
+    conversationLoading: boolean;
+};
+
 // Messages context type
 export type MessageItemType = {
     id: string;
 };
 
 export type MessageContextType = {
+    loading: MessageLoadingType;
+    userList: UserType[];
+    resetUserList: () => void;
+    selectedUserList: UserType[];
     conversations: ConversationType[];
+    selectedConversation: string | null;
+    handleSelectedConversation: (id: string) => void;
+    isOpenCreateConversation: boolean;
+    handleOpenCreateConversation: () => void;
+    handleCloseCreateConversation: () => void;
+    handleSearchUser: (value: string) => void;
+    handleSelectedUser: (user: UserType) => void;
+    handleRemoveSelectedUser: (id: string) => void;
 };
 
 export type SearchProps = {
@@ -382,4 +403,23 @@ export type SearchProps = {
 // Forgot Password
 export type ForgotPasswordFormData = {
     email: string;
+};
+
+export type MessageItemProps = {
+    userId: string | undefined;
+    active: boolean;
+    participants: string[];
+    unreadMessages: UnreadMessageType[];
+    type: Participant;
+    avatar: string;
+    title: string;
+    lastMessage: string;
+    lastMessageTime: Timestamp;
+    onClick: () => void;
+};
+
+// User tag props
+export type UserTagProps = {
+    fullName: string;
+    onClick: () => void;
 };

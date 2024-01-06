@@ -4,7 +4,7 @@ import configs from "@/configs";
 import { generateKeyword } from "@/helpers";
 import { Gender } from "@/utils/enum";
 
-import { getDocument, setDocument } from ".";
+import { getDocument, setDocument, updateDocument } from ".";
 
 export default async function signInWithGoogle(): Promise<UserCredential> {
     const result = await signInWithPopup(
@@ -40,6 +40,20 @@ export default async function signInWithGoogle(): Promise<UserCredential> {
                 ? generateKeyword(result.user.displayName)
                 : null,
         });
+    } else {
+        if (!docSnap.data().avatarUrl) {
+            await updateDocument(configs.collections.users, result.user.uid, {
+                avatarUrl: result.user.photoURL,
+            });
+        } else if (!docSnap.data().fullName) {
+            await updateDocument(configs.collections.users, result.user.uid, {
+                fullName: result.user.displayName,
+            });
+        } else if (!docSnap.data().phone) {
+            await updateDocument(configs.collections.users, result.user.uid, {
+                phone: result.user.phoneNumber,
+            });
+        }
     }
 
     return result;

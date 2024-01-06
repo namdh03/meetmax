@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
     collection,
@@ -16,6 +16,8 @@ const useFirestore = (
     ...queryConstraints: QueryConstraint[]
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
+    const documentTemps = useRef<DocumentData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const colRef = collection(configs.firebase.db, _collection);
@@ -26,14 +28,16 @@ const useFirestore = (
                 id: doc.id,
             }));
 
+            documentTemps.current = result;
             setDocuments(result);
+            setLoading(false);
         });
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return documents;
+    return { documents, setDocuments, loading };
 };
 
 export default useFirestore;
