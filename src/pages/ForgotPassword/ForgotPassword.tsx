@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import icons from "@/assets/icons";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -10,12 +12,15 @@ import { handleFirebaseError } from "@/helpers";
 import { resetPassword } from "@/services";
 import { ForgotPasswordFormData } from "@/types";
 
+import schema from "./ForgotPassword.schema";
+
 const ForgotPassword = () => {
     const {
         control,
         handleSubmit,
         formState: { isSubmitting },
     } = useForm<ForgotPasswordFormData>({
+        resolver: yupResolver(schema),
         defaultValues: {
             email: "",
         },
