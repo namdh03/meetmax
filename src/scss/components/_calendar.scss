@@ -72,22 +72,8 @@
                 bottom: 0;
             }
 
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-
-            &::-webkit-scrollbar-track {
-                background: var(--calendar-scrollbar-track-bg-color);
-                box-shadow: 1px 0px 0px 0px
-                        var(--calendar-scrollbar-shadow-color) inset,
-                    -1px 0px 0px 0px var(--calendar-scrollbar-shadow-color) inset;
+            *::-webkit-scrollbar-track {
                 border-radius: 0 16px 16px 0;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: var(--calendar-scrollbar-thumb-bg-color);
-                border-radius: 5px;
-                height: 100px;
             }
         }
 

@@ -7,6 +7,11 @@ html {
     // Container
     --app-container-bg-color: #{abstracts.$grayscale-color-w-3};
 
+    // Scrollbar
+    --scrollbar-track-bg-color: #{abstracts.$grayscale-white-color};
+    --scrollbar-shadow-color: #eff3f4;
+    --scrollbar-thumb-bg-color: #{abstracts.$grayscale-color-w-20};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
         saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
@@ -59,9 +64,6 @@ html {
     --calendar-month-year-item-text-color: #{abstracts.$grayscale-gray-color};
     --calendar-month-year-item-active-text-color: #{abstracts.$blue-primary-color};
     --calendar-month-year-item-active-bg-color: #{abstracts.$blue-primary-color-w-80};
-    --calendar-scrollbar-track-bg-color: #{abstracts.$grayscale-white-color};
-    --calendar-scrollbar-shadow-color: #eff3f4;
-    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-color-w-20};
 
     // Date picker
     --date-picker-bg-color: #{abstracts.$grayscale-white-color};
@@ -151,6 +153,10 @@ html {
     --message-time-msg-color: #{abstracts.$grayscale-color-w-60};
     --message-count-text-color: #{abstracts.$grayscale-white-color};
     --message-count-bg-color: #{abstracts.$red-primary-color};
+    --message-create-conversation-overlay-color: rgba(57, 57, 57, 0.5);
+    --message-create-conversation-bg-color: #{abstracts.$grayscale-white-color};
+    --message-user-avatar-border-color: #{abstracts.$grayscale-color-w-20};
+    --message-selected-user-item-bg-color: #{abstracts.$grayscale-color-w-5};
 
     // Forgot password
     --forgot-password-title-color: #{abstracts.$grayscale-gray-color};

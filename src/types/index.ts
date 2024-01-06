@@ -364,6 +364,7 @@ export type LoaderProps = {
 
 // Message loading type
 export type MessageLoadingType = {
+    userListLoading: boolean;
     conversationLoading: boolean;
 };
 
@@ -374,12 +375,18 @@ export type MessageItemType = {
 
 export type MessageContextType = {
     loading: MessageLoadingType;
+    userList: UserType[];
+    resetUserList: () => void;
+    selectedUserList: UserType[];
     conversations: ConversationType[];
     selectedConversation: string | null;
     handleSelectedConversation: (id: string) => void;
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;
+    handleSearchUser: (value: string) => void;
+    handleSelectedUser: (user: UserType) => void;
+    handleRemoveSelectedUser: (id: string) => void;
 };
 
 export type SearchProps = {
@@ -406,5 +413,11 @@ export type MessageItemProps = {
     title: string;
     lastMessage: string;
     lastMessageTime: Timestamp;
+    onClick: () => void;
+};
+
+// User tag props
+export type UserTagProps = {
+    fullName: string;
     onClick: () => void;
 };

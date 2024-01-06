@@ -11,7 +11,7 @@ const Search = memo(
     ({ id, name, value, onSearch, placeholder, className }: SearchProps) => {
         const { control, watch } = useForm<{ [name: string]: string }>({
             defaultValues: {
-                [name]: value,
+                [name]: value || "",
             },
         });
         const searchWatch = watch(name, value);
