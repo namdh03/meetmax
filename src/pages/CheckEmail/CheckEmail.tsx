@@ -35,6 +35,7 @@ const CheckEmail = () => {
                 </div>
 
                 <Button
+                    to={configs.routes.signIn}
                     variant="primary"
                     className="check-email__button"
                     loading={isSubmitting}
