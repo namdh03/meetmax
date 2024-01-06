@@ -1,20 +1,28 @@
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { Navigate, useLocation } from "react-router-dom";
 
 import Button from "@/components/Button";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
+import { handleFirebaseError } from "@/helpers";
 import { resetPassword } from "@/services";
 
 const CheckEmail = () => {
-    const {
-        formState: { isSubmitting },
-    } = useForm();
     const { state } = useLocation();
+    const [loading, setLoading] = useState(false);
 
     const handleSendEmail = async () => {
-        if (state) {
+        try {
+            if (!state) return;
+            setLoading(true);
+
             await resetPassword(state);
+            toast.success("Email sent successfully.");
+        } catch (error) {
+            handleFirebaseError(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -38,7 +46,6 @@ const CheckEmail = () => {
                     to={configs.routes.signIn}
                     variant="primary"
                     className="check-email__button"
-                    loading={isSubmitting}
                 >
                     Skip now
                 </Button>
@@ -46,12 +53,14 @@ const CheckEmail = () => {
                     <p className="check-email__desc">
                         Didn’t receive an email?
                     </p>
-                    <span
+                    <Button
+                        variant="outline"
                         className="check-email__resend"
                         onClick={handleSendEmail}
+                        loading={loading}
                     >
                         Resend
-                    </span>
+                    </Button>
                 </div>
             </div>
         </div>

@@ -65,13 +65,14 @@
     &__help {
         @include abstracts.display-flex(center, null);
         margin-top: 20px;
-        gap: 15px;
     }
 
     &__resend {
         @extend %display-m;
 
         color: var(--check-email-resend-color);
+        border: none;
+        height: 0;
         cursor: pointer;
     }
 }
