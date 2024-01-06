@@ -3,6 +3,7 @@ export { default as getDocument } from "./getDocument";
 export { default as getDocumentId } from "./getDocumentId";
 export * as queryConstraints from "./queryConstraints";
 export { default as rememberMe } from "./rememberMe";
+export { default as resetPassword } from "./resetPassword";
 export { default as setDocument } from "./setDocument";
 export { default as signInWithEmail } from "./signInWithEmail";
 export { default as signInWithFacebook } from "./signInWithFacebook";

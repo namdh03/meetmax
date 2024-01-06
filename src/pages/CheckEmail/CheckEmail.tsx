@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 import Button from "@/components/Button";
 import Logo from "@/components/Logo";
@@ -43,12 +43,7 @@ const CheckEmail = () => {
                     <p className="check-email__desc">
                         Didn’t receive an email?
                     </p>
-                    <Link
-                        to={configs.routes.forgotPassword}
-                        className="check-email__resend"
-                    >
-                        Resend
-                    </Link>
+                    <p className="check-email__resend">Resend</p>
                 </div>
             </div>
         </div>

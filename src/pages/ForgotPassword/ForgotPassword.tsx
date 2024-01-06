@@ -6,6 +6,8 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import configs from "@/configs";
+import { handleFirebaseError } from "@/helpers";
+import { resetPassword } from "@/services";
 import { ForgotPasswordFormData } from "@/types";
 
 const ForgotPassword = () => {
@@ -21,8 +23,13 @@ const ForgotPassword = () => {
 
     const navigate = useNavigate();
 
-    const handleSendEmail = (value: ForgotPasswordFormData) => {
-        return navigate(configs.routes.checkEmail, { state: value.email });
+    const handleSendEmail = async (value: ForgotPasswordFormData) => {
+        try {
+            await resetPassword(value.email);
+            return navigate(configs.routes.checkEmail, { state: value.email });
+        } catch (error) {
+            handleFirebaseError(error);
+        }
     };
 
     return (
