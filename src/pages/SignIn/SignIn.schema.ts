@@ -17,6 +17,8 @@ const schema = Yup.object({
     rememberMe: Yup.array()
         .of(Yup.boolean().oneOf([true]))
         .optional(),
+
+   
 });
 
 export default schema;

@@ -15,7 +15,7 @@ export enum Gender {
     OTHER = "OTHER",
 }
 
-export enum ParticipantType {
+export enum Participant {
     SINGLE = "SINGLE",
     GROUP = "GROUP",
 }

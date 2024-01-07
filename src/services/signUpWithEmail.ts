@@ -1,6 +1,7 @@
 import {
     createUserWithEmailAndPassword,
     sendEmailVerification,
+    updateProfile,
 } from "firebase/auth";
 
 import configs from "@/configs";
@@ -22,7 +23,9 @@ export default async function signUpWithEmail(
         password
     );
 
-    await sendEmailVerification(result.user);
+    await updateProfile(result.user, {
+        displayName: fullName,
+    });
 
     await setDocument(configs.collections.users, result.user.uid, {
         email: email,
@@ -44,6 +47,8 @@ export default async function signUpWithEmail(
         coverPhotoName: null,
         keywords: generateKeyword(fullName),
     });
+
+    await sendEmailVerification(result.user);
 
     return result;
 }

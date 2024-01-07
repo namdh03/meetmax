@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,8 +28,6 @@ const SignIn = () => {
             rememberMe: [],
         },
     });
-
-    const handleShowToast = () => toast.error("This feature is not available!");
 
     const handleSignIn = async (values: SignInFormType) => {
         try {
@@ -78,12 +75,12 @@ const SignIn = () => {
                         control={control}
                     />
 
-                    <span
+                    <Link
+                        to={configs.routes.forgotPassword}
                         className="auth-form__forgot"
-                        onClick={handleShowToast}
                     >
                         Forgot Password?
-                    </span>
+                    </Link>
                 </div>
 
                 <Button
