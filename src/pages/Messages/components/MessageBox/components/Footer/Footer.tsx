@@ -9,6 +9,7 @@ const Footer = () => {
                     type="text"
                     className="messages__footer-input"
                 />
+
                 <div className="messages__footer-actions">
                     <img
                         src={icons.link}
@@ -22,6 +23,7 @@ const Footer = () => {
                     />
                 </div>
             </section>
+
             <button className="messages__footer-button">
                 <img
                     src={icons.send}

@@ -6,13 +6,14 @@ const Header = () => {
         <header className="messages__header">
             <section className="messages__header-user">
                 <img
-                    src={images.avatar}
+                    src={images.avatarFriend}
                     alt=""
                     className="messages__header-avatar"
                 />
 
                 <div className="messages__header-content">
                     <h2 className="messages__header-name">Bao Khang</h2>
+
                     <p className="messages__header-status messages__header-status--active">
                         Active now
                     </p>
@@ -27,6 +28,7 @@ const Header = () => {
                         className="messages__header-icon icon"
                     />
                 </button>
+
                 <button className="messages__header-button">
                     <img
                         src={icons.videoCamera}
@@ -34,6 +36,7 @@ const Header = () => {
                         className="messages__header-icon icon"
                     />
                 </button>
+
                 <button className="messages__header-button">
                     <img
                         src={icons.information}

@@ -166,4 +166,11 @@ html {
     --message-button-color: brightness(0) saturate(100%) invert(46%) sepia(79%)
         saturate(4198%) hue-rotate(208deg) brightness(103%) contrast(102%);
     --message-button-bg-color: #ebf2ff;
+
+    // Message main content
+    --message-item-bg-color: #{abstracts.$blue-primary-color};
+    --message-item-text-color: #{abstracts.$grayscale-white-color};
+    --message-item-current-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-item-current-text-color: #{abstracts.$grayscale-gray-color};
+    --message-item-time-color: #{abstracts.$grayscale-color-w-60};
 }
