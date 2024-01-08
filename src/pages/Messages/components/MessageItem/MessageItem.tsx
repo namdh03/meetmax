@@ -101,7 +101,7 @@ const MessageItem = ({
 
                 <div className="messages__item-footer">
                     <span className="messages__item-time">
-                        {getDateFormat(lastMessageTime.seconds)}
+                        {getDateFormat(lastMessageTime?.seconds)}
                     </span>
 
                     {unreadMessage && unreadMessage.count > 0 ? (

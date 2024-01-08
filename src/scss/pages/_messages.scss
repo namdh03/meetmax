@@ -197,10 +197,12 @@
         gap: 12px;
         min-height: var(--user-item-height);
         padding: 12px 0;
+        border-radius: 10px;
         cursor: pointer;
     }
 
     &__user-avatar {
+        flex-shrink: 0;
         width: 42px;
         height: 42px;
         border-radius: 50%;
@@ -216,6 +218,11 @@
     }
 
     &__user-fullName {
+        display: -webkit-box;
+        -webkit-line-clamp: var(--line-clamp, 1);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
         @extend %display-m;
         color: var(--message-author-name-color);
     }

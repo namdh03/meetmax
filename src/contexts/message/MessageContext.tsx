@@ -24,7 +24,6 @@ const MessageContext = createContext<MessageContextType>({
         conversationLoading: true,
     },
     userList: [],
-    resetUserList: () => {},
     selectedUserList: [],
     conversations: [],
     selectedConversation: null,
@@ -44,11 +43,15 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         useFirestore(
             configs.collections.conversations,
             queryConstraints.where("participants", "array-contains", user?.uid),
-            queryConstraints.orderBy("lastMessageTime", "asc")
+            queryConstraints.orderBy("lastMessageTime", "desc")
         );
+
+    // Selected conversation
     const [selectedConversation, setSelectedConversation] = useState<
         string | null
     >(null);
+
+    // Open create conversation
     const [isOpenCreateConversation, setIsOpenCreateConversation] =
         useState<boolean>(false);
 
@@ -59,11 +62,11 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     // Selected user list
     const [selectedUserList, setSelectedUserList] = useState<UserType[]>([]);
 
-    // Set selected conversation, first conversation in list
+    // Effect: Set first selected conversation
     useEffect(() => {
-        if (conversations && conversations.length > 0)
-            setSelectedConversation(conversations[0].id);
-    }, [conversations]);
+        if (!conversations.length) return;
+        !selectedConversation && setSelectedConversation(conversations[0].id);
+    }, [conversations, selectedConversation]);
 
     // Func: Set selected conversation
     const handleSelectedConversation = (id: string) =>
@@ -74,8 +77,10 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         setIsOpenCreateConversation(true);
 
     // Func: Close create conversation
-    const handleCloseCreateConversation = () =>
+    const handleCloseCreateConversation = () => {
+        resetUserList();
         setIsOpenCreateConversation(false);
+    };
 
     // Func: Create conversation, handle search user
     const handleSearchUser = useCallback(
@@ -105,7 +110,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         [user]
     );
 
-    // Reset user list
+    // Func: Reset user list
     const resetUserList = useCallback(() => {
         setUserList([]);
         setSelectedUserList([]);
@@ -119,9 +124,8 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     };
 
     // Handle remove selected user
-    const handleRemoveSelectedUser = (id: string) => {
+    const handleRemoveSelectedUser = (id: string) =>
         setSelectedUserList((prev) => prev.filter((user) => user.id !== id));
-    };
 
     const values: MessageContextType = {
         loading: {
@@ -129,7 +133,6 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             conversationLoading,
         },
         userList: userList,
-        resetUserList,
         selectedUserList,
         conversations: conversations as ConversationType[],
         selectedConversation,

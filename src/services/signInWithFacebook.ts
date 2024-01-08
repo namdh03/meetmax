@@ -4,7 +4,7 @@ import configs from "@/configs";
 import { generateKeyword } from "@/helpers";
 import { Gender } from "@/utils/enum";
 
-import { getDocument, setDocument } from ".";
+import { getDocument, setDocument} from ".";
 
 export default async function signInWithFacebook(): Promise<UserCredential> {
     const result = await signInWithPopup(

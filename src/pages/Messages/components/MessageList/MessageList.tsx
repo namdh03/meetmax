@@ -21,17 +21,13 @@ const MessageList = () => {
         handleOpenCreateConversation,
         handleCloseCreateConversation,
         handleSearchUser,
-        resetUserList,
     } = useMessage();
     // Render portal
     const { render } = usePortal();
     const conversationFormRef = useRef<HTMLDivElement>(null);
 
     // Handle click outside component to close conversation form
-    const handleClickOutside = () => {
-        resetUserList();
-        handleCloseCreateConversation();
-    };
+    const handleClickOutside = () => handleCloseCreateConversation();
     useOnClickOutside(conversationFormRef, handleClickOutside);
 
     const ConversationFormPortal = useCallback(

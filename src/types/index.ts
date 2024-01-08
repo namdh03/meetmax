@@ -378,7 +378,6 @@ export type MessageItemType = {
 export type MessageContextType = {
     loading: MessageLoadingType;
     userList: UserType[];
-    resetUserList: () => void;
     selectedUserList: UserType[];
     conversations: ConversationType[];
     selectedConversation: string | null;
@@ -422,4 +421,9 @@ export type MessageItemProps = {
 export type UserTagProps = {
     fullName: string;
     onClick: () => void;
+};
+
+// Create conversation form data
+export type CreateConversationFormData = {
+    title: string;
 };
