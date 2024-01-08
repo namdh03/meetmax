@@ -89,6 +89,12 @@
         &-author-name {
             @extend %display-m;
             color: var(--message-author-name-color);
+
+            display: -webkit-box;
+            -webkit-line-clamp: var(--line-clamp, 1);
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            max-width: 180px;
         }
 
         &-last-msg {
@@ -141,6 +147,138 @@
             &--active {
                 filter: var(--message-icon-active-color);
             }
+        }
+    }
+
+    &__create-conversation {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        @include abstracts.display-flex(null, center);
+        padding: var(--container-gutter);
+        backdrop-filter: blur(8px) brightness(80%);
+        background: var(--message-create-conversation-overlay-color);
+        overflow-y: auto;
+
+        &-inner {
+            @include abstracts.display-flex($direction: column);
+            width: 540px;
+            padding: 20px;
+            border-radius: 10px;
+            background: var(--message-create-conversation-bg-color);
+            overflow-y: hidden;
+        }
+
+        &-search {
+            flex-shrink: 0;
+            min-width: 500px;
+        }
+    }
+
+    &__user-list {
+        --user-list-margin-top: 16px;
+        --user-item-height: 66px;
+
+        height: 100%;
+        margin-top: var(--user-list-margin-top);
+        min-height: min(
+            calc(var(--user-list-margin-top) / 2 + var(--user-item-height)),
+            100%
+        );
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__user-item {
+        @include abstracts.display-flex(center, null);
+        gap: 12px;
+        min-height: var(--user-item-height);
+        padding: 12px 0;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    &__user-avatar {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid var(--message-user-avatar-border-color);
+    }
+
+    &__user-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+    }
+
+    &__user-fullName {
+        display: -webkit-box;
+        -webkit-line-clamp: var(--line-clamp, 1);
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        @extend %display-m;
+        color: var(--message-author-name-color);
+    }
+
+    &__selected-user {
+        @include abstracts.display-flex(
+            $justify: space-between,
+            $direction: column
+        );
+        gap: 10px;
+
+        flex-shrink: 0;
+        height: 150px;
+        padding-top: 12px;
+
+        &-list {
+            @include abstracts.display-flex(center, null);
+            gap: 8px;
+            flex-wrap: wrap;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        &-item {
+            @include abstracts.display-flex(center, null);
+            padding-left: 14px;
+            border-radius: 10px;
+            background-color: var(--message-selected-user-item-bg-color);
+        }
+
+        &-fullName {
+            @extend %body-m-1;
+            color: var(--message-author-name-color);
+        }
+
+        &-btn {
+            flex-shrink: 0;
+            height: 42px;
+        }
+
+        &-form {
+            @include abstracts.display-flex($justify: flex-end);
+            column-gap: 16px;
+        }
+
+        &-title {
+            height: 42px;
+            border-radius: 6px;
+        }
+
+        &-icon {
+            padding: 10px;
+            cursor: pointer;
         }
     }
 

@@ -5,8 +5,8 @@ const NotFound = () => {
     return (
         <div className="not-found">
             <div id="particles" className="not-found__particles">
-                {[...Array(12)].map(() => (
-                    <span className="not-found__star"></span>
+                {[...Array(12)].map((_, index) => (
+                    <span key={index} className="not-found__star"></span>
                 ))}
             </div>
 

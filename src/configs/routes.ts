@@ -11,6 +11,8 @@ const routes: RouteConfigType = {
     explore: "/explore",
     profile: "/profile",
     settings: "/settings",
+    forgotPassword: "/forgot-password",
+    checkEmail: "/check-email",
     notFound: "*",
 };
 

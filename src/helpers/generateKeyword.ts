@@ -17,7 +17,7 @@ export default function generateKeyword(keyword: string): string[] {
         let curName = "";
         name.split("").forEach((letter) => {
             curName += letter;
-            arrName.push(curName);
+            arrName.push(curName.toLowerCase());
         });
         return arrName;
     };

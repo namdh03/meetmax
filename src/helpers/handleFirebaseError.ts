@@ -24,6 +24,7 @@ export default function handleFirebaseError(error: unknown) {
                 break;
 
             default:
+                console.log(error);
                 break;
         }
     }

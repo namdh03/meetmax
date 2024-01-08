@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 
 import icons from "@/assets/icons";
 import configs from "@/configs";
+import { signOut } from "@/contexts/auth/actions";
+import { useAuth } from "@/hooks";
 import { signOutSystem } from "@/services";
 import { SiteBarItemType } from "@/types";
 
@@ -9,6 +11,7 @@ import Header from "./components/Header";
 import SiteBar from "./components/SiteBar";
 
 const MainLayout = () => {
+    const { dispatch } = useAuth();
     const siteBarList: SiteBarItemType[] = [
         {
             to: configs.routes.feed,
@@ -57,7 +60,10 @@ const MainLayout = () => {
             label: "Logout",
             icon: icons.logOut,
             count: 0,
-            onClick: () => signOutSystem(),
+            onClick: () => {
+                signOutSystem();
+                dispatch(signOut());
+            },
         },
     ];
 

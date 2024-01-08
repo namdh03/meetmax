@@ -7,6 +7,11 @@ html.dark {
     // Container
     --app-container-bg-color: #{abstracts.$dark-color-2};
 
+    // Scrollbar
+    --scrollbar-track-bg-color: #{abstracts.$dark-color-2};
+    --scrollbar-shadow-color: #{abstracts.$grayscale-gray-color};
+    --scrollbar-thumb-bg-color: #{abstracts.$grayscale-gray-color};
+
     // Icon
     --icon-filter-color: brightness(0) saturate(100%) invert(88%) sepia(56%)
         saturate(1476%) hue-rotate(180deg) brightness(114%) contrast(89%);
@@ -30,9 +35,6 @@ html.dark {
     --calendar-text-outer-color: #{abstracts.$grayscale-gray-color};
     --calendar-divider-bg-color: #{abstracts.$dark-color-1};
     --calendar-dropdown-bg-color: #{abstracts.$dark-color-1};
-    --calendar-scrollbar-track-bg-color: #{abstracts.$dark-color-2};
-    --calendar-scrollbar-shadow-color: #{abstracts.$grayscale-gray-color};
-    --calendar-scrollbar-thumb-bg-color: #{abstracts.$grayscale-gray-color};
 
     // Date picker
     --date-picker-bg-color: #{abstracts.$dark-color-2};
@@ -106,6 +108,26 @@ html.dark {
         saturate(3648%) hue-rotate(187deg) brightness(74%) contrast(75%);
     --message-item-bg-color: #{abstracts.$dark-color-2};
     --message-author-name-color: #{abstracts.$grayscale-color-w-10};
+    --message-create-conversation-bg-color: #{abstracts.$dark-color-1};
+    --message-user-avatar-border-color: #{abstracts.$grayscale-gray-color};
+    --message-selected-user-item-bg-color: #{abstracts.$dark-color-2};
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-color-w-10};
+    --forgot-password-header-color: #{abstracts.$dark-color-1};
+    --forgot-password-bg-color-1: rgba(22, 28, 39, 0.4);
+    --forgot-password-bg-color-2: rgba(22, 28, 39, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$dark-color-2};
+    --forgot-password-shadow-form-color: rgba(51, 62, 82, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
+
+    // Check email
+    --check-email-header-color: #{abstracts.$dark-color-1};
+    --check-email-wrapper-bg-color: #{abstracts.$dark-color-2};
+    --check-email-title-color: #{abstracts.$grayscale-color-w-10};
+    --check-email-link-email-color: #{abstracts.$blue-primary-color};
+    --check-email-resend-color: #{abstracts.$blue-primary-color};
 
     // Message header
     --message-bg-color: #{abstracts.$dark-color-1};
