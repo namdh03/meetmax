@@ -1,4 +1,9 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    DocumentData,
+    serverTimestamp,
+} from "firebase/firestore";
 
 import configs from "@/configs";
 import { CollectionValue } from "@/types";
@@ -8,11 +13,13 @@ import { CollectionValue } from "@/types";
 export default async function addDocument<T extends object>(
     _collection: CollectionValue,
     data: T
-) {
+): Promise<DocumentData> {
     const colRef = collection(configs.firebase.db, _collection);
 
-    await addDoc(colRef, {
+    const result = await addDoc(colRef, {
         ...data,
         createdAt: serverTimestamp(),
     });
+
+    return result;
 }
