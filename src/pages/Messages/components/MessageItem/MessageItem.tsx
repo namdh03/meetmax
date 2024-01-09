@@ -5,6 +5,7 @@ import images from "@/assets/images";
 import Loader from "@/components/Loader";
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
+import { zeroPad } from "@/helpers/calendar";
 import { getDocument } from "@/services";
 import { MessageItemProps, UnreadMessageType, UserType } from "@/types";
 import { Participant } from "@/utils/enum";
@@ -70,7 +71,7 @@ const MessageItem = ({
         const minutes = date.getMinutes();
         const dayPeriod = date.getHours() < 12 ? "am" : "pm";
 
-        return `${hours}:${minutes} ${dayPeriod}`;
+        return `${zeroPad(hours, 2)}:${zeroPad(minutes, 2)} ${dayPeriod}`;
     };
 
     return (
