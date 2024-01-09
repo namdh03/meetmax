@@ -47,6 +47,7 @@ const SelectedUserList = memo(() => {
         if (conversation) {
             handleSelectedConversation(conversation.id);
             handleCloseCreateConversation();
+            return;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -61,7 +62,7 @@ const SelectedUserList = memo(() => {
             if (selectedUserList.length > 1 && !value.title.trim())
                 return toast.error("Please enter conversation name");
             if (selectedUserList.length === 1)
-                return checkExitingConversation(selectedUserList[0].id);
+                checkExitingConversation(selectedUserList[0].id);
 
             const unreadMessages = selectedUserList.map((user) => ({
                 userId: user.id,
