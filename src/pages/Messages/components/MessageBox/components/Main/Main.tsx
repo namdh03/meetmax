@@ -4,15 +4,15 @@ import icons from "@/assets/icons";
 import images from "@/assets/images";
 
 const Main = () => {
-    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const scrollToDownRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        dropdownRef.current?.scrollIntoView({ block: "end" });
+        scrollToDownRef.current?.scrollIntoView({ block: "end" });
     }, []);
 
     return (
         <div className="messages__main">
-            <div className="messages__main-list" ref={dropdownRef}>
+            <div className="messages__main-list" ref={scrollToDownRef}>
                 <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
@@ -38,7 +38,7 @@ const Main = () => {
                 </div>
 
                 <div className="messages__main-item">
-                    <div className="messages__main-avatar messages__main-avatar--active">
+                    <div className="messages__main-avatar">
                         <img
                             src={images.avatarFriend}
                             alt="avatar"
@@ -164,7 +164,7 @@ const Main = () => {
                 </div>
 
                 <div className="messages__main-item">
-                    <div className="messages__main-avatar messages__main-avatar--active">
+                    <div className="messages__main-avatar">
                         <img
                             src={images.avatarFriend}
                             alt="avatar"

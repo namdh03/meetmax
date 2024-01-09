@@ -3,7 +3,7 @@ import icons from "@/assets/icons";
 const Footer = () => {
     return (
         <div className="messages__footer">
-            <section className="messages__footer-wrapper">
+            <div className="messages__footer-wrapper">
                 <input
                     placeholder="Type something here ..."
                     type="text"
@@ -22,7 +22,7 @@ const Footer = () => {
                         className="messages__footer-action icon"
                     />
                 </div>
-            </section>
+            </div>
 
             <button className="messages__footer-button">
                 <img

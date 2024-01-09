@@ -283,12 +283,11 @@
     }
 
     &__box {
-        --header-height: 78px;
         --height-message-header: 87px;
         --height-message-footer: 97px;
         --height-message-box: calc(
             100vh - var(--height-message-header) - var(--height-message-footer) -
-                var(--header-height) - 30px
+                var(--header-height) - var(--container-gutter)
         );
 
         @include abstracts.display-flex(center, null, column);
@@ -309,7 +308,6 @@
 
         padding: 18px;
         border-bottom: solid 1px var(--message-border-color);
-        margin-bottom: auto;
 
         &-user {
             @include abstracts.display-flex(center);
@@ -326,25 +324,6 @@
         &-status {
             @extend %body-m-3;
             color: var(--message-status-color);
-
-            &--active {
-                position: relative;
-
-                &::after {
-                    display: inline-block;
-                    content: "";
-                    position: absolute;
-                    top: 50%;
-                    right: -10px;
-                    transform: translateY(-50%);
-
-                    width: 10px;
-                    height: 10px;
-                    border: 1px solid var(--message-border-active-color);
-                    border-radius: 50%;
-                    background: var(--message-active-color);
-                }
-            }
         }
 
         &-avatar {
@@ -450,12 +429,11 @@
         height: var(--height-message-box);
         width: 100%;
 
-        padding: 20px 18px 24px;
-
         overflow-y: auto;
 
         &-list {
             margin-top: auto;
+            padding: 20px 18px 24px;
         }
 
         &-item {
@@ -537,22 +515,6 @@
 
         &-avatar--active {
             position: relative;
-
-            &::after {
-                display: inline-block;
-
-                position: absolute;
-                content: "";
-                bottom: 0;
-                right: 0;
-
-                width: 10px;
-                height: 10px;
-
-                border: 1px solid var(--message-border-active-color);
-                border-radius: 50%;
-                background: var(--message-active-color);
-            }
         }
 
         &-image {

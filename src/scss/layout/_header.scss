@@ -1,8 +1,6 @@
 @use "../abstracts";
 
 .header {
-    --header-layout-height: 78px;
-
     position: fixed;
     top: 0;
     left: 0;
@@ -13,7 +11,7 @@
 
     padding: 18px 30px;
 
-    height: var(--header-layout-height);
+    height: var(--header-height);
     background: var(--header-layout-bg-color);
 
     &__user {
