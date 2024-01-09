@@ -13,7 +13,7 @@ const Main = () => {
     return (
         <div className="messages__main">
             <div className="messages__main-list" ref={dropdownRef}>
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -35,9 +35,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item">
+                <div className="messages__main-item">
                     <div className="messages__main-avatar messages__main-avatar--active">
                         <img
                             src={images.avatarFriend}
@@ -89,9 +89,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -113,9 +113,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -137,9 +137,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -161,9 +161,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item">
+                <div className="messages__main-item">
                     <div className="messages__main-avatar messages__main-avatar--active">
                         <img
                             src={images.avatarFriend}
@@ -215,9 +215,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -239,9 +239,9 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
 
-                <section className="messages__main-item messages__main-item--current">
+                <div className="messages__main-item messages__main-item--current">
                     <div className="messages__main-avatar">
                         <img
                             src={images.avatar}
@@ -263,7 +263,7 @@ const Main = () => {
                             className="messages__main-icon icon"
                         />
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     );

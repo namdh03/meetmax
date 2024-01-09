@@ -3,7 +3,7 @@ import images from "@/assets/images";
 
 const Header = () => {
     return (
-        <header className="messages__header">
+        <div className="messages__header">
             <section className="messages__header-user">
                 <img
                     src={images.avatarFriend}
@@ -45,7 +45,7 @@ const Header = () => {
                     />
                 </button>
             </section>
-        </header>
+        </div>
     );
 };
 

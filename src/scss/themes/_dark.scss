@@ -143,8 +143,8 @@ html.dark {
     --message-button-bg-color: #1d222a;
 
     // Message main content
-    --message-item-bg-color: #{abstracts.$blue-primary-color};
-    --message-item-text-color: #{abstracts.$grayscale-white-color};
-    --message-item-current-bg-color: #{abstracts.$dark-color-2};
-    --message-item-current-text-color: #{abstracts.$grayscale-white-color};
+    --message-main-item-bg-color: #{abstracts.$blue-primary-color};
+    --message-main-item-text-color: #{abstracts.$grayscale-white-color};
+    --message-main-item-current-bg-color: #{abstracts.$dark-color-2};
+    --message-main-item-current-text-color: #{abstracts.$grayscale-white-color};
 }

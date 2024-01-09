@@ -2,7 +2,7 @@ import icons from "@/assets/icons";
 
 const Footer = () => {
     return (
-        <footer className="messages__footer">
+        <div className="messages__footer">
             <section className="messages__footer-wrapper">
                 <input
                     placeholder="Type something here ..."
@@ -31,7 +31,7 @@ const Footer = () => {
                     className="messages__footer-icon"
                 />
             </button>
-        </footer>
+        </div>
     );
 };
 

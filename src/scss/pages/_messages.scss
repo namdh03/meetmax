@@ -473,11 +473,11 @@
                 margin-right: 14px;
                 border-radius: 10px 10px 2px 10px;
 
-                background: var(--message-item-current-bg-color);
+                background: var(--message-main-item-current-bg-color);
             }
 
             .messages__main-text {
-                color: var(--message-item-current-text-color);
+                color: var(--message-main-item-current-text-color);
             }
 
             .messages__main-time {
@@ -501,12 +501,12 @@
             margin-left: 14px;
             border-radius: 10px 10px 10px 2px;
 
-            background: var(--message-item-bg-color);
+            background: var(--message-main-item-bg-color);
         }
 
         &-text {
             @extend %body-r-1;
-            color: var(--message-item-text-color);
+            color: var(--message-main-item-text-color);
         }
 
         &-time {
@@ -515,7 +515,7 @@
             left: 0;
 
             @extend %body-m-3;
-            color: var(--message-item-time-color);
+            color: var(--message-main-item-time-color);
         }
 
         &-action {

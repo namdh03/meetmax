@@ -191,9 +191,9 @@ html {
     --message-button-bg-color: #ebf2ff;
 
     // Message main content
-    --message-item-bg-color: #{abstracts.$blue-primary-color};
-    --message-item-text-color: #{abstracts.$grayscale-white-color};
-    --message-item-current-bg-color: #{abstracts.$grayscale-color-w-3};
-    --message-item-current-text-color: #{abstracts.$grayscale-gray-color};
-    --message-item-time-color: #{abstracts.$grayscale-color-w-60};
+    --message-main-item-bg-color: #{abstracts.$blue-primary-color};
+    --message-main-item-text-color: #{abstracts.$grayscale-white-color};
+    --message-main-item-current-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-main-item-current-text-color: #{abstracts.$grayscale-gray-color};
+    --message-main-item-time-color: #{abstracts.$grayscale-color-w-60};
 }
