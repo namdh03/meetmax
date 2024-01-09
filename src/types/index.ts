@@ -380,8 +380,8 @@ export type MessageContextType = {
     userList: UserType[];
     selectedUserList: UserType[];
     conversations: ConversationType[];
-    selectedConversation: string | null;
-    handleSelectedConversation: (id: string) => void;
+    selectedConversation: ConversationType | null;
+    handleSelectedConversation: (conversation: ConversationType) => void;
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;
@@ -405,15 +405,9 @@ export type ForgotPasswordFormData = {
 };
 
 export type MessageItemProps = {
-    userId: string | undefined;
+    conversation: ConversationType;
+    unreadMessage?: UnreadMessageType;
     active: boolean;
-    participants: string[];
-    unreadMessages: UnreadMessageType[];
-    type: Participant;
-    avatar: string;
-    title: string;
-    lastMessage: string;
-    lastMessageTime: Timestamp;
     onClick: () => void;
 };
 

@@ -76,25 +76,29 @@ const MessageList = () => {
 
                 <Loader loading={loading.conversationLoading}>
                     <div className="messages__content">
-                        {conversations.map((conversation) => (
-                            <MessageItem
-                                key={conversation.id}
-                                userId={user?.uid}
-                                active={
-                                    selectedConversation === conversation.id
-                                }
-                                participants={conversation.participants}
-                                unreadMessages={conversation.unreadMessages}
-                                type={conversation.type}
-                                avatar={conversation.avatarUrl}
-                                lastMessageTime={conversation.lastMessageTime}
-                                title={conversation.title}
-                                lastMessage={conversation.lastMessage}
-                                onClick={() =>
-                                    handleSelectedConversation(conversation.id)
-                                }
-                            />
-                        ))}
+                        {conversations.map((conversation) => {
+                            if (!user) return null;
+
+                            const unreadMessage =
+                                conversation.unreadMessages.find(
+                                    (message) => message.userId === user.uid
+                                );
+
+                            return (
+                                <MessageItem
+                                    key={conversation.id}
+                                    conversation={conversation}
+                                    unreadMessage={unreadMessage}
+                                    active={
+                                        conversation.id ===
+                                        selectedConversation?.id
+                                    }
+                                    onClick={() =>
+                                        handleSelectedConversation(conversation)
+                                    }
+                                />
+                            );
+                        })}
                     </div>
                 </Loader>
             </div>

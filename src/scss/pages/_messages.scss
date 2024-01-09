@@ -4,16 +4,18 @@
     &__inner {
         @include abstracts.display-flex();
         column-gap: var(--container-gutter);
-        height: 100%;
     }
 
     &__list {
+        @include abstracts.display-flex($direction: column);
         min-width: 364px;
+        height: calc(100vh - var(--header-height) - var(--container-gutter));
         padding: 20px;
         border-radius: 16px 16px 0 0;
         background-color: var(--message-list-bg-color);
 
         &-heading {
+            flex-shrink: 0;
             @include abstracts.display-flex();
             column-gap: 20px;
         }
@@ -54,7 +56,9 @@
     }
 
     &__content {
+        flex: 1;
         margin-top: 20px;
+        overflow-y: auto;
     }
 
     &__item {
@@ -186,10 +190,6 @@
             100%
         );
         overflow-y: auto;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
     }
 
     &__user-item {
