@@ -1,19 +1,26 @@
 import icons from "@/assets/icons";
-import images from "@/assets/images";
+import Loader from "@/components/Loader";
+import { useMessage } from "@/hooks";
 
 const Header = () => {
+    const { selectedConversation } = useMessage();
+
     return (
         <div className="messages__header">
             <div className="messages__header-user">
-                <img
-                    src={images.avatarFriend}
-                    alt=""
-                    className="messages__header-avatar"
-                />
+                <Loader loading={!selectedConversation}>
+                    <img
+                        src={selectedConversation?.avatarUrl}
+                        alt={selectedConversation?.title}
+                        className="messages__header-avatar"
+                    />
 
-                <div className="messages__header-content">
-                    <h2 className="messages__header-name">Bao Khang</h2>
-                </div>
+                    <div className="messages__header-content">
+                        <h2 className="messages__header-name">
+                            {selectedConversation?.title}
+                        </h2>
+                    </div>
+                </Loader>
             </div>
 
             <section className="messages__header-actions">

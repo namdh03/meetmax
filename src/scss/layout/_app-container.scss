@@ -5,8 +5,4 @@
         calc(var(--container-gutter) - 12px);
     background-color: var(--app-container-bg-color);
     border-radius: 16px 16px 0 0;
-
-    & > * {
-        height: 100%;
-    }
 }

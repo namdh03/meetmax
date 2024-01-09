@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -36,22 +36,6 @@ const SelectedUserList = memo(() => {
         },
     });
 
-    const checkExitingConversation = useCallback((id: string) => {
-        const conversation = conversations.find((conversation) => {
-            return (
-                conversation.type === Participant.SINGLE &&
-                conversation.participants.includes(id)
-            );
-        });
-
-        if (conversation) {
-            handleSelectedConversation(conversation.id);
-            handleCloseCreateConversation();
-            return;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const handleCreateConversation = async (
         value: CreateConversationFormData
     ) => {
@@ -61,8 +45,23 @@ const SelectedUserList = memo(() => {
                 return toast.error("No user selected");
             if (selectedUserList.length > 1 && !value.title.trim())
                 return toast.error("Please enter conversation name");
-            if (selectedUserList.length === 1)
-                checkExitingConversation(selectedUserList[0].id);
+            if (selectedUserList.length === 1) {
+                const conversation = conversations.find((conversation) => {
+                    return (
+                        conversation.type === Participant.SINGLE &&
+                        conversation.participants.includes(
+                            selectedUserList[0].id
+                        )
+                    );
+                });
+
+                if (conversation) {
+                    return [
+                        handleSelectedConversation(conversation),
+                        handleCloseCreateConversation(),
+                    ];
+                }
+            }
 
             const unreadMessages = selectedUserList.map((user) => ({
                 userId: user.id,
@@ -92,7 +91,7 @@ const SelectedUserList = memo(() => {
             );
 
             handleCloseCreateConversation();
-            handleSelectedConversation(conservation.id);
+            handleSelectedConversation(conservation.data());
         } catch (error) {
             handleFirebaseError(error);
         }
