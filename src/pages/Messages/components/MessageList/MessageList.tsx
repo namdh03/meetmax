@@ -74,33 +74,38 @@ const MessageList = () => {
                     </div>
                 </div>
 
-                <Loader loading={loading.conversationLoading}>
-                    <div className="messages__content">
-                        {conversations.map((conversation) => {
-                            if (!user) return null;
+                {/* Need div tag to set height for father then children (loader) is fit with this height */}
+                <div>
+                    <Loader loading={loading.conversationLoading}>
+                        <div className="messages__content">
+                            {conversations.map((conversation) => {
+                                if (!user) return null;
 
-                            const unreadMessage =
-                                conversation.unreadMessages.find(
-                                    (message) => message.userId === user.uid
+                                const unreadMessage =
+                                    conversation.unreadMessages.find(
+                                        (message) => message.userId === user.uid
+                                    );
+
+                                return (
+                                    <MessageItem
+                                        key={conversation.id}
+                                        conversation={conversation}
+                                        unreadMessage={unreadMessage}
+                                        active={
+                                            conversation.id ===
+                                            selectedConversation?.id
+                                        }
+                                        onClick={() =>
+                                            handleSelectedConversation(
+                                                conversation
+                                            )
+                                        }
+                                    />
                                 );
-
-                            return (
-                                <MessageItem
-                                    key={conversation.id}
-                                    conversation={conversation}
-                                    unreadMessage={unreadMessage}
-                                    active={
-                                        conversation.id ===
-                                        selectedConversation?.id
-                                    }
-                                    onClick={() =>
-                                        handleSelectedConversation(conversation)
-                                    }
-                                />
-                            );
-                        })}
-                    </div>
-                </Loader>
+                            })}
+                        </div>
+                    </Loader>
+                </div>
             </div>
 
             {isOpenCreateConversation && <ConversationFormPortal />}
