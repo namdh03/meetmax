@@ -183,6 +183,7 @@ html {
 
     // Message footer
     --message-input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-input-color: #{abstracts.$grayscale-gray-color};
     --message-input-bg-color: #{abstracts.$grayscale-color-w-5};
     --message-button-color: brightness(0) saturate(100%) invert(46%) sepia(79%)
         saturate(4198%) hue-rotate(208deg) brightness(103%) contrast(102%);
