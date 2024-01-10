@@ -44,6 +44,7 @@ const Password = <
                     type={visible ? "text" : "password"}
                     className="input__children"
                     placeholder={placeholder}
+                    autoComplete="off"
                 />
 
                 <img

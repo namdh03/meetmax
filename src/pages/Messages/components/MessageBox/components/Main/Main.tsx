@@ -1,270 +1,71 @@
-import { useEffect, useRef } from "react";
-
 import icons from "@/assets/icons";
 import images from "@/assets/images";
+import Loader from "@/components/Loader";
+import { formatTimeAgo } from "@/helpers";
+import { useAuth, useMessage } from "@/hooks";
 
 const Main = () => {
-    const scrollToDownRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        scrollToDownRef.current?.scrollIntoView({ block: "end" });
-    }, []);
+    const { user } = useAuth();
+    const { messages, loading, userList, messageRef } = useMessage();
 
     return (
         <div className="messages__main">
-            <div className="messages__main-list" ref={scrollToDownRef}>
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
+            <Loader loading={loading.messageLoading}>
+                <div ref={messageRef} className="messages__main-list">
+                    {messages.map((message) => {
+                        if (!user) return;
 
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Hello</p>
+                        const messageItemClassName = `messages__main-item ${
+                            message.senderId === user.uid
+                                ? "messages__main-item--current"
+                                : ""
+                        }`.trim();
 
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
+                        const participant = userList.find(
+                            (user) => user.id === message.senderId
+                        );
 
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
+                        return (
+                            <div
+                                key={message.id}
+                                title={participant?.fullName}
+                                className={messageItemClassName}
+                            >
+                                <div className="messages__main-avatar">
+                                    <img
+                                        src={
+                                            participant?.avatarUrl ||
+                                            images.avatar
+                                        }
+                                        alt="avatar"
+                                        className="messages__main-image"
+                                    />
+                                </div>
+
+                                <div className="messages__main-content">
+                                    <p className="messages__main-text">
+                                        {message.message}
+                                    </p>
+
+                                    <p className="messages__main-time">
+                                        {formatTimeAgo(
+                                            message.createdAt?.seconds
+                                        )}
+                                    </p>
+                                </div>
+
+                                <div className="messages__main-action">
+                                    <img
+                                        src={icons.other}
+                                        alt="other"
+                                        className="messages__main-icon icon"
+                                    />
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-
-                <div className="messages__main-item">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatarFriend}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban. Minh ten la Duong Hoang Nam. Rat
-                            vui duoc lam quen voi ban. Minh ten la Duong Hoang
-                            Nam. Rat vui duoc lam quen voi ban. Minh ten la
-                            Duong Hoang Nam. Rat vui duoc lam quen voi ban. Minh
-                            ten la Duong Hoang Nam. Rat vui duoc lam quen voi
-                            ban. Minh ten la Duong Hoang Nam. Rat vui duoc lam
-                            quen voi ban. Minh ten la Duong Hoang Nam. Rat vui
-                            duoc lam quen voi ban. Minh ten la Duong Hoang Nam.
-                            Rat vui duoc lam quen voi ban. Minh ten la Duong
-                            Hoang Nam. Rat vui duoc lam quen voi ban. Minh ten
-                            la Duong Hoang Nam. Rat vui duoc lam quen voi ban.
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban. Minh ten la Duong Hoang Nam. Rat
-                            vui duoc lam quen voi ban. Minh ten la Duong Hoang
-                            Nam. Rat vui duoc lam quen voi ban. Minh ten la
-                            Duong Hoang Nam. Rat vui duoc lam quen voi ban. Minh
-                            ten la Duong Hoang Nam. Rat vui duoc lam quen voi
-                            ban. Minh ten la Duong Hoang Nam. Rat vui duoc lam
-                            quen voi ban. Minh ten la Duong Hoang Nam. Rat vui
-                            duoc lam quen voi ban. Minh ten la Duong Hoang Nam.
-                            Rat vui duoc lam quen voi ban. Minh ten la Duong
-                            Hoang Nam. Rat vui duoc lam quen voi ban. Minh ten
-                            la Duong Hoang Nam. Rat vui duoc lam quen voi ban.
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban.
-                        </p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Bye</p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Xin chao lan cuoi</p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Hello</p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatarFriend}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban. Minh ten la Duong Hoang Nam. Rat
-                            vui duoc lam quen voi ban. Minh ten la Duong Hoang
-                            Nam. Rat vui duoc lam quen voi ban. Minh ten la
-                            Duong Hoang Nam. Rat vui duoc lam quen voi ban. Minh
-                            ten la Duong Hoang Nam. Rat vui duoc lam quen voi
-                            ban. Minh ten la Duong Hoang Nam. Rat vui duoc lam
-                            quen voi ban. Minh ten la Duong Hoang Nam. Rat vui
-                            duoc lam quen voi ban. Minh ten la Duong Hoang Nam.
-                            Rat vui duoc lam quen voi ban. Minh ten la Duong
-                            Hoang Nam. Rat vui duoc lam quen voi ban. Minh ten
-                            la Duong Hoang Nam. Rat vui duoc lam quen voi ban.
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban. Minh ten la Duong Hoang Nam. Rat
-                            vui duoc lam quen voi ban. Minh ten la Duong Hoang
-                            Nam. Rat vui duoc lam quen voi ban. Minh ten la
-                            Duong Hoang Nam. Rat vui duoc lam quen voi ban. Minh
-                            ten la Duong Hoang Nam. Rat vui duoc lam quen voi
-                            ban. Minh ten la Duong Hoang Nam. Rat vui duoc lam
-                            quen voi ban. Minh ten la Duong Hoang Nam. Rat vui
-                            duoc lam quen voi ban. Minh ten la Duong Hoang Nam.
-                            Rat vui duoc lam quen voi ban. Minh ten la Duong
-                            Hoang Nam. Rat vui duoc lam quen voi ban. Minh ten
-                            la Duong Hoang Nam. Rat vui duoc lam quen voi ban.
-                            Minh ten la Duong Hoang Nam. Rat vui duoc lam quen
-                            voi ban. Minh ten la Duong Hoang Nam. Rat vui duoc
-                            lam quen voi ban.
-                        </p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Bye</p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-
-                <div className="messages__main-item messages__main-item--current">
-                    <div className="messages__main-avatar">
-                        <img
-                            src={images.avatar}
-                            alt="avatar"
-                            className="messages__main-image"
-                        />
-                    </div>
-
-                    <div className="messages__main-content">
-                        <p className="messages__main-text">Xin chao lan cuoi</p>
-
-                        <p className="messages__main-time">9h ago</p>
-                    </div>
-
-                    <div className="messages__main-action">
-                        <img
-                            src={icons.other}
-                            alt="other"
-                            className="messages__main-icon icon"
-                        />
-                    </div>
-                </div>
-            </div>
+            </Loader>
         </div>
     );
 };
