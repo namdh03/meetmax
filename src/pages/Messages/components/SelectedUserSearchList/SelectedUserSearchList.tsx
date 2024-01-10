@@ -65,7 +65,7 @@ const selectedUserSearchList = memo(() => {
 
             const unreadMessages = selectedUserSearchList.map((user) => ({
                 userId: user.id,
-                unreadMessages: 0,
+                count: 0,
             }));
 
             const conservation = await addDocument(
@@ -85,7 +85,13 @@ const selectedUserSearchList = memo(() => {
                         selectedUserSearchList.length > 1
                             ? Participant.GROUP
                             : Participant.SINGLE,
-                    unreadMessages: unreadMessages,
+                    unreadMessages: [
+                        {
+                            userId: user.uid,
+                            count: 0,
+                        },
+                        ...unreadMessages,
+                    ],
                     keywords: generateKeyword(value.title),
                 }
             );
@@ -112,6 +118,7 @@ const selectedUserSearchList = memo(() => {
             <form
                 className="messages__selected-user-form"
                 onSubmit={handleSubmit(handleCreateConversation)}
+                autoComplete="off"
             >
                 {selectedUserSearchList.length > 1 && (
                     <Text

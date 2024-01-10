@@ -5,6 +5,7 @@ import {
     useCallback,
     useEffect,
     useMemo,
+    useRef,
     useState,
 } from "react";
 
@@ -17,11 +18,13 @@ import {
     getDocumentId,
     getDocumentsByCondition,
     queryConstraints,
+    updateDocument,
 } from "@/services";
 import {
     ConversationType,
     MessageContextType,
     MessageType,
+    UnreadMessageType,
     UserType,
 } from "@/types";
 import { Participant } from "@/utils/enum";
@@ -50,6 +53,8 @@ const MessageContext = createContext<MessageContextType>({
 
 // Create provider
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
+    const messageRef = useRef<HTMLDivElement | null>(null);
+
     // Conversation list
     const [conversationList, setConversationList] = useState<
         ConversationType[]
@@ -97,7 +102,12 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         configs.collections.messages,
         !selectedConversation,
         messageDeps,
-        queryConstraints.where("conversationId", "==", selectedConversation?.id)
+        queryConstraints.where(
+            "conversationId",
+            "==",
+            selectedConversation?.id
+        ),
+        queryConstraints.orderBy("createdAt", "asc")
     );
 
     // Effect: Set conversation list
@@ -165,6 +175,56 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         })();
     }, [conversationList, selectedConversation]);
+
+    // Effect: Scroll to bottom message
+    useEffect(() => {
+        if (!messageRef.current) return;
+        messageRef.current.scrollIntoView({ block: "end" });
+    }, [messages]);
+
+    // Effect: Handle reset unread message count
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!user || !selectedConversation) return;
+
+                const isCurrentMessage = messages.some(
+                    (message) =>
+                        message.conversationId === selectedConversation.id
+                );
+                const conversation = conversations.find(
+                    (conversation) =>
+                        conversation.id === selectedConversation.id
+                );
+                const unreadMessages = conversation?.unreadMessages.filter(
+                    (unreadMessage: UnreadMessageType) =>
+                        unreadMessage.userId !== user.uid
+                );
+                const unreadMessage = conversation?.unreadMessages.find(
+                    (unreadMessage: UnreadMessageType) =>
+                        unreadMessage.userId === user.uid
+                );
+
+                if (!isCurrentMessage || !unreadMessage?.count) return;
+
+                await updateDocument(
+                    configs.collections.conversations,
+                    selectedConversation.id,
+                    {
+                        unreadMessages: [
+                            {
+                                userId: user.uid,
+                                count: 0,
+                            },
+                            ...unreadMessages,
+                        ],
+                    }
+                );
+            } catch (error) {
+                handleFirebaseError(error);
+            }
+        })();
+    }, [conversations, messages, selectedConversation, user]);
 
     // Func: Set selected conversation
     const handleSelectedConversation = useCallback(
@@ -255,6 +315,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         handleSearchUser,
         handleSelectedUser,
         handleRemoveSelectedUser,
+        messageRef,
     };
 
     return (

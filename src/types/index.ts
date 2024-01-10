@@ -403,6 +403,7 @@ export type MessageContextType = {
     handleSearchUser: (value: string) => void;
     handleSelectedUser: (user: UserType) => void;
     handleRemoveSelectedUser: (id: string) => void;
+    messageRef?: RefObject<HTMLDivElement>;
 };
 
 export type SearchProps = {

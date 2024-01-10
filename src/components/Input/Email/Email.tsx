@@ -21,6 +21,7 @@ const Email = <
                     type="email"
                     className="input__children"
                     placeholder={placeholder}
+                    autoComplete="off"
                 />
             </div>
 

@@ -22,6 +22,7 @@ const Text = <
                     type="text"
                     className="input__children"
                     placeholder={placeholder}
+                    autoComplete="off"
                 />
             </div>
 

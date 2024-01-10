@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-
 import icons from "@/assets/icons";
 import images from "@/assets/images";
 import Loader from "@/components/Loader";
@@ -8,17 +6,12 @@ import { useAuth, useMessage } from "@/hooks";
 
 const Main = () => {
     const { user } = useAuth();
-    const { messages, loading, userList } = useMessage();
-    const scrollToDownRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        scrollToDownRef.current?.scrollIntoView({ block: "end" });
-    }, []);
+    const { messages, loading, userList, messageRef } = useMessage();
 
     return (
         <div className="messages__main">
             <Loader loading={loading.messageLoading}>
-                <div className="messages__main-list" ref={scrollToDownRef}>
+                <div ref={messageRef} className="messages__main-list">
                     {messages.map((message) => {
                         if (!user) return;
 
@@ -35,6 +28,7 @@ const Main = () => {
                         return (
                             <div
                                 key={message.id}
+                                title={participant?.fullName}
                                 className={messageItemClassName}
                             >
                                 <div className="messages__main-avatar">
