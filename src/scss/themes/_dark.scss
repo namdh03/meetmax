@@ -135,6 +135,7 @@ html.dark {
     --message-border-color: #{abstracts.$grayscale-gray-color};
 
     // Message footer
+    --message-input-color: #{abstracts.$grayscale-white-color};
     --message-input-bg-color: #{abstracts.$dark-color-2};
     --message-button-color: brightness(0) saturate(100%) invert(100%)
         sepia(100%) saturate(2%) hue-rotate(219deg) brightness(108%)

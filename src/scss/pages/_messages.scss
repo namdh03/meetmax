@@ -376,6 +376,9 @@
             border: solid 1px var(--message-border-color);
 
             border-radius: 10px;
+
+            @extend %body-r-1;
+            color: var(--message-input-color);
             background: var(--message-input-bg-color);
 
             &::placeholder {
