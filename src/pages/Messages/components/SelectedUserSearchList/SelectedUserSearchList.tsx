@@ -17,11 +17,11 @@ import UserTag from "../UserTag";
 
 const { Text } = Input;
 
-const SelectedUserList = memo(() => {
+const selectedUserSearchList = memo(() => {
     const { user } = useAuth();
     const {
         conversations,
-        selectedUserList,
+        selectedUserSearchList,
         handleSelectedConversation,
         handleRemoveSelectedUser,
         handleCloseCreateConversation,
@@ -41,29 +41,29 @@ const SelectedUserList = memo(() => {
     ) => {
         try {
             if (!user) return;
-            if (!selectedUserList.length)
+            if (!selectedUserSearchList.length)
                 return toast.error("No user selected");
-            if (selectedUserList.length > 1 && !value.title.trim())
+            if (selectedUserSearchList.length > 1 && !value.title.trim())
                 return toast.error("Please enter conversation name");
-            if (selectedUserList.length === 1) {
+            if (selectedUserSearchList.length === 1) {
                 const conversation = conversations.find((conversation) => {
                     return (
                         conversation.type === Participant.SINGLE &&
                         conversation.participants.includes(
-                            selectedUserList[0].id
+                            selectedUserSearchList[0].id
                         )
                     );
                 });
 
                 if (conversation) {
-                    return [
-                        handleSelectedConversation(conversation),
+                    return (
                         handleCloseCreateConversation(),
-                    ];
+                        handleSelectedConversation(conversation.id)
+                    );
                 }
             }
 
-            const unreadMessages = selectedUserList.map((user) => ({
+            const unreadMessages = selectedUserSearchList.map((user) => ({
                 userId: user.id,
                 unreadMessages: 0,
             }));
@@ -78,11 +78,11 @@ const SelectedUserList = memo(() => {
                     lastMessageTime: serverTimestamp(),
                     participants: [
                         user.uid,
-                        ...selectedUserList.map((user) => user.id),
+                        ...selectedUserSearchList.map((user) => user.id),
                     ],
                     title: value.title || null,
                     type:
-                        selectedUserList.length > 1
+                        selectedUserSearchList.length > 1
                             ? Participant.GROUP
                             : Participant.SINGLE,
                     unreadMessages: unreadMessages,
@@ -91,7 +91,7 @@ const SelectedUserList = memo(() => {
             );
 
             handleCloseCreateConversation();
-            handleSelectedConversation(conservation.data());
+            handleSelectedConversation(conservation.id);
         } catch (error) {
             handleFirebaseError(error);
         }
@@ -100,7 +100,7 @@ const SelectedUserList = memo(() => {
     return (
         <div className="messages__selected-user">
             <div className="messages__selected-user-list">
-                {selectedUserList.map((user) => (
+                {selectedUserSearchList.map((user) => (
                     <UserTag
                         key={user.id}
                         fullName={user.fullName}
@@ -113,7 +113,7 @@ const SelectedUserList = memo(() => {
                 className="messages__selected-user-form"
                 onSubmit={handleSubmit(handleCreateConversation)}
             >
-                {selectedUserList.length > 1 && (
+                {selectedUserSearchList.length > 1 && (
                     <Text
                         id="title"
                         name="title"
@@ -135,4 +135,4 @@ const SelectedUserList = memo(() => {
     );
 });
 
-export default SelectedUserList;
+export default selectedUserSearchList;

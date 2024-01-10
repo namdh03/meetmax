@@ -13,13 +13,18 @@ import { CollectionValue } from "@/types";
 
 const useFirestore = (
     _collection: CollectionValue,
+    badCondition: boolean,
+    deps?: React.DependencyList | undefined,
     ...queryConstraints: QueryConstraint[]
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
     const documentTemps = useRef<DocumentData[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        if (badCondition) return;
+        setLoading(true);
+
         const colRef = collection(configs.firebase.db, _collection);
         const q = query(colRef, ...queryConstraints);
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -35,7 +40,7 @@ const useFirestore = (
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [deps]);
 
     return { documents, setDocuments, loading };
 };

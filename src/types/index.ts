@@ -11,7 +11,13 @@ import {
 } from "firebase/auth";
 import { Firestore, Timestamp } from "firebase/firestore";
 
-import { AuthActionType, Gender, Participant, Role } from "@/utils/enum";
+import {
+    AuthActionType,
+    Gender,
+    Message,
+    Participant,
+    Role,
+} from "@/utils/enum";
 
 // Config types
 export type RouteKey =
@@ -56,9 +62,9 @@ export type FirebaseConfigType = {
 };
 
 // Collection types
-export type CollectionKey = "users" | "conversations";
+export type CollectionKey = "users" | "conversations" | "messages";
 
-export type CollectionValue = "users" | "conversations";
+export type CollectionValue = "users" | "conversations" | "messages";
 
 export type CollectionType = {
     [key in CollectionKey]: CollectionValue;
@@ -115,6 +121,17 @@ export type ConversationType = {
     participants: string[];
     unreadMessages: UnreadMessageType[];
     keywords: string[];
+    createdAt: Timestamp;
+};
+
+// Message collection types
+export type MessageType = {
+    id: string;
+    senderId: string;
+    conversationId: string;
+    message: string;
+    messageType: Message;
+    deletedAt: Timestamp;
     createdAt: Timestamp;
 };
 
@@ -368,20 +385,18 @@ export type LoaderProps = {
 export type MessageLoadingType = {
     userListLoading: boolean;
     conversationLoading: boolean;
-};
-
-// Messages context type
-export type MessageItemType = {
-    id: string;
+    messageLoading: boolean;
 };
 
 export type MessageContextType = {
     loading: MessageLoadingType;
-    userList: UserType[];
-    selectedUserList: UserType[];
+    userSearchList: UserType[];
+    selectedUserSearchList: UserType[];
     conversations: ConversationType[];
+    messages: MessageType[];
+    userList: UserType[];
     selectedConversation: ConversationType | null;
-    handleSelectedConversation: (conversation: ConversationType) => void;
+    handleSelectedConversation: (id: string) => void;
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;

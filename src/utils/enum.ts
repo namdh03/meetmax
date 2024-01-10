@@ -19,3 +19,11 @@ export enum Participant {
     SINGLE = "SINGLE",
     GROUP = "GROUP",
 }
+
+export enum Message {
+    TEXT = "TEXT",
+    IMAGE = "IMAGE",
+    VIDEO = "VIDEO",
+    AUDIO = "AUDIO",
+    FILE = "FILE",
+}

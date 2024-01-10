@@ -7,8 +7,8 @@ import Search from "@/components/Search";
 import { useAuth, useMessage, useOnClickOutside, usePortal } from "@/hooks";
 
 import MessageItem from "../MessageItem";
-import SelectedUserList from "../SelectedUserList";
-import UserList from "../UserList";
+import SelectedUserSearchList from "../SelectedUserSearchList";
+import UserSearchList from "../UserSearchList";
 
 const MessageList = () => {
     const { user } = useAuth();
@@ -46,11 +46,11 @@ const MessageList = () => {
                             onSearch={handleSearchUser}
                         />
 
-                        <UserList />
+                        <UserSearchList />
 
                         <Divider />
 
-                        <SelectedUserList />
+                        <SelectedUserSearchList />
                     </div>
                 </div>
             ),
@@ -94,7 +94,9 @@ const MessageList = () => {
                                         selectedConversation?.id
                                     }
                                     onClick={() =>
-                                        handleSelectedConversation(conversation)
+                                        handleSelectedConversation(
+                                            conversation.id
+                                        )
                                     }
                                 />
                             );

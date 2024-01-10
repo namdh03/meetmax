@@ -6,14 +6,18 @@ import Loader from "@/components/Loader";
 import { useMessage } from "@/hooks";
 
 const UserList = memo(() => {
-    const { userList, selectedUserList, loading, handleSelectedUser } =
-        useMessage();
+    const {
+        userSearchList,
+        selectedUserSearchList,
+        loading,
+        handleSelectedUser,
+    } = useMessage();
 
     return (
         <ul className="messages__user-list">
             <Loader loading={loading.userListLoading}>
-                {userList.map((user) => {
-                    const isActive = selectedUserList.some(
+                {userSearchList.map((user) => {
+                    const isActive = selectedUserSearchList.some(
                         (selected) => selected.id === user.id
                     );
 

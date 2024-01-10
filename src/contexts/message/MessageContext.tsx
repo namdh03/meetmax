@@ -4,6 +4,7 @@ import {
     PropsWithChildren,
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 
@@ -17,7 +18,12 @@ import {
     getDocumentsByCondition,
     queryConstraints,
 } from "@/services";
-import { ConversationType, MessageContextType, UserType } from "@/types";
+import {
+    ConversationType,
+    MessageContextType,
+    MessageType,
+    UserType,
+} from "@/types";
 import { Participant } from "@/utils/enum";
 
 // Create context
@@ -25,10 +31,13 @@ const MessageContext = createContext<MessageContextType>({
     loading: {
         userListLoading: true,
         conversationLoading: true,
+        messageLoading: true,
     },
-    userList: [],
-    selectedUserList: [],
+    userSearchList: [],
+    selectedUserSearchList: [],
     conversations: [],
+    messages: [],
+    userList: [],
     selectedConversation: null,
     handleSelectedConversation: () => {},
     isOpenCreateConversation: false,
@@ -41,14 +50,6 @@ const MessageContext = createContext<MessageContextType>({
 
 // Create provider
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
-    const { user } = useAuth();
-    const { documents: conversations, loading: conversationLoading } =
-        useFirestore(
-            configs.collections.conversations,
-            queryConstraints.where("participants", "array-contains", user?.uid),
-            queryConstraints.orderBy("lastMessageTime", "desc")
-        );
-
     // Conversation list
     const [conversationList, setConversationList] = useState<
         ConversationType[]
@@ -58,16 +59,46 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const [selectedConversation, setSelectedConversation] =
         useState<ConversationType | null>(null);
 
+    // User list by conversation
+    const [userList, setUserList] = useState<UserType[]>([]);
+
     // Open create conversation
     const [isOpenCreateConversation, setIsOpenCreateConversation] =
         useState<boolean>(false);
 
     // List user for create conversation
-    const [userList, setUserList] = useState<UserType[]>([]);
+    const [userSearchList, setUserSearchList] = useState<UserType[]>([]);
     const [userListLoading, setUserListLoading] = useState<boolean>(false);
 
     // Selected user list
-    const [selectedUserList, setSelectedUserList] = useState<UserType[]>([]);
+    const [selectedUserSearchList, setSelectedUserSearchList] = useState<
+        UserType[]
+    >([]);
+
+    const { user } = useAuth();
+
+    // Get conversation list
+    const conversationDeps = useMemo(() => [user], [user]);
+    const { documents: conversations, loading: conversationLoading } =
+        useFirestore(
+            configs.collections.conversations,
+            !user,
+            conversationDeps,
+            queryConstraints.where("participants", "array-contains", user?.uid),
+            queryConstraints.orderBy("lastMessageTime", "desc")
+        );
+
+    // Get message list
+    const messageDeps = useMemo(
+        () => [selectedConversation],
+        [selectedConversation]
+    );
+    const { documents: messages, loading: messageLoading } = useFirestore(
+        configs.collections.messages,
+        !selectedConversation,
+        messageDeps,
+        queryConstraints.where("conversationId", "==", selectedConversation?.id)
+    );
 
     // Effect: Set conversation list
     useEffect(() => {
@@ -112,11 +143,40 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         if (!conversationList.length) return;
         !selectedConversation && setSelectedConversation(conversationList[0]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [conversationList]);
+
+    // Effect: Set user list by conversation
+    useEffect(() => {
+        if (!selectedConversation) return;
+
+        const participants = selectedConversation.participants;
+
+        (async () => {
+            try {
+                const result = await getDocumentsByCondition(
+                    configs.collections.users,
+                    queryConstraints.where(getDocumentId(), "in", participants)
+                );
+
+                setUserList(result as UserType[]);
+            } catch (error) {
+                handleFirebaseError(error);
+            }
+        })();
     }, [conversationList, selectedConversation]);
 
     // Func: Set selected conversation
-    const handleSelectedConversation = (conversation: ConversationType) =>
-        setSelectedConversation(conversation);
+    const handleSelectedConversation = useCallback(
+        (id: string) => {
+            const conversation = conversationList.find(
+                (conversation) => conversation.id === id
+            );
+
+            setSelectedConversation(conversation as ConversationType);
+        },
+        [conversationList]
+    );
 
     // Func: Open create conversation
     const handleOpenCreateConversation = () =>
@@ -133,7 +193,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         async (value: string) => {
             try {
                 if (!user) return;
-                if (!value) return setUserList([]);
+                if (!value) return setUserSearchList([]);
                 setUserListLoading(true);
 
                 const users = await getDocumentsByCondition(
@@ -146,7 +206,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                     queryConstraints.where(getDocumentId(), "!=", user.uid)
                 );
 
-                setUserList(users as UserType[]);
+                setUserSearchList(users as UserType[]);
             } catch (error) {
                 handleFirebaseError(error);
             } finally {
@@ -158,29 +218,35 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
 
     // Func: Reset user list
     const resetUserList = useCallback(() => {
-        setUserList([]);
-        setSelectedUserList([]);
+        setUserSearchList([]);
+        setSelectedUserSearchList([]);
     }, []);
 
     // Handle selected user to create conversation
     const handleSelectedUser = (user: UserType) => {
-        if (selectedUserList.find((_user) => _user.id === user.id)) return;
+        if (selectedUserSearchList.find((_user) => _user.id === user.id))
+            return;
 
-        setSelectedUserList((prev) => [...prev, user]);
+        setSelectedUserSearchList((prev) => [...prev, user]);
     };
 
     // Handle remove selected user
     const handleRemoveSelectedUser = (id: string) =>
-        setSelectedUserList((prev) => prev.filter((user) => user.id !== id));
+        setSelectedUserSearchList((prev) =>
+            prev.filter((user) => user.id !== id)
+        );
 
     const values: MessageContextType = {
         loading: {
             userListLoading,
             conversationLoading,
+            messageLoading,
         },
-        userList: userList,
-        selectedUserList,
+        userSearchList,
+        selectedUserSearchList,
         conversations: conversationList as ConversationType[],
+        messages: messages as MessageType[],
+        userList,
         selectedConversation,
         handleSelectedConversation,
         isOpenCreateConversation,
