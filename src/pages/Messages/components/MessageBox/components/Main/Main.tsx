@@ -49,7 +49,6 @@ const Main = () => {
                                 key={message.id}
                                 title={participant?.fullName}
                                 className={messageItemClassName}
-                                onClick={() => handleClick(message.id)}
                             >
                                 <div className="messages__main-avatar">
                                     <img
@@ -62,7 +61,10 @@ const Main = () => {
                                     />
                                 </div>
 
-                                <div className="messages__main-content">
+                                <div
+                                    className="messages__main-content"
+                                    onClick={() => handleClick(message.id)}
+                                >
                                     <p className="messages__main-name">
                                         {participant?.fullName}
                                     </p>
