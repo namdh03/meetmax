@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import icons from "@/assets/icons";
 import images from "@/assets/images";
 import Loader from "@/components/Loader";
@@ -8,6 +10,19 @@ const Main = () => {
     const { user } = useAuth();
     const { messages, loading, userList, messageRef } = useMessage();
 
+    const [activeId, setActiveId] = useState("" as string | null);
+    const [count, setCount] = useState(0);
+
+    const handleClick = (id: string) => {
+        if (count % 2 === 0) {
+            setActiveId(id);
+        } else {
+            setActiveId("");
+        }
+
+        setCount((prev) => prev + 1);
+    };
+
     return (
         <div className="messages__main">
             <Loader loading={loading.messageLoading}>
@@ -16,6 +31,10 @@ const Main = () => {
                         if (!user) return;
 
                         const messageItemClassName = `messages__main-item ${
+                            activeId === message.id
+                                ? " messages__main-item--active"
+                                : ""
+                        } ${
                             message.senderId === user.uid
                                 ? "messages__main-item--current"
                                 : ""
@@ -30,6 +49,7 @@ const Main = () => {
                                 key={message.id}
                                 title={participant?.fullName}
                                 className={messageItemClassName}
+                                onClick={() => handleClick(message.id)}
                             >
                                 <div className="messages__main-avatar">
                                     <img
@@ -43,6 +63,10 @@ const Main = () => {
                                 </div>
 
                                 <div className="messages__main-content">
+                                    <p className="messages__main-name">
+                                        {participant?.fullName}
+                                    </p>
+
                                     <p className="messages__main-text">
                                         {message.message}
                                     </p>
