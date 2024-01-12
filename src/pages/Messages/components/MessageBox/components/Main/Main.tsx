@@ -10,17 +10,15 @@ const Main = () => {
     const { user } = useAuth();
     const { messages, loading, userList, messageRef } = useMessage();
 
-    const [activeId, setActiveId] = useState("" as string | null);
-    const [count, setCount] = useState(0);
+    const [activeMessageId, setActiveMessageId] = useState<string>("");
 
-    const handleClick = (id: string) => {
-        if (count % 2 === 0) {
-            setActiveId(id);
-        } else {
-            setActiveId("");
-        }
-
-        setCount((prev) => prev + 1);
+    const handleClick = (messageId: string) => {
+        setActiveMessageId((prev) => {
+            if (prev === messageId) {
+                return "";
+            }
+            return messageId;
+        });
     };
 
     return (
@@ -31,7 +29,7 @@ const Main = () => {
                         if (!user) return;
 
                         const messageItemClassName = `messages__main-item ${
-                            activeId === message.id
+                            activeMessageId === message.id
                                 ? " messages__main-item--active"
                                 : ""
                         } ${
