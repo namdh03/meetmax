@@ -448,7 +448,6 @@
         }
 
         &-item--active {
-            padding-top: 16px;
             padding-bottom: 30px;
 
             .messages__main-time {
@@ -547,10 +546,6 @@
 
         &-avatar {
             @include abstracts.display-flex(flex-end, center);
-        }
-
-        &-avatar--active {
-            position: relative;
         }
 
         &-image {
