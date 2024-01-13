@@ -122,6 +122,8 @@
         }
 
         &-time {
+            display: inline-block;
+            min-height: 18px;
             @extend %body-m-3;
             color: var(--message-time-msg-color);
         }
