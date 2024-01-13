@@ -12,11 +12,9 @@ const Main = () => {
 
     const [activeMessageId, setActiveMessageId] = useState<string>("");
 
-    const handleClick = (messageId: string) => {
+    const handleShowTimeMsg = (messageId: string) => {
         setActiveMessageId((prev) => {
-            if (prev === messageId) {
-                return "";
-            }
+            if (prev === messageId) return "";
             return messageId;
         });
     };
@@ -48,43 +46,47 @@ const Main = () => {
                                 title={participant?.fullName}
                                 className={messageItemClassName}
                             >
-                                <div className="messages__main-avatar">
-                                    <img
-                                        src={
-                                            participant?.avatarUrl ||
-                                            images.avatar
-                                        }
-                                        alt="avatar"
-                                        className="messages__main-image"
-                                    />
+                                <div className="messages__main-inner">
+                                    <figure className="messages__main-avatar">
+                                        <img
+                                            src={
+                                                participant?.avatarUrl ||
+                                                images.avatar
+                                            }
+                                            alt="avatar"
+                                            className="messages__main-image"
+                                        />
+                                    </figure>
+
+                                    <div className="messages__main-content">
+                                        <p className="messages__main-name">
+                                            {participant?.fullName}
+                                        </p>
+
+                                        <div className="messages__main-info">
+                                            <p
+                                                className="messages__main-text"
+                                                onClick={() =>
+                                                    handleShowTimeMsg(
+                                                        message.id
+                                                    )
+                                                }
+                                            >
+                                                {message.message}
+                                            </p>
+
+                                            <img
+                                                src={icons.other}
+                                                alt="other"
+                                                className="icon messages__main-icon"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div
-                                    className="messages__main-content"
-                                    onClick={() => handleClick(message.id)}
-                                >
-                                    <p className="messages__main-name">
-                                        {participant?.fullName}
-                                    </p>
-
-                                    <p className="messages__main-text">
-                                        {message.message}
-                                    </p>
-
-                                    <p className="messages__main-time">
-                                        {formatTimeAgo(
-                                            message.createdAt?.seconds
-                                        )}
-                                    </p>
-                                </div>
-
-                                <div className="messages__main-action">
-                                    <img
-                                        src={icons.other}
-                                        alt="other"
-                                        className="messages__main-icon icon"
-                                    />
-                                </div>
+                                <span className="messages__main-time">
+                                    {formatTimeAgo(message.createdAt?.seconds)}
+                                </span>
                             </div>
                         );
                     })}

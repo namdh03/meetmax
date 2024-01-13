@@ -426,139 +426,125 @@
 
     // Main content of message box
     &__main {
-        @include abstracts.display-flex(null);
-        flex-direction: column;
+        --avatar-size: 40px;
+        --space-between-avatar-msg: 14px;
 
-        height: var(--height-message-box);
+        @include abstracts.display-flex();
         width: 100%;
-
+        height: var(--height-message-box);
         overflow-y: auto;
 
         &-list {
+            width: 100%;
             margin-top: auto;
             padding: 20px 18px 24px;
         }
 
         &-item {
-            @include abstracts.display-flex(null, flex-start);
+            @include abstracts.display-flex($direction: column);
+            gap: 10px;
 
-            margin-top: 20px;
-            padding-top: 6px;
-            padding-bottom: 12px;
-        }
+            & + & {
+                margin-top: 20px;
+            }
 
-        &-item--active {
-            padding-top: 16px;
-            padding-bottom: 30px;
+            &--active {
+                .messages__main-time {
+                    display: block;
+                }
+            }
 
-            .messages__main-time {
-                display: block;
+            &--current {
+                .messages__main-inner {
+                    flex-direction: row-reverse;
+                }
+
+                .messages__main-content {
+                    margin-right: var(--space-between-avatar-msg);
+                }
+
+                .messages__main-name {
+                    text-align: right;
+                }
+
+                .messages__main-info {
+                    flex-direction: row-reverse;
+                }
+
+                .messages__main-text {
+                    color: var(--message-main-item-current-text-color);
+                    background: var(--message-main-item-current-bg-color);
+                }
+
+                .messages__main-time {
+                    align-self: flex-end;
+                    margin-right: calc(
+                        var(--avatar-size) + var(--space-between-avatar-msg)
+                    );
+                }
             }
         }
 
-        &-item--current {
-            flex-direction: row-reverse;
+        &-inner {
+            @include abstracts.display-flex();
+        }
 
-            .messages__main-content {
-                margin-left: 0;
-                margin-right: 14px;
-                border-radius: 10px 10px 2px 10px;
+        &-avatar {
+            align-self: flex-end;
+            width: var(--avatar-size);
+            height: var(--avatar-size);
+            border-radius: 50%;
+        }
 
-                background: var(--message-main-item-current-bg-color);
-            }
-
-            .messages__main-name {
-                left: auto;
-                right: 0;
-
-                text-align: right;
-            }
-
-            .messages__main-text {
-                color: var(--message-main-item-current-text-color);
-            }
-
-            .messages__main-time {
-                left: auto;
-                right: 0;
-            }
-
-            .messages__main-action {
-                margin-left: 0;
-                margin-right: 10px;
-            }
+        &-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            object-fit: cover;
         }
 
         &-content {
-            @include abstracts.display-flex(center);
-            position: relative;
-
-            max-width: 544px;
-
-            padding: 14px 18px 12px;
-            margin-left: 14px;
-            border-radius: 10px 10px 10px 2px;
-
-            background: var(--message-main-item-bg-color);
+            margin-left: var(--space-between-avatar-msg);
         }
 
         &-name {
-            position: absolute;
-            top: -22px;
-            left: 0;
-
-            min-width: 300px;
-
-            @extend %body-m-3;
+            @extend %body-m-1;
             color: var(--message-main-item-time-color);
+        }
+
+        &-info {
+            @include abstracts.display-flex(center, null);
+            column-gap: 10px;
+            margin-top: 6px;
         }
 
         &-text {
+            max-width: 544px;
             min-width: 20px;
+            padding: 14px 18px 12px;
 
             @extend %body-r-1;
+
+            border-radius: 10px 10px 10px 2px;
+            background: var(--message-main-item-bg-color);
             color: var(--message-main-item-text-color);
             word-break: break-word;
-        }
-
-        &-time {
-            display: none;
-
-            position: absolute;
-            bottom: -22px;
-            left: 0;
-
-            @extend %body-m-3;
-            color: var(--message-main-item-time-color);
-        }
-
-        &-action {
-            @include abstracts.display-flex(center);
-
-            margin-left: 10px;
         }
 
         &-icon {
             width: 16px;
             height: 16px;
-
             cursor: pointer;
         }
 
-        &-avatar {
-            @include abstracts.display-flex(flex-end, center);
-        }
-
-        &-avatar--active {
-            position: relative;
-        }
-
-        &-image {
-            display: block;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
+        &-time {
+            display: none;
+            margin-left: calc(
+                var(--avatar-size) + var(--space-between-avatar-msg)
+            );
+            @extend %body-m-3;
+            color: var(--message-main-item-time-color);
         }
     }
 }

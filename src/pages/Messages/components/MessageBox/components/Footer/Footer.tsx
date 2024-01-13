@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { serverTimestamp } from "firebase/firestore";
@@ -15,19 +17,41 @@ import schema from "./Footer.schema";
 const Footer = () => {
     const { user } = useAuth();
     const { conversations, selectedConversation } = useMessage();
-    const { register, handleSubmit, reset } = useForm<{ message: string }>({
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<{ message: string }>({
         resolver: yupResolver(schema),
         defaultValues: {
             message: "",
         },
     });
 
+    useEffect(() => {
+        if (errors.message) {
+            switch (errors.message.type) {
+                case "min":
+                    reset();
+                    break;
+
+                case "max":
+                    toast.error("Message too long");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }, [errors, reset]);
+
     const handleSendMessage = async (value: { message: string }) => {
         try {
             const valueTrim = value.message.trim();
 
-            if (!valueTrim) reset();
             if (!selectedConversation || !user) return;
+            if (!valueTrim) return reset();
 
             const conversation = conversations.find(
                 (conversation) => conversation.id === selectedConversation.id
@@ -49,6 +73,9 @@ const Footer = () => {
                 }
             );
 
+            // Handle reset after add message
+            reset();
+
             await addDocument(configs.collections.messages, {
                 conversationId: selectedConversation.id,
                 deletedAt: null,
@@ -56,8 +83,6 @@ const Footer = () => {
                 messageType: Message.TEXT,
                 senderId: user.uid,
             });
-
-            reset();
 
             await updateDocument(
                 configs.collections.conversations,
@@ -105,7 +130,10 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <button className="messages__footer-button">
+                    <button
+                        className="messages__footer-button"
+                        onClick={handleSubmit(handleSendMessage)}
+                    >
                         <img
                             src={icons.send}
                             alt=""
