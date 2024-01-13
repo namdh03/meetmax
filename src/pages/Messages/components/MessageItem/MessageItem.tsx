@@ -43,7 +43,8 @@ const MessageItem = ({
 
             <div className="messages__item-footer">
                 <span className="messages__item-time">
-                    {getDateFormat(conversation.lastMessageTime?.seconds)}
+                    {conversation.lastMessageTime &&
+                        getDateFormat(conversation.lastMessageTime.seconds)}
                 </span>
 
                 {unreadMessage && unreadMessage.count > 0 ? (

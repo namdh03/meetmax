@@ -23,7 +23,7 @@ const MainLayout = () => {
             to: configs.routes.community,
             label: "My community",
             icon: icons.community,
-            count: 3,
+            count: 0,
         },
         {
             to: configs.routes.messages,
