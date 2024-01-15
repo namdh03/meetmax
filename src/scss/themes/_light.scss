@@ -196,13 +196,4 @@ html {
     --message-main-item-current-bg-color: #{abstracts.$grayscale-color-w-3};
     --message-main-item-current-text-color: #{abstracts.$grayscale-gray-color};
     --message-main-item-time-color: #{abstracts.$grayscale-color-w-60};
-
-    // Modal
-    --modal-color: #{abstracts.$grayscale-white-color};
-    --modal-bg-color: rgba(140, 140, 140, 0.5);
-    --modal-shadow-color: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
-        0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-    --modal-close-bg-color: rgba(0, 0, 0, 0.06);
-    --modal-title-color: #{abstracts.$dark-color-1};
-    --modal-description-color: #{abstracts.$grayscale-gray-color};
 }
