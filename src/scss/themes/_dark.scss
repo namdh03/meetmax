@@ -148,4 +148,10 @@ html.dark {
     --message-main-item-text-color: #{abstracts.$grayscale-white-color};
     --message-main-item-current-bg-color: #{abstracts.$dark-color-2};
     --message-main-item-current-text-color: #{abstracts.$grayscale-white-color};
+
+    // Modal
+    --modal-color: #1f1f1f;
+    --modal-bg-color: rgba(140, 140, 140, 0.2);
+    --modal-title-color: #{abstracts.$grayscale-white-color};
+    --modal-description-color: #{abstracts.$grayscale-color-w-20};
 }
