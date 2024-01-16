@@ -64,6 +64,10 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const [selectedConversation, setSelectedConversation] =
         useState<ConversationType | null>(null);
 
+    // Message list by conversation
+    const [messagesList, setMessageList] = useState<MessageType[]>([]);
+    const [messageLoading, setMessageLoading] = useState<boolean>(false);
+
     // User list by conversation
     const [userList, setUserList] = useState<UserType[]>([]);
 
@@ -93,12 +97,12 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             queryConstraints.orderBy("lastMessageTime", "desc")
         );
 
-    // Get message list
+    // Get last message
     const messageDeps = useMemo(
         () => [selectedConversation],
         [selectedConversation]
     );
-    const { documents: messages, loading: messageLoading } = useFirestore(
+    const { documents: messages } = useFirestore(
         configs.collections.messages,
         !selectedConversation,
         messageDeps,
@@ -107,7 +111,8 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             "==",
             selectedConversation?.id
         ),
-        queryConstraints.orderBy("createdAt", "asc")
+        queryConstraints.orderBy("createdAt", "desc"),
+        queryConstraints.limit(1)
     );
 
     // Effect: Set conversation list
@@ -156,6 +161,45 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [conversationList]);
 
+    // Get message list by conversation
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!selectedConversation) return;
+
+                setMessageLoading(true);
+
+                const result = await getDocumentsByCondition(
+                    configs.collections.messages,
+                    queryConstraints.where(
+                        "conversationId",
+                        "==",
+                        selectedConversation.id
+                    ),
+                    queryConstraints.orderBy("createdAt", "desc"),
+                    queryConstraints.limit(10)
+                );
+
+                setMessageList([...result].reverse() as MessageType[]);
+            } catch (error) {
+                handleFirebaseError(error);
+            } finally {
+                setMessageLoading(false);
+            }
+        })();
+    }, [selectedConversation]);
+
+    // Effect: Realtime message
+    useEffect(() => {
+        if (!messages) return;
+
+        setMessageList((prev) => {
+            if (prev.some((message) => message.id === messages[0].id))
+                return prev;
+            return [...prev, ...(messages as MessageType[])];
+        });
+    }, [messages]);
+
     // Effect: Set user list by conversation
     useEffect(() => {
         if (!selectedConversation) return;
@@ -180,7 +224,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         if (!messageRef.current) return;
         messageRef.current.scrollIntoView({ block: "end" });
-    }, [messages]);
+    }, [messagesList]);
 
     // Effect: Handle reset unread message count
     useEffect(() => {
@@ -188,7 +232,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             try {
                 if (!user || !selectedConversation) return;
 
-                const isCurrentMessage = messages.some(
+                const isCurrentMessage = messagesList.some(
                     (message) =>
                         message.conversationId === selectedConversation.id
                 );
@@ -224,7 +268,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 handleFirebaseError(error);
             }
         })();
-    }, [conversations, messages, selectedConversation, user]);
+    }, [conversations, messagesList, selectedConversation, user]);
 
     // Func: Set selected conversation
     const handleSelectedConversation = useCallback(
@@ -305,7 +349,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         userSearchList,
         selectedUserSearchList,
         conversations: conversationList as ConversationType[],
-        messages: messages as MessageType[],
+        messages: messagesList as MessageType[],
         userList,
         selectedConversation,
         handleSelectedConversation,
