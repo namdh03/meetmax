@@ -41,8 +41,9 @@ const useFirestore = (
             documentSnapshots.current = querySnapshot;
             visible.current = querySnapshot.docs[querySnapshot.docs.length - 1];
             setDocuments(result);
-            setLoading(false);
         });
+
+        setLoading(false);
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
