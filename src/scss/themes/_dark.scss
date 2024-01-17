@@ -154,4 +154,9 @@ html.dark {
     --modal-bg-color: rgba(140, 140, 140, 0.1);
     --modal-title-color: #{abstracts.$grayscale-white-color};
     --modal-description-color: #{abstracts.$grayscale-color-w-20};
+
+    // Not verify email
+    --not-verify-email-bg: #{abstracts.$dark-color-2};
+    --not-verify-email-title: #{abstracts.$grayscale-white-color};
+    --not-verify-email-text: #{abstracts.$grayscale-color-w-20};
 }

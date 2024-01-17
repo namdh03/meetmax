@@ -13,6 +13,7 @@ const routes: RouteConfigType = {
     settings: "/settings",
     forgotPassword: "/forgot-password",
     checkEmail: "/check-email",
+    NotVerifyEmail: "/not-verify-email",
     notFound: "*",
 };
 
