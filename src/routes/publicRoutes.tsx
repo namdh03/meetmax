@@ -4,6 +4,7 @@ import AuthLayout from "@/layout/AuthLayout";
 import CheckEmail from "@/pages/CheckEmail";
 import ForgotPassword from "@/pages/ForgotPassword";
 import NotFound from "@/pages/NotFound";
+import NotVerifyEmail from "@/pages/NotVerifyEmail";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 
@@ -51,6 +52,10 @@ const publicRoutes = [
     {
         path: configs.routes.notFound,
         element: <NotFound />,
+    },
+    {
+        path: configs.routes.NotVerifyEmail,
+        element: <NotVerifyEmail />,
     },
 ];
 

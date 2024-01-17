@@ -205,4 +205,11 @@ html {
     --modal-close-bg-color: rgba(0, 0, 0, 0.06);
     --modal-title-color: #{abstracts.$dark-color-1};
     --modal-description-color: #{abstracts.$grayscale-gray-color};
+
+    // Not verify email
+    --not-verify-email-bg: #{abstracts.$grayscale-white-color};
+    --not-verify-email-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    --not-verify-email-title: #{abstracts.$grayscale-gray-color};
+    --not-verify-email-text: #{abstracts.$grayscale-color-w-80};
 }
