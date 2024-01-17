@@ -7,15 +7,15 @@ import { useMessage } from "@/hooks";
 
 const UserList = memo(() => {
     const {
+        loading,
         userSearchList,
         selectedUserSearchList,
-        loading,
-        handleSelectedUser,
+        handleSelectedUserSearchList,
     } = useMessage();
 
     return (
         <ul className="messages__user-list">
-            <Loader loading={loading.userListLoading}>
+            <Loader loading={loading.userSearchListLoading}>
                 {userSearchList.map((user) => {
                     const isActive = selectedUserSearchList.some(
                         (selected) => selected.id === user.id
@@ -25,7 +25,7 @@ const UserList = memo(() => {
                         <li
                             key={user.id}
                             className="messages__user-item"
-                            onClick={() => handleSelectedUser(user)}
+                            onClick={() => handleSelectedUserSearchList(user)}
                         >
                             <figure className="messages__user-avatar">
                                 <img

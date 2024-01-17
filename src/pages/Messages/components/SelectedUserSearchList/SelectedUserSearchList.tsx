@@ -20,11 +20,11 @@ const { Text } = Input;
 const selectedUserSearchList = memo(() => {
     const { user } = useAuth();
     const {
-        conversations,
-        selectedUserSearchList,
-        handleSelectedConversation,
-        handleRemoveSelectedUser,
         handleCloseCreateConversation,
+        selectedUserSearchList,
+        handleRemoveSelectedUserSearchList,
+        conversations,
+        handleSelectedConversation,
     } = useMessage();
     const {
         control,
@@ -110,7 +110,9 @@ const selectedUserSearchList = memo(() => {
                     <UserTag
                         key={user.id}
                         fullName={user.fullName}
-                        onClick={() => handleRemoveSelectedUser(user.id)}
+                        onClick={() =>
+                            handleRemoveSelectedUserSearchList(user.id)
+                        }
                     />
                 ))}
             </div>

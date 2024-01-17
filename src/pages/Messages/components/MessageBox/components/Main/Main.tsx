@@ -8,7 +8,7 @@ import { useAuth, useMessage } from "@/hooks";
 
 const Main = () => {
     const { user } = useAuth();
-    const { messages, loading, userList, messageRef } = useMessage();
+    const { userList, messages, messageRef } = useMessage();
 
     const [activeMessageId, setActiveMessageId] = useState<string>("");
 
@@ -21,7 +21,7 @@ const Main = () => {
 
     return (
         <div className="messages__main">
-            <Loader loading={loading.messageLoading}>
+            <Loader loading={false}>
                 <div ref={messageRef} className="messages__main-list">
                     {messages.map((message) => {
                         if (!user) return;

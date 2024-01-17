@@ -16,16 +16,16 @@ const getDocumentsByCondition = async (
     const data: DocumentData[] = [];
     const colRef = collection(configs.firebase.db, _collection);
     const q = query(colRef, ...queryConstraints);
-    const querySnapshot = await getDocs(q);
+    const documentSnapshots = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
+    documentSnapshots.forEach((doc) => {
         data.push({
             ...doc.data(),
             id: doc.id,
         });
     });
 
-    return data;
+    return { data, documentSnapshots };
 };
 
 export default getDocumentsByCondition;

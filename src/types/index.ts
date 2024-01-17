@@ -9,6 +9,7 @@ import {
     GoogleAuthProvider,
     User,
 } from "firebase/auth";
+import { Database } from "firebase/database";
 import { Firestore, Timestamp } from "firebase/firestore";
 
 import {
@@ -57,6 +58,7 @@ export type FirebaseConfigType = {
     analytics: Analytics;
     auth: Auth;
     db: Firestore;
+    database: Database;
     googleProvider: GoogleAuthProvider;
     facebookProvider: FacebookAuthProvider;
 };
@@ -383,26 +385,27 @@ export type LoaderProps = {
 
 // Message loading type
 export type MessageLoadingType = {
-    userListLoading: boolean;
+    userSearchListLoading: boolean;
     conversationLoading: boolean;
-    messageLoading: boolean;
 };
 
 export type MessageContextType = {
     loading: MessageLoadingType;
+    isOpenCreateConversation: boolean;
+    handleOpenCreateConversation: () => void;
+    handleCloseCreateConversation: () => void;
     userSearchList: UserType[];
+    handleSearchUser: (value: string) => void;
+    handleLoadMoreUserSearchList: () => void;
     selectedUserSearchList: UserType[];
+    handleSelectedUserSearchList: (user: UserType) => void;
+    handleRemoveSelectedUserSearchList: (id: string) => void;
+
     conversations: ConversationType[];
     messages: MessageType[];
     userList: UserType[];
     selectedConversation: ConversationType | null;
     handleSelectedConversation: (id: string) => void;
-    isOpenCreateConversation: boolean;
-    handleOpenCreateConversation: () => void;
-    handleCloseCreateConversation: () => void;
-    handleSearchUser: (value: string) => void;
-    handleSelectedUser: (user: UserType) => void;
-    handleRemoveSelectedUser: (id: string) => void;
     messageRef?: RefObject<HTMLDivElement>;
 };
 

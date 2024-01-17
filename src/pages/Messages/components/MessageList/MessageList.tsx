@@ -14,13 +14,13 @@ const MessageList = () => {
     const { user } = useAuth();
     const {
         loading,
-        conversations,
-        selectedConversation,
         isOpenCreateConversation,
-        handleSelectedConversation,
         handleOpenCreateConversation,
         handleCloseCreateConversation,
         handleSearchUser,
+        conversations,
+        selectedConversation,
+        handleSelectedConversation,
     } = useMessage();
     // Render portal
     const { render } = usePortal();
