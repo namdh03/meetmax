@@ -1,3 +1,5 @@
+import { useCallback, useMemo } from "react";
+
 import icons from "@/assets/icons";
 import { zeroPad } from "@/helpers/calendar";
 import { MessageItemProps } from "@/types";
@@ -12,7 +14,7 @@ const MessageItem = ({
 
     if (active) classes.push("messages__item--active");
 
-    const getDateFormat = (timestamp: number) => {
+    const getDateFormat = useCallback((timestamp: number) => {
         const date = new Date(timestamp * 1000);
 
         const hours = date.getHours() % 12 || 12;
@@ -20,7 +22,14 @@ const MessageItem = ({
         const dayPeriod = date.getHours() < 12 ? "am" : "pm";
 
         return `${zeroPad(hours, 2)}:${zeroPad(minutes, 2)} ${dayPeriod}`;
-    };
+    }, []);
+
+    const conversationLastMessageTime = useMemo(() => {
+        return (
+            conversation.lastMessageTime &&
+            getDateFormat(conversation.lastMessageTime.seconds)
+        );
+    }, [conversation.lastMessageTime, getDateFormat]);
 
     return (
         <article className={classes.join(" ")} onClick={onClick}>
@@ -43,8 +52,7 @@ const MessageItem = ({
 
             <div className="messages__item-footer">
                 <span className="messages__item-time">
-                    {conversation.lastMessageTime &&
-                        getDateFormat(conversation.lastMessageTime.seconds)}
+                    {conversationLastMessageTime}
                 </span>
 
                 {unreadMessage && unreadMessage.count > 0 ? (

@@ -6,6 +6,8 @@ import {
     onSnapshot,
     query,
     QueryConstraint,
+    QueryDocumentSnapshot,
+    QuerySnapshot,
 } from "firebase/firestore";
 
 import configs from "@/configs";
@@ -19,6 +21,8 @@ const useFirestore = (
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
     const documentTemps = useRef<DocumentData[]>([]);
+    const documentSnapshots = useRef<QuerySnapshot<DocumentData>>();
+    const visible = useRef<QueryDocumentSnapshot<DocumentData>>();
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,15 +38,18 @@ const useFirestore = (
             }));
 
             documentTemps.current = result;
+            documentSnapshots.current = querySnapshot;
+            visible.current = querySnapshot.docs[querySnapshot.docs.length - 1];
             setDocuments(result);
-            setLoading(false);
         });
+
+        setLoading(false);
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [deps]);
 
-    return { documents, setDocuments, loading };
+    return { documents, documentSnapshots, visible, setDocuments, loading };
 };
 
 export default useFirestore;
