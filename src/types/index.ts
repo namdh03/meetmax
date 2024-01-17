@@ -437,3 +437,12 @@ export type UserTagProps = {
 export type CreateConversationFormData = {
     title: string;
 };
+
+// Modal props
+export type ModalProps = {
+    children: ReactNode;
+    title: string;
+    open: boolean;
+    onClose?: () => void;
+    onSubmit?: () => void;
+};

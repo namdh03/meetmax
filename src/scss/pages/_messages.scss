@@ -474,6 +474,7 @@
                 }
 
                 .messages__main-text {
+                    border-radius: 10px 10px 2px 10px;
                     color: var(--message-main-item-current-text-color);
                     background: var(--message-main-item-current-bg-color);
                 }
