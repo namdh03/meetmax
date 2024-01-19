@@ -13,6 +13,7 @@ import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
 import { useAuth } from "@/hooks";
 import {
+    getCount,
     getDocumentId,
     getDocumentsByCondition,
     queryConstraints,
@@ -31,6 +32,7 @@ const MessageContext = createContext<MessageContextType>({
     userSearchList: [],
     handleSearchUser: () => {},
     handleLoadMoreUserSearchList: () => {},
+    totalUserSearchList: 0,
     selectedUserSearchList: [],
     handleSelectedUserSearchList: () => {},
     handleRemoveSelectedUserSearchList: () => {},
@@ -61,6 +63,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const [selectedUserSearchList, setSelectedUserSearchList] = useState<
         UserType[]
     >([]);
+    const [totalUserSearchList, setTotalUserSearchList] = useState<number>(0);
 
     const messageRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,28 +73,39 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const handleCloseCreateConversation = () => (
         setIsOpenCreateConversation(false),
         setUserSearchList([]),
-        setSelectedUserSearchList([])
+        setSelectedUserSearchList([]),
+        setTotalUserSearchList(0)
     );
 
     // Handle search user
     const handleSearchUser = useCallback(
         async (value: string) => {
             try {
-                if (!user || !value) return setUserSearchList([]);
+                if (!user || !value)
+                    return setUserSearchList([]), setTotalUserSearchList(0);
 
                 setUserSearchListLoading(true);
+
+                const userSearchListQuery = [
+                    queryConstraints.where(
+                        "keywords",
+                        "array-contains",
+                        value.toLowerCase().trim()
+                    ),
+                    queryConstraints.where(getDocumentId(), "!=", user.uid),
+                ];
 
                 const { data, documentSnapshots } =
                     await getDocumentsByCondition(
                         configs.collections.users,
-                        queryConstraints.where(
-                            "keywords",
-                            "array-contains",
-                            value.toLowerCase().trim()
-                        ),
-                        queryConstraints.where(getDocumentId(), "!=", user.uid),
-                        queryConstraints.limit(1)
+                        ...userSearchListQuery,
+                        queryConstraints.limit(10)
                     );
+
+                const total = await getCount(
+                    configs.collections.users,
+                    ...userSearchListQuery
+                );
 
                 // Get the last visible document
                 const lastVisible =
@@ -100,6 +114,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 useSearchListValue.current = value;
                 setUserSearchList(data as UserType[]);
                 setUserSearchListLastVisible(lastVisible);
+                setTotalUserSearchList(total);
             } catch (error) {
                 handleFirebaseError(error);
             } finally {
@@ -112,21 +127,19 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     // Handle load more user search list
     const handleLoadMoreUserSearchList = useCallback(async () => {
         try {
-            if (!user || !useSearchListValue.current) return;
+            if (!user) return;
 
             const { data, documentSnapshots } = await getDocumentsByCondition(
                 configs.collections.users,
                 queryConstraints.where(
                     "keywords",
                     "array-contains",
-                    useSearchListValue.current.toLowerCase().trim()
+                    useSearchListValue.current
                 ),
                 queryConstraints.where(getDocumentId(), "!=", user.uid),
-                queryConstraints.startAfter(userSearchListLastVisible),
-                queryConstraints.limit(1)
+                queryConstraints.limit(10),
+                queryConstraints.startAfter(userSearchListLastVisible)
             );
-
-            console.log(data);
 
             // Get the last visible document
             const lastVisible =
@@ -150,6 +163,13 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         [selectedUserSearchList]
     );
 
+    // Handle remove selected user search list
+    const handleRemoveSelectedUserSearchList = useCallback((id: string) => {
+        setSelectedUserSearchList((prev) =>
+            prev.filter((user) => user.id !== id)
+        );
+    }, []);
+
     const values: MessageContextType = {
         loading: {
             userSearchListLoading,
@@ -161,9 +181,10 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         userSearchList,
         handleSearchUser,
         handleLoadMoreUserSearchList,
+        totalUserSearchList,
         selectedUserSearchList,
         handleSelectedUserSearchList,
-        handleRemoveSelectedUserSearchList: () => {},
+        handleRemoveSelectedUserSearchList,
 
         conversations: [],
         messages: [],

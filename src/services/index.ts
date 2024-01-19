@@ -1,4 +1,5 @@
 export { default as addDocument } from "./addDocument";
+export { default as getCount } from "./getCount";
 export { default as getData } from "./getData";
 export { default as getDocument } from "./getDocument";
 export { default as getDocumentId } from "./getDocumentId";

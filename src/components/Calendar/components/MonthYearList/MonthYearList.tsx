@@ -26,7 +26,7 @@ const MonthYearList = () => {
 
     return (
         <div className="calendar__dropdown-month-year">
-            <InfiniteScroll hasMore={true} fetchMore={handleLoadMore}>
+            <InfiniteScroll hasMore reverse fetchMore={handleLoadMore}>
                 <ul className="calendar__dropdown-list">
                     {monthYearList.map((date) => {
                         const isActive = isSameMonth(

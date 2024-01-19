@@ -399,6 +399,7 @@ export type MessageContextType = {
     userSearchList: UserType[];
     handleSearchUser: (value: string) => void;
     handleLoadMoreUserSearchList: () => void;
+    totalUserSearchList: number;
     selectedUserSearchList: UserType[];
     handleSelectedUserSearchList: (user: UserType) => void;
     handleRemoveSelectedUserSearchList: (id: string) => void;
@@ -450,4 +451,14 @@ export type ModalProps = {
     open: boolean;
     onClose?: () => void;
     onSubmit?: () => void;
+};
+
+// Infinite scroll props
+export type InfiniteScrollProps = {
+    children: JSX.Element;
+    hasMore?: boolean;
+    fetchMore?: () => void;
+    loader?: JSX.Element;
+    endMessage?: JSX.Element;
+    reverse?: boolean;
 };
