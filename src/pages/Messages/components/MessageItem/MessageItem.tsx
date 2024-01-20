@@ -1,8 +1,10 @@
 import { useCallback, useMemo } from "react";
 
 import icons from "@/assets/icons";
+import images from "@/assets/images";
 import { zeroPad } from "@/helpers/calendar";
 import { MessageItemProps } from "@/types";
+import { Participant } from "@/utils/enum";
 
 const MessageItem = ({
     conversation,
@@ -35,7 +37,12 @@ const MessageItem = ({
         <article className={classes.join(" ")} onClick={onClick}>
             <figure className="messages__item-avatar">
                 <img
-                    src={conversation.avatarUrl}
+                    src={
+                        conversation.avatarUrl ||
+                        (conversation.type === Participant.SINGLE
+                            ? images.avatar
+                            : images.groupAvatar)
+                    }
                     alt={conversation.title}
                     className="messages__item-avatar-img"
                 />

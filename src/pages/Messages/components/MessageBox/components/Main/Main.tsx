@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import icons from "@/assets/icons";
 import images from "@/assets/images";
 import Loader from "@/components/Loader";
 import { formatTimeAgo } from "@/helpers";
-import { useAuth, useMessage } from "@/hooks";
+import { useAuth } from "@/hooks";
+import { MessageType, UserType } from "@/types";
 
 const Main = () => {
     const { user } = useAuth();
-    const { userList, messages, messageRef } = useMessage();
+
+    const messageRef = useRef<HTMLDivElement | null>(null);
+    const messages: MessageType[] = [];
+    const userList: UserType[] = [];
 
     const [activeMessageId, setActiveMessageId] = useState<string>("");
 

@@ -25,7 +25,11 @@ const getDocumentsByCondition = async (
         });
     });
 
-    return { data, documentSnapshots };
+    // Get the last visible document
+    const lastVisible =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+
+    return { data, documentSnapshots, lastVisible };
 };
 
 export default getDocumentsByCondition;

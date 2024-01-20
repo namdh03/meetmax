@@ -2,9 +2,16 @@ import { useCallback, useRef } from "react";
 
 import icons from "@/assets/icons";
 import Divider from "@/components/Divider";
+import InfiniteScroll from "@/components/InfiniteScroll";
 import Loader from "@/components/Loader";
 import Search from "@/components/Search";
-import { useAuth, useMessage, useOnClickOutside, usePortal } from "@/hooks";
+import {
+    useApp,
+    useAuth,
+    useMessage,
+    useOnClickOutside,
+    usePortal,
+} from "@/hooks";
 
 import MessageItem from "../MessageItem";
 import SelectedUserSearchList from "../SelectedUserSearchList";
@@ -13,15 +20,22 @@ import UserSearchList from "../UserSearchList";
 const MessageList = () => {
     const { user } = useAuth();
     const {
-        loading,
+        conversations: {
+            list,
+            loading,
+            total,
+            selectedConversation,
+            handleSelectedConversation,
+            handleLoadMoreConversation,
+        },
+    } = useApp();
+    const {
         isOpenCreateConversation,
         handleOpenCreateConversation,
         handleCloseCreateConversation,
-        handleSearchUser,
-        conversations,
-        selectedConversation,
-        handleSelectedConversation,
+        userSearch: { handleSearchUser },
     } = useMessage();
+
     // Render portal
     const { render } = usePortal();
     const conversationFormRef = useRef<HTMLDivElement>(null);
@@ -74,33 +88,42 @@ const MessageList = () => {
                     </div>
                 </div>
 
-                <Loader loading={loading.conversationLoading}>
+                <Loader loading={loading}>
                     <div className="messages__content">
-                        {conversations.map((conversation) => {
-                            if (!user) return null;
+                        <InfiniteScroll
+                            hasMore={list.length < total}
+                            loader={<Loader />}
+                            fetchMore={handleLoadMoreConversation}
+                        >
+                            <>
+                                {list.map((conversation) => {
+                                    if (!user) return null;
 
-                            const unreadMessage =
-                                conversation.unreadMessages.find(
-                                    (message) => message.userId === user.uid
-                                );
+                                    const unreadMessage =
+                                        conversation.unreadMessages.find(
+                                            (message) =>
+                                                message.userId === user.uid
+                                        );
 
-                            return (
-                                <MessageItem
-                                    key={conversation.id}
-                                    conversation={conversation}
-                                    unreadMessage={unreadMessage}
-                                    active={
-                                        conversation.id ===
-                                        selectedConversation?.id
-                                    }
-                                    onClick={() =>
-                                        handleSelectedConversation(
-                                            conversation.id
-                                        )
-                                    }
-                                />
-                            );
-                        })}
+                                    return (
+                                        <MessageItem
+                                            key={conversation.id}
+                                            conversation={conversation}
+                                            unreadMessage={unreadMessage}
+                                            active={
+                                                conversation.id ===
+                                                selectedConversation?.id
+                                            }
+                                            onClick={() =>
+                                                handleSelectedConversation(
+                                                    conversation.id
+                                                )
+                                            }
+                                        />
+                                    );
+                                })}
+                            </>
+                        </InfiniteScroll>
                     </div>
                 </Loader>
             </div>

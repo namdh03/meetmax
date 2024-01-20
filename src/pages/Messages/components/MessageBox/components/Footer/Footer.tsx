@@ -8,7 +8,7 @@ import { serverTimestamp } from "firebase/firestore";
 import icons from "@/assets/icons";
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth, useMessage } from "@/hooks";
+import { useApp, useAuth } from "@/hooks";
 import { addDocument, updateDocument } from "@/services";
 import { Message } from "@/utils/enum";
 
@@ -16,7 +16,9 @@ import schema from "./Footer.schema";
 
 const Footer = () => {
     const { user } = useAuth();
-    const { conversations, selectedConversation } = useMessage();
+    const {
+        conversations: { list, selectedConversation },
+    } = useApp();
     const {
         register,
         handleSubmit,
@@ -53,7 +55,7 @@ const Footer = () => {
             if (!selectedConversation || !user) return;
             if (!valueTrim) return reset();
 
-            const conversation = conversations.find(
+            const conversation = list.find(
                 (conversation) => conversation.id === selectedConversation.id
             );
 

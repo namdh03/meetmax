@@ -8,24 +8,27 @@ import { useMessage } from "@/hooks";
 
 const UserList = memo(() => {
     const {
-        loading,
-        userSearchList,
-        handleLoadMoreUserSearchList,
-        totalUserSearchList,
-        selectedUserSearchList,
-        handleSelectedUserSearchList,
+        userSearch: {
+            list,
+            loading,
+            total,
+            selectedUserList,
+            handleLoadMoreUser,
+            handleSelectedUser,
+        },
     } = useMessage();
 
     return (
         <div className="messages__user-list">
-            <Loader loading={loading.userSearchListLoading}>
+            <Loader loading={loading}>
                 <InfiniteScroll
-                    hasMore={userSearchList.length < totalUserSearchList}
-                    fetchMore={handleLoadMoreUserSearchList}
+                    hasMore={list.length < total}
+                    loader={<Loader />}
+                    fetchMore={handleLoadMoreUser}
                 >
                     <>
-                        {userSearchList.map((user) => {
-                            const isActive = selectedUserSearchList.some(
+                        {list.map((user) => {
+                            const isActive = selectedUserList.some(
                                 (selected) => selected.id === user.id
                             );
 
@@ -33,9 +36,7 @@ const UserList = memo(() => {
                                 <div
                                     key={user.id}
                                     className="messages__user-item"
-                                    onClick={() =>
-                                        handleSelectedUserSearchList(user)
-                                    }
+                                    onClick={() => handleSelectedUser(user)}
                                 >
                                     <figure className="messages__user-avatar">
                                         <img

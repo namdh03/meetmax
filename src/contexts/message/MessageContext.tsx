@@ -3,78 +3,69 @@ import {
     FC,
     PropsWithChildren,
     useCallback,
-    useRef,
     useState,
 } from "react";
 
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth } from "@/hooks";
+import { useApp, useAuth } from "@/hooks";
 import {
     getCount,
     getDocumentId,
     getDocumentsByCondition,
     queryConstraints,
 } from "@/services";
-import { MessageContextType, UserType } from "@/types";
+import { MessageContextType, MessageUserSearchType, UserType } from "@/types";
+
+// Initial state message user search list
+const userSearchState: MessageUserSearchType = {
+    searchValue: "",
+    list: [],
+    loading: false,
+    total: 0,
+    lastVisible: null,
+    selectedUserList: [],
+    handleSearchUser: () => {},
+    handleLoadMoreUser: () => {},
+    handleSelectedUser: () => {},
+    handleRemoveSelectedUser: () => {},
+};
 
 // Create context
 const MessageContext = createContext<MessageContextType>({
-    loading: {
-        userSearchListLoading: false,
-        conversationLoading: true,
-    },
     isOpenCreateConversation: false,
     handleOpenCreateConversation: () => {},
     handleCloseCreateConversation: () => {},
-    userSearchList: [],
-    handleSearchUser: () => {},
-    handleLoadMoreUserSearchList: () => {},
-    totalUserSearchList: 0,
-    selectedUserSearchList: [],
-    handleSelectedUserSearchList: () => {},
-    handleRemoveSelectedUserSearchList: () => {},
-
-    conversations: [],
-    messages: [],
-    userList: [],
-    selectedConversation: null,
-    handleSelectedConversation: () => {},
+    userSearch: userSearchState,
+    handleShowSelectedConversation: () => {},
 });
 
 // Create provider
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
-    console.log("re-render");
     const { user } = useAuth();
+    const {
+        conversations: { handleSelectedConversation },
+    } = useApp();
 
     // Show create conversation
     const [isOpenCreateConversation, setIsOpenCreateConversation] =
         useState<boolean>(false);
 
     // Search user list
-    const useSearchListValue = useRef<string>("");
-    const [userSearchList, setUserSearchList] = useState<UserType[]>([]);
-    const [userSearchListLoading, setUserSearchListLoading] =
-        useState<boolean>(false);
-    const [userSearchListLastVisible, setUserSearchListLastVisible] =
-        useState<QueryDocumentSnapshot<DocumentData>>();
-    const [selectedUserSearchList, setSelectedUserSearchList] = useState<
-        UserType[]
-    >([]);
-    const [totalUserSearchList, setTotalUserSearchList] = useState<number>(0);
-
-    const messageRef = useRef<HTMLDivElement | null>(null);
+    const [userSearch, setUserSearch] =
+        useState<MessageUserSearchType>(userSearchState);
 
     // Handle show create conversation
     const handleOpenCreateConversation = () =>
         setIsOpenCreateConversation(true);
     const handleCloseCreateConversation = () => (
         setIsOpenCreateConversation(false),
-        setUserSearchList([]),
-        setSelectedUserSearchList([]),
-        setTotalUserSearchList(0)
+        setUserSearch((prev) => ({
+            ...prev,
+            list: [],
+            total: 0,
+            selectedUserList: [],
+        }))
     );
 
     // Handle search user
@@ -82,9 +73,16 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         async (value: string) => {
             try {
                 if (!user || !value)
-                    return setUserSearchList([]), setTotalUserSearchList(0);
+                    return setUserSearch((prev) => ({
+                        ...prev,
+                        list: [],
+                        total: 0,
+                    }));
 
-                setUserSearchListLoading(true);
+                setUserSearch((prev) => ({
+                    ...prev,
+                    loading: true,
+                }));
 
                 const userSearchListQuery = [
                     queryConstraints.where(
@@ -95,103 +93,109 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                     queryConstraints.where(getDocumentId(), "!=", user.uid),
                 ];
 
-                const { data, documentSnapshots } =
-                    await getDocumentsByCondition(
-                        configs.collections.users,
-                        ...userSearchListQuery,
-                        queryConstraints.limit(10)
-                    );
+                const { data, lastVisible } = await getDocumentsByCondition(
+                    configs.collections.users,
+                    ...userSearchListQuery,
+                    queryConstraints.limit(10)
+                );
 
                 const total = await getCount(
                     configs.collections.users,
                     ...userSearchListQuery
                 );
 
-                // Get the last visible document
-                const lastVisible =
-                    documentSnapshots.docs[documentSnapshots.docs.length - 1];
-
-                useSearchListValue.current = value;
-                setUserSearchList(data as UserType[]);
-                setUserSearchListLastVisible(lastVisible);
-                setTotalUserSearchList(total);
+                setUserSearch((prev) => ({
+                    ...prev,
+                    searchValue: value,
+                    list: data as UserType[],
+                    total,
+                    lastVisible,
+                }));
             } catch (error) {
                 handleFirebaseError(error);
             } finally {
-                setUserSearchListLoading(false);
+                setUserSearch((prev) => ({
+                    ...prev,
+                    loading: false,
+                }));
             }
         },
         [user]
     );
 
     // Handle load more user search list
-    const handleLoadMoreUserSearchList = useCallback(async () => {
+    const handleLoadMoreUser = useCallback(async () => {
         try {
             if (!user) return;
 
-            const { data, documentSnapshots } = await getDocumentsByCondition(
+            const { data, lastVisible } = await getDocumentsByCondition(
                 configs.collections.users,
                 queryConstraints.where(
                     "keywords",
                     "array-contains",
-                    useSearchListValue.current
+                    userSearch.searchValue
                 ),
                 queryConstraints.where(getDocumentId(), "!=", user.uid),
                 queryConstraints.limit(10),
-                queryConstraints.startAfter(userSearchListLastVisible)
+                queryConstraints.startAfter(userSearch.lastVisible)
             );
 
-            // Get the last visible document
-            const lastVisible =
-                documentSnapshots.docs[documentSnapshots.docs.length - 1];
-
-            setUserSearchList((prev) => [...prev, ...(data as UserType[])]);
-            setUserSearchListLastVisible(lastVisible);
+            setUserSearch((prev) => ({
+                ...prev,
+                list: [...prev.list, ...(data as UserType[])],
+                lastVisible,
+            }));
         } catch (error) {
             handleFirebaseError(error);
         }
-    }, [user, userSearchListLastVisible]);
+    }, [user, userSearch.lastVisible, userSearch.searchValue]);
 
     // Handle selected user search list
-    const handleSelectedUserSearchList = useCallback(
+    const handleSelectedUser = useCallback(
         (user: UserType) => {
-            if (selectedUserSearchList.find((_user) => _user.id === user.id))
+            if (
+                userSearch.selectedUserList.find(
+                    (_user) => _user.id === user.id
+                )
+            )
                 return;
 
-            setSelectedUserSearchList((prev) => [...prev, user]);
+            setUserSearch((prev) => ({
+                ...prev,
+                selectedUserList: [...prev.selectedUserList, user],
+            }));
         },
-        [selectedUserSearchList]
+        [userSearch.selectedUserList]
     );
 
     // Handle remove selected user search list
-    const handleRemoveSelectedUserSearchList = useCallback((id: string) => {
-        setSelectedUserSearchList((prev) =>
-            prev.filter((user) => user.id !== id)
-        );
+    const handleRemoveSelectedUser = useCallback((id: string) => {
+        setUserSearch((prev) => ({
+            ...prev,
+            selectedUserList: prev.selectedUserList.filter(
+                (user) => user.id !== id
+            ),
+        }));
     }, []);
 
+    // Handle create conversation
+    const handleShowSelectedConversation = (conversationId: string) => {
+        handleCloseCreateConversation();
+        handleSelectedConversation(conversationId);
+    };
+
     const values: MessageContextType = {
-        loading: {
-            userSearchListLoading,
-            conversationLoading: false,
-        },
         isOpenCreateConversation,
         handleOpenCreateConversation,
         handleCloseCreateConversation,
-        userSearchList,
-        handleSearchUser,
-        handleLoadMoreUserSearchList,
-        totalUserSearchList,
-        selectedUserSearchList,
-        handleSelectedUserSearchList,
-        handleRemoveSelectedUserSearchList,
-
-        conversations: [],
-        messages: [],
-        userList: [],
-        selectedConversation: null,
-        handleSelectedConversation: () => {},
-        messageRef,
+        userSearch: {
+            ...userSearch,
+            handleSearchUser,
+            handleLoadMoreUser,
+            handleSelectedUser,
+            handleRemoveSelectedUser,
+        },
+        handleShowSelectedConversation,
     };
 
     return (

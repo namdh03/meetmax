@@ -10,7 +10,12 @@ import {
     User,
 } from "firebase/auth";
 import { Database } from "firebase/database";
-import { Firestore, Timestamp } from "firebase/firestore";
+import {
+    DocumentData,
+    Firestore,
+    QueryDocumentSnapshot,
+    Timestamp,
+} from "firebase/firestore";
 
 import {
     AuthActionType,
@@ -385,31 +390,26 @@ export type LoaderProps = {
     loading?: boolean;
 };
 
-// Message loading type
-export type MessageLoadingType = {
-    userSearchListLoading: boolean;
-    conversationLoading: boolean;
+// Message context type
+export type MessageUserSearchType = {
+    searchValue: string;
+    loading: boolean;
+    list: UserType[];
+    total: number;
+    lastVisible: QueryDocumentSnapshot<DocumentData> | null;
+    selectedUserList: UserType[];
+    handleSearchUser: (value: string) => void;
+    handleLoadMoreUser: () => void;
+    handleSelectedUser: (user: UserType) => void;
+    handleRemoveSelectedUser: (id: string) => void;
 };
 
 export type MessageContextType = {
-    loading: MessageLoadingType;
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;
-    userSearchList: UserType[];
-    handleSearchUser: (value: string) => void;
-    handleLoadMoreUserSearchList: () => void;
-    totalUserSearchList: number;
-    selectedUserSearchList: UserType[];
-    handleSelectedUserSearchList: (user: UserType) => void;
-    handleRemoveSelectedUserSearchList: (id: string) => void;
-
-    conversations: ConversationType[];
-    messages: MessageType[];
-    userList: UserType[];
-    selectedConversation: ConversationType | null;
-    handleSelectedConversation: (id: string) => void;
-    messageRef?: RefObject<HTMLDivElement>;
+    userSearch: MessageUserSearchType;
+    handleShowSelectedConversation: (id: string) => void;
 };
 
 export type SearchProps = {
@@ -461,4 +461,19 @@ export type InfiniteScrollProps = {
     loader?: JSX.Element;
     endMessage?: JSX.Element;
     reverse?: boolean;
+};
+
+// App context type
+export type AppConversationType = {
+    list: ConversationType[];
+    loading: boolean;
+    total: number;
+    lastVisible: QueryDocumentSnapshot<DocumentData> | null;
+    selectedConversation: ConversationType | null;
+    handleSelectedConversation: (id: string) => void;
+    handleLoadMoreConversation: () => void;
+};
+
+export type AppContextType = {
+    conversations: AppConversationType;
 };
