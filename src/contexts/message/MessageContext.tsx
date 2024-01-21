@@ -72,7 +72,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const handleSearchUser = useCallback(
         async (value: string) => {
             try {
-                if (!user || !value)
+                if (!value)
                     return setUserSearch((prev) => ({
                         ...prev,
                         list: [],
@@ -90,7 +90,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                         "array-contains",
                         value.toLowerCase().trim()
                     ),
-                    queryConstraints.where(getDocumentId(), "!=", user.uid),
+                    queryConstraints.where(getDocumentId(), "!=", user?.uid),
                 ];
 
                 const { data, lastVisible } = await getDocumentsByCondition(
@@ -120,14 +120,12 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         },
-        [user]
+        [user?.uid]
     );
 
     // Handle load more user search list
     const handleLoadMoreUser = useCallback(async () => {
         try {
-            if (!user) return;
-
             const { data, lastVisible } = await getDocumentsByCondition(
                 configs.collections.users,
                 queryConstraints.where(
@@ -135,7 +133,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                     "array-contains",
                     userSearch.searchValue
                 ),
-                queryConstraints.where(getDocumentId(), "!=", user.uid),
+                queryConstraints.where(getDocumentId(), "!=", user?.uid),
                 queryConstraints.limit(10),
                 queryConstraints.startAfter(userSearch.lastVisible)
             );
@@ -148,7 +146,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         } catch (error) {
             handleFirebaseError(error);
         }
-    }, [user, userSearch.lastVisible, userSearch.searchValue]);
+    }, [user?.uid, userSearch.lastVisible, userSearch.searchValue]);
 
     // Handle selected user search list
     const handleSelectedUser = useCallback(

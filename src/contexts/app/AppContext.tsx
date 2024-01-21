@@ -11,7 +11,7 @@ import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth } from "@/hooks";
+import { useAuth, useFirestore } from "@/hooks";
 import {
     getCount,
     getDocumentsByCondition,
@@ -43,17 +43,23 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     const [conversations, setConversations] =
         useState<AppConversationType>(conversationsState);
 
+    // Listen for new conversations
+    const { documents: newConversation } = useFirestore(
+        configs.collections.conversations,
+        queryConstraints.where("participants", "array-contains", user?.uid),
+        queryConstraints.orderBy("lastMessageTime", "desc"),
+        queryConstraints.limit(1)
+    );
+
     // Get 10 conversations
     useEffect(() => {
         (async () => {
             try {
-                if (!user) return;
-
                 const conversationsQuery = [
                     queryConstraints.where(
                         "participants",
                         "array-contains",
-                        user.uid
+                        user?.uid
                     ),
                     queryConstraints.orderBy("lastMessageTime", "desc"),
                 ];
@@ -85,7 +91,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         })();
-    }, [user]);
+    }, [user?.uid]);
 
     // Set first conversation as selected conversation
     useEffect(() => {
@@ -96,6 +102,43 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
             selectedConversation: conversations.list[0],
         }));
     }, [conversations.list, conversations.selectedConversation]);
+
+    // Listen for new conversations
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!newConversation) return;
+
+                const total = await getCount(
+                    configs.collections.conversations,
+                    queryConstraints.where(
+                        "participants",
+                        "array-contains",
+                        user?.uid
+                    )
+                );
+
+                setConversations((prev) => {
+                    const newList = prev.list.filter(
+                        (conversation) =>
+                            conversation.id !==
+                            (newConversation[0] as ConversationType).id
+                    );
+
+                    return {
+                        ...prev,
+                        list: [
+                            ...(newConversation as ConversationType[]),
+                            ...newList,
+                        ],
+                        total,
+                    };
+                });
+            } catch (error) {
+                handleFirebaseError(error);
+            }
+        })();
+    }, [newConversation, user?.uid]);
 
     // Handle selected conversation
     const handleSelectedConversation = useCallback(
