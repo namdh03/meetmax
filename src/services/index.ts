@@ -1,10 +1,13 @@
 export { default as addDocument } from "./addDocument";
 export { default as getCount } from "./getCount";
 export { default as getData } from "./getData";
+export { default as getDataByConditions } from "./getDataByConditions";
 export { default as getDocument } from "./getDocument";
 export { default as getDocumentId } from "./getDocumentId";
 export { default as getDocumentsByCondition } from "./getDocumentsByCondition";
+export { default as getNewKey } from "./getNewKey";
 export * as queryConstraints from "./queryConstraints";
+export * as queryDbConstraint from "./queryDbConstraint";
 export { default as rememberMe } from "./rememberMe";
 export { default as resetPassword } from "./resetPassword";
 export { default as setData } from "./setData";

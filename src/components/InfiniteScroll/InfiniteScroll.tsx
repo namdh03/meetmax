@@ -32,8 +32,7 @@ const InfiniteScroll = ({
                 }
             };
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hasMore]);
+    }, [fetchMore, hasMore]);
 
     const renderHasMore = () =>
         hasMore ? <div ref={pageRef}>{loader}</div> : endMessage;

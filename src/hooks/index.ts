@@ -10,3 +10,4 @@ export { default as useLocalStorage } from "./useLocalStorage";
 export { default as useMessage } from "./useMessage";
 export { default as useOnClickOutside } from "./useOnClickOutside";
 export { default as usePortal } from "./usePortal";
+export { default as useRealtimeDatabase } from "./useRealtimeDatabase";

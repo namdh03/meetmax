@@ -15,6 +15,7 @@ import { CollectionValue } from "@/types";
 
 const useFirestore = (
     _collection: CollectionValue,
+    badCondition: boolean,
     ...queryConstraints: QueryConstraint[]
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
@@ -23,6 +24,8 @@ const useFirestore = (
     const visible = useRef<QueryDocumentSnapshot<DocumentData>>();
 
     useEffect(() => {
+        if (badCondition) return;
+
         const colRef = collection(configs.firebase.db, _collection);
         const q = query(colRef, ...queryConstraints);
         const unsubscribe = onSnapshot(q, (querySnapshot) => {

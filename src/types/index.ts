@@ -404,12 +404,22 @@ export type MessageUserSearchType = {
     handleRemoveSelectedUser: (id: string) => void;
 };
 
+export type MessageListType = {
+    ref: RefObject<HTMLDivElement> | null;
+    isMounted: boolean;
+    list: MessageType[];
+    loading: boolean;
+    userList: UserType[];
+    handleLoadMoreMessage: () => void;
+};
+
 export type MessageContextType = {
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;
     userSearch: MessageUserSearchType;
     handleShowSelectedConversation: (id: string) => void;
+    messages: MessageListType;
 };
 
 export type SearchProps = {

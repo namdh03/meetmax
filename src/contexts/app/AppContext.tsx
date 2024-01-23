@@ -18,6 +18,7 @@ import {
     queryConstraints,
 } from "@/services";
 import { AppContextType, AppConversationType, ConversationType } from "@/types";
+import { CONVERSATION_LIMIT } from "@/utils/constants";
 
 // Initial state conversations
 const conversationsState: AppConversationType = {
@@ -46,6 +47,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     // Listen for new conversations
     const { documents: newConversation } = useFirestore(
         configs.collections.conversations,
+        !user,
         queryConstraints.where("participants", "array-contains", user?.uid),
         queryConstraints.orderBy("lastMessageTime", "desc"),
         queryConstraints.limit(1)
@@ -55,11 +57,13 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
+                if (!user) return;
+
                 const conversationsQuery = [
                     queryConstraints.where(
                         "participants",
                         "array-contains",
-                        user?.uid
+                        user.uid
                     ),
                     queryConstraints.orderBy("lastMessageTime", "desc"),
                 ];
@@ -67,7 +71,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 const { data, lastVisible } = await getDocumentsByCondition(
                     configs.collections.conversations,
                     ...conversationsQuery,
-                    queryConstraints.limit(10)
+                    queryConstraints.limit(CONVERSATION_LIMIT)
                 );
 
                 const total = await getCount(
@@ -91,7 +95,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         })();
-    }, [user?.uid]);
+    }, [user]);
 
     // Set first conversation as selected conversation
     useEffect(() => {
@@ -107,14 +111,14 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                if (!newConversation) return;
+                if (!user || !newConversation) return;
 
                 const total = await getCount(
                     configs.collections.conversations,
                     queryConstraints.where(
                         "participants",
                         "array-contains",
-                        user?.uid
+                        user.uid
                     )
                 );
 
@@ -138,7 +142,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 handleFirebaseError(error);
             }
         })();
-    }, [newConversation, user?.uid]);
+    }, [newConversation, user]);
 
     // Handle selected conversation
     const handleSelectedConversation = useCallback(
@@ -168,7 +172,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     user.uid
                 ),
                 queryConstraints.orderBy("lastMessageTime", "desc"),
-                queryConstraints.limit(10),
+                queryConstraints.limit(CONVERSATION_LIMIT),
                 queryConstraints.startAfter(conversations.lastVisible)
             );
 

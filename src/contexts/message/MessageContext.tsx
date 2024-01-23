@@ -3,19 +3,30 @@ import {
     FC,
     PropsWithChildren,
     useCallback,
+    useEffect,
+    useRef,
     useState,
 } from "react";
 
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useApp, useAuth } from "@/hooks";
+import { useApp, useAuth, useRealtimeDatabase } from "@/hooks";
 import {
     getCount,
+    getDataByConditions,
     getDocumentId,
     getDocumentsByCondition,
     queryConstraints,
+    queryDbConstraint,
 } from "@/services";
-import { MessageContextType, MessageUserSearchType, UserType } from "@/types";
+import {
+    MessageContextType,
+    MessageListType,
+    MessageType,
+    MessageUserSearchType,
+    UserType,
+} from "@/types";
+import { MESSAGE_LIMIT } from "@/utils/constants";
 
 // Initial state message user search list
 const userSearchState: MessageUserSearchType = {
@@ -31,6 +42,16 @@ const userSearchState: MessageUserSearchType = {
     handleRemoveSelectedUser: () => {},
 };
 
+// Initial state message
+const messageState: MessageListType = {
+    ref: null,
+    isMounted: false,
+    list: [],
+    loading: false,
+    userList: [],
+    handleLoadMoreMessage: () => {},
+};
+
 // Create context
 const MessageContext = createContext<MessageContextType>({
     isOpenCreateConversation: false,
@@ -38,13 +59,14 @@ const MessageContext = createContext<MessageContextType>({
     handleCloseCreateConversation: () => {},
     userSearch: userSearchState,
     handleShowSelectedConversation: () => {},
+    messages: messageState,
 });
 
 // Create provider
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const { user } = useAuth();
     const {
-        conversations: { handleSelectedConversation },
+        conversations: { selectedConversation, handleSelectedConversation },
     } = useApp();
 
     // Show create conversation
@@ -54,6 +76,108 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     // Search user list
     const [userSearch, setUserSearch] =
         useState<MessageUserSearchType>(userSearchState);
+
+    // Message list
+    const [messages, setMessages] = useState<MessageListType>(messageState);
+
+    // Get new message
+    const { data } = useRealtimeDatabase(
+        `${configs.collections.messages}/${selectedConversation?.id}`
+    );
+
+    const messageRef = useRef<HTMLDivElement | null>(null);
+
+    // Get 10 message list
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!selectedConversation) return;
+
+                setMessages((prev) => ({
+                    ...prev,
+                    loading: true,
+                }));
+
+                const data = await getDataByConditions(
+                    `${configs.collections.messages}/${selectedConversation.id}`,
+                    queryDbConstraint.limitToLast(10)
+                );
+
+                const list: MessageType[] = [];
+
+                Object.values(data.val()).forEach((message) => {
+                    list.push({
+                        ...(message as MessageType),
+                    });
+                });
+
+                setMessages((prev) => ({
+                    ...prev,
+                    isMounted: true,
+                    list,
+                }));
+            } catch (error) {
+                handleFirebaseError(error);
+            } finally {
+                setMessages((prev) => ({
+                    ...prev,
+                    loading: false,
+                }));
+            }
+        })();
+    }, [selectedConversation]);
+
+    // Listen new message
+    useEffect(() => {
+        if (!data) return;
+
+        setMessages((prev) => {
+            const newList = prev.list.filter(
+                (conversation) =>
+                    conversation.id !== (data.val() as MessageType).id
+            );
+
+            return {
+                ...prev,
+                list: [...newList, data.val() as MessageType],
+            };
+        });
+    }, [data]);
+
+    // Scroll to bottom message list
+    useEffect(() => {
+        if (!messageRef.current) return;
+
+        messages.isMounted &&
+            messageRef.current.scrollIntoView({
+                block: "end",
+            });
+    }, [messages.isMounted]);
+
+    // Get user list
+    useEffect(() => {
+        (async () => {
+            try {
+                if (!selectedConversation) return;
+
+                const { data } = await getDocumentsByCondition(
+                    configs.collections.users,
+                    queryConstraints.where(
+                        getDocumentId(),
+                        "in",
+                        selectedConversation.participants
+                    )
+                );
+
+                setMessages((prev) => ({
+                    ...prev,
+                    userList: data as UserType[],
+                }));
+            } catch (error) {
+                handleFirebaseError(error);
+            }
+        })();
+    }, [selectedConversation]);
 
     // Handle show create conversation
     const handleOpenCreateConversation = () =>
@@ -72,6 +196,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const handleSearchUser = useCallback(
         async (value: string) => {
             try {
+                if (!user) return;
                 if (!value)
                     return setUserSearch((prev) => ({
                         ...prev,
@@ -90,13 +215,13 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                         "array-contains",
                         value.toLowerCase().trim()
                     ),
-                    queryConstraints.where(getDocumentId(), "!=", user?.uid),
+                    queryConstraints.where(getDocumentId(), "!=", user.uid),
                 ];
 
                 const { data, lastVisible } = await getDocumentsByCondition(
                     configs.collections.users,
                     ...userSearchListQuery,
-                    queryConstraints.limit(10)
+                    queryConstraints.limit(MESSAGE_LIMIT)
                 );
 
                 const total = await getCount(
@@ -120,12 +245,14 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         },
-        [user?.uid]
+        [user]
     );
 
     // Handle load more user search list
     const handleLoadMoreUser = useCallback(async () => {
         try {
+            if (!user) return;
+
             const { data, lastVisible } = await getDocumentsByCondition(
                 configs.collections.users,
                 queryConstraints.where(
@@ -133,8 +260,8 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                     "array-contains",
                     userSearch.searchValue
                 ),
-                queryConstraints.where(getDocumentId(), "!=", user?.uid),
-                queryConstraints.limit(10),
+                queryConstraints.where(getDocumentId(), "!=", user.uid),
+                queryConstraints.limit(MESSAGE_LIMIT),
                 queryConstraints.startAfter(userSearch.lastVisible)
             );
 
@@ -146,7 +273,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         } catch (error) {
             handleFirebaseError(error);
         }
-    }, [user?.uid, userSearch.lastVisible, userSearch.searchValue]);
+    }, [user, userSearch.lastVisible, userSearch.searchValue]);
 
     // Handle selected user search list
     const handleSelectedUser = useCallback(
@@ -177,10 +304,41 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     }, []);
 
     // Handle create conversation
-    const handleShowSelectedConversation = (conversationId: string) => {
-        handleCloseCreateConversation();
-        handleSelectedConversation(conversationId);
-    };
+    const handleShowSelectedConversation = (conversationId: string) => (
+        handleCloseCreateConversation(),
+        handleSelectedConversation(conversationId)
+    );
+
+    // Handle load more messages
+    const handleLoadMoreMessage = useCallback(async () => {
+        try {
+            if (!messages.list || !selectedConversation) return;
+
+            const data = await getDataByConditions(
+                `${configs.collections.messages}/${selectedConversation.id}`,
+                queryDbConstraint.orderByChild("id"),
+                queryDbConstraint.limitToLast(10),
+                queryDbConstraint.endBefore(messages.list[0].id)
+            );
+
+            if (!data.val()) return;
+
+            const list: MessageType[] = [];
+
+            Object.values(data.val()).forEach((message) => {
+                list.push({
+                    ...(message as MessageType),
+                });
+            });
+
+            setMessages((prev) => ({
+                ...prev,
+                list: [...list, ...prev.list],
+            }));
+        } catch (error) {
+            handleFirebaseError(error);
+        }
+    }, [messages.list, selectedConversation]);
 
     const values: MessageContextType = {
         isOpenCreateConversation,
@@ -194,6 +352,11 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             handleRemoveSelectedUser,
         },
         handleShowSelectedConversation,
+        messages: {
+            ...messages,
+            ref: messageRef,
+            handleLoadMoreMessage,
+        },
     };
 
     return (

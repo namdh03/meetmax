@@ -9,7 +9,7 @@ import icons from "@/assets/icons";
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
 import { useApp, useAuth } from "@/hooks";
-import { addDocument, updateDocument } from "@/services";
+import { getNewKey, setData, updateDocument } from "@/services";
 import { Message } from "@/utils/enum";
 
 import schema from "./Footer.schema";
@@ -75,15 +75,23 @@ const Footer = () => {
                 }
             );
 
+            // Get new key and path to add message
+            const newKey = getNewKey(
+                `${configs.collections.messages}/${selectedConversation.id}`
+            );
+            const path = `${configs.collections.messages}/${selectedConversation.id}/${newKey}`;
+
             // Handle reset after add message
             reset();
 
-            await addDocument(configs.collections.messages, {
+            await setData(path, {
+                id: newKey,
                 conversationId: selectedConversation.id,
-                deletedAt: null,
+                senderId: user.uid,
                 message: valueTrim,
                 messageType: Message.TEXT,
-                senderId: user.uid,
+                deletedAt: null,
+                updatedAt: null,
             });
 
             await updateDocument(

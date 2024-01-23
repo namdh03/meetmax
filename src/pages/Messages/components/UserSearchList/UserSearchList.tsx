@@ -22,8 +22,8 @@ const UserList = memo(() => {
         <div className="messages__user-list">
             <Loader loading={loading}>
                 <InfiniteScroll
-                    hasMore={list.length < total}
                     loader={<Loader />}
+                    hasMore={list.length < total}
                     fetchMore={handleLoadMoreUser}
                 >
                     <>
