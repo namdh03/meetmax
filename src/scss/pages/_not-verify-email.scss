@@ -43,11 +43,7 @@
 
     &__actions {
         @include abstracts.display-flex(center);
-        column-gap: 40px;
+        column-gap: 30px;
         margin: 30px 0 14px 0;
-    }
-
-    &__button {
-        width: 170px;
     }
 }

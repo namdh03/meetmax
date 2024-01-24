@@ -125,6 +125,10 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         })();
+
+        return () => {
+            setMessages(messageState);
+        };
     }, [selectedConversation]);
 
     // Listen new message

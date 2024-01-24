@@ -95,6 +95,10 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 }));
             }
         })();
+
+        return () => {
+            setConversations(conversationsState);
+        }
     }, [user]);
 
     // Set first conversation as selected conversation

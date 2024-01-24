@@ -39,7 +39,7 @@ export type RouteKey =
     | "settings"
     | "forgotPassword"
     | "checkEmail"
-    | "NotVerifyEmail"
+    | "notVerifyEmail"
     | "notFound";
 
 export type RouteValue =
