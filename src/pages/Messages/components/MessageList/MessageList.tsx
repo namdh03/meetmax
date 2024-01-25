@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import icons from "@/assets/icons";
 import Divider from "@/components/Divider";
@@ -35,6 +35,13 @@ const MessageList = () => {
         handleCloseCreateConversation,
         userSearch: { handleSearchUser },
     } = useMessage();
+
+    // Set first conversation as selected conversation
+    useEffect(() => {
+        if (!list.length || selectedConversation) return;
+
+        handleSelectedConversation(list[0].id);
+    }, [handleSelectedConversation, list, selectedConversation]);
 
     // Render portal
     const { render } = usePortal();

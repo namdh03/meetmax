@@ -98,24 +98,14 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 
         return () => {
             setConversations(conversationsState);
-        }
+        };
     }, [user]);
-
-    // Set first conversation as selected conversation
-    useEffect(() => {
-        if (!conversations.list || conversations.selectedConversation) return;
-
-        setConversations((prev) => ({
-            ...prev,
-            selectedConversation: conversations.list[0],
-        }));
-    }, [conversations.list, conversations.selectedConversation]);
 
     // Listen for new conversations
     useEffect(() => {
         (async () => {
             try {
-                if (!user || !newConversation[0]) return;
+                if (!user || !newConversation.length) return;
 
                 const total = await getCount(
                     configs.collections.conversations,

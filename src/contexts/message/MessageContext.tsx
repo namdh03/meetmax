@@ -18,6 +18,7 @@ import {
     getDocumentsByCondition,
     queryConstraints,
     queryDbConstraint,
+    updateDocument,
 } from "@/services";
 import {
     MessageContextType,
@@ -183,6 +184,42 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
         })();
     }, [selectedConversation]);
 
+    // Handle listen to reset unread message
+    useEffect(() => {
+        (async () => {
+            try {
+                const conditions =
+                    !selectedConversation ||
+                    !user ||
+                    messages.list[messages.list.length - 1].senderId ===
+                        user.uid;
+
+                if (conditions) return;
+
+                const otherUnreadMessages =
+                    selectedConversation.unreadMessages.filter(
+                        (message) => message.userId !== user.uid
+                    );
+
+                await updateDocument(
+                    configs.collections.conversations,
+                    selectedConversation.id,
+                    {
+                        unreadMessages: [
+                            ...otherUnreadMessages,
+                            {
+                                userId: user.uid,
+                                count: 0,
+                            },
+                        ],
+                    }
+                );
+            } catch (error) {
+                handleFirebaseError(error);
+            }
+        })();
+    }, [messages.list, selectedConversation, user]);
+
     // Handle show create conversation
     const handleOpenCreateConversation = () =>
         setIsOpenCreateConversation(true);
@@ -250,7 +287,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         },
         [user]
-    );  
+    );
 
     // Handle load more user search list
     const handleLoadMoreUser = useCallback(async () => {
