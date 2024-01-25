@@ -156,7 +156,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             messageRef.current.scrollIntoView({
                 block: "end",
             });
-    }, [messages.isMounted]);
+    }, [messages]);
 
     // Get user list
     useEffect(() => {
@@ -250,7 +250,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         },
         [user]
-    );
+    );  
 
     // Handle load more user search list
     const handleLoadMoreUser = useCallback(async () => {

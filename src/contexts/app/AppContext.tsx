@@ -115,7 +115,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                if (!user || !newConversation) return;
+                if (!user || !newConversation[0]) return;
 
                 const total = await getCount(
                     configs.collections.conversations,

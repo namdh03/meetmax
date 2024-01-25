@@ -51,11 +51,10 @@ const SelectedUserSearchList = memo(() => {
             if (selectedUserListLength === 1) {
                 const count = await getCount(
                     configs.collections.conversations,
-                    queryConstraints.where(
-                        "participants",
-                        "array-contains",
-                        selectedUserList[0].id
-                    ),
+                    queryConstraints.where("participants", "in", [
+                        [selectedUserList[0].id, user.uid],
+                        [user.uid, selectedUserList[0].id],
+                    ]),
                     queryConstraints.where("type", "==", Participant.SINGLE)
                 );
 
