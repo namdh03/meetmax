@@ -133,8 +133,9 @@ export type MessageType = {
     conversationId: string;
     message: string;
     messageType: Message;
-    deletedAt: Timestamp;
-    createdAt: Timestamp;
+    createdAt: number;
+    deletedAt: number;
+    updatedAt: number;
 };
 
 // Authentication types

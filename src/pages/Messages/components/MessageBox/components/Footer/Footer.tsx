@@ -70,6 +70,7 @@ const Footer = () => {
                 senderId: user.uid,
                 message: valueTrim,
                 messageType: Message.TEXT,
+                createdAt: new Date().getTime(),
                 deletedAt: null,
                 updatedAt: null,
             });

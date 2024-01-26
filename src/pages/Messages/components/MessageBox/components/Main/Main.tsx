@@ -94,9 +94,7 @@ const Main = () => {
                                         </div>
 
                                         <span className="messages__main-time">
-                                            {formatTimeAgo(
-                                                message.createdAt?.seconds
-                                            )}
+                                            {formatTimeAgo(message.createdAt)}
                                         </span>
                                     </div>
                                 );
