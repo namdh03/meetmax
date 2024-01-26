@@ -13,6 +13,11 @@
     @include abstracts.display-flex($align: center, $justify: null);
     @extend %inputStyle;
 
+    &::-ms-reveal,
+    &::-ms-clear {
+        display: none;
+    }
+
     &__icon {
         &--password {
             margin-left: 10px;
