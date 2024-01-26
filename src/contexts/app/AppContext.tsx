@@ -141,6 +141,12 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     // Handle selected conversation
     const handleSelectedConversation = useCallback(
         (id: string) => {
+            if (
+                conversations.selectedConversation &&
+                conversations.selectedConversation.id === id
+            )
+                return;
+
             const conversation = conversations.list.find(
                 (conversation) => conversation.id === id
             );
@@ -150,7 +156,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 selectedConversation: conversation as ConversationType,
             }));
         },
-        [conversations.list]
+        [conversations.list, conversations.selectedConversation]
     );
 
     // Handle load more conversations

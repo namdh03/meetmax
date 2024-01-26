@@ -406,7 +406,6 @@ export type MessageUserSearchType = {
 
 export type MessageListType = {
     ref: RefObject<HTMLDivElement> | null;
-    isMounted: boolean;
     list: MessageType[];
     loading: boolean;
     userList: UserType[];

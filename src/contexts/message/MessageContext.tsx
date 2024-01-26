@@ -46,7 +46,6 @@ const userSearchState: MessageUserSearchType = {
 // Initial state message
 const messageState: MessageListType = {
     ref: null,
-    isMounted: false,
     list: [],
     loading: false,
     userList: [],
@@ -67,7 +66,11 @@ const MessageContext = createContext<MessageContextType>({
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const { user } = useAuth();
     const {
-        conversations: { selectedConversation, handleSelectedConversation },
+        conversations: {
+            list,
+            selectedConversation,
+            handleSelectedConversation,
+        },
     } = useApp();
 
     // Show create conversation
@@ -114,7 +117,6 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
 
                 setMessages((prev) => ({
                     ...prev,
-                    isMounted: true,
                     list,
                 }));
             } catch (error) {
@@ -153,10 +155,9 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         if (!messageRef.current) return;
 
-        messages.isMounted &&
-            messageRef.current.scrollIntoView({
-                block: "end",
-            });
+        messageRef.current.scrollIntoView({
+            block: "end",
+        });
     }, [messages]);
 
     // Get user list
@@ -196,8 +197,14 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
 
                 if (conditions) return;
 
+                const conversation = list.find(
+                    (conversation) =>
+                        conversation.id === selectedConversation.id
+                );
+
                 const otherUnreadMessages =
-                    selectedConversation.unreadMessages.filter(
+                    conversation &&
+                    conversation.unreadMessages.filter(
                         (message) => message.userId !== user.uid
                     );
 
@@ -206,7 +213,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                     selectedConversation.id,
                     {
                         unreadMessages: [
-                            ...otherUnreadMessages,
+                            ...(otherUnreadMessages || []),
                             {
                                 userId: user.uid,
                                 count: 0,
@@ -218,6 +225,7 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
                 handleFirebaseError(error);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages.list, selectedConversation, user]);
 
     // Handle show create conversation
