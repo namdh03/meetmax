@@ -1,24 +1,17 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 
 import icons from "@/assets/icons";
 import Divider from "@/components/Divider";
 import InfiniteScroll from "@/components/InfiniteScroll";
 import Loader from "@/components/Loader";
 import Search from "@/components/Search";
-import {
-    useApp,
-    useAuth,
-    useMessage,
-    useOnClickOutside,
-    usePortal,
-} from "@/hooks";
+import { useApp, useMessage, useOnClickOutside, usePortal } from "@/hooks";
 
 import MessageItem from "../MessageItem";
 import SelectedUserSearchList from "../SelectedUserSearchList";
 import UserSearchList from "../UserSearchList";
 
 const MessageList = () => {
-    const { user } = useAuth();
     const {
         conversations: {
             list,
@@ -35,13 +28,6 @@ const MessageList = () => {
         handleCloseCreateConversation,
         userSearch: { handleSearchUser },
     } = useMessage();
-
-    // Set first conversation as selected conversation
-    useEffect(() => {
-        if (!list.length || selectedConversation) return;
-
-        handleSelectedConversation(list[0].id);
-    }, [handleSelectedConversation, list, selectedConversation]);
 
     // Render portal
     const { render } = usePortal();
@@ -103,32 +89,21 @@ const MessageList = () => {
                             fetchMore={handleLoadMoreConversation}
                         >
                             <>
-                                {list.map((conversation) => {
-                                    if (!user) return null;
-
-                                    const unreadMessage =
-                                        conversation.unreadMessages.find(
-                                            (message) =>
-                                                message.userId === user.uid
-                                        );
-
-                                    return (
-                                        <MessageItem
-                                            key={conversation.id}
-                                            conversation={conversation}
-                                            unreadMessage={unreadMessage}
-                                            active={
-                                                conversation.id ===
-                                                selectedConversation?.id
-                                            }
-                                            onClick={() =>
-                                                handleSelectedConversation(
-                                                    conversation.id
-                                                )
-                                            }
-                                        />
-                                    );
-                                })}
+                                {list.map((conversation) => (
+                                    <MessageItem
+                                        key={conversation.id}
+                                        conversation={conversation}
+                                        active={
+                                            conversation.id ===
+                                            selectedConversation?.id
+                                        }
+                                        onClick={() =>
+                                            handleSelectedConversation(
+                                                conversation.id
+                                            )
+                                        }
+                                    />
+                                ))}
                             </>
                         </InfiniteScroll>
                     </div>

@@ -62,42 +62,23 @@ const SelectedUserSearchList = memo(() => {
                     return toast.error("Conversation already exists");
             }
 
-            // Create conversation
-            const unreadMessages = selectedUserList.map((user) => ({
-                userId: user.id,
-                count: 0,
-            }));
-
             const conservation = await addDocument(
                 configs.collections.conversations,
                 {
                     avatarName: null,
-                    avatarUrl:
-                        selectedUserListLength > 1
-                            ? null
-                            : selectedUserList[0].avatarUrl,
+                    avatarUrl: null,
                     creatorId: user.uid,
                     lastMessage: null,
                     lastMessageTime: serverTimestamp(),
                     participants: [
-                        user.uid,
                         ...selectedUserList.map((user) => user.id),
+                        user.uid,
                     ],
-                    title:
-                        selectedUserListLength > 1
-                            ? value.title
-                            : selectedUserList[0].fullName,
+                    title: value.title || null,
                     type:
                         selectedUserListLength > 1
                             ? Participant.GROUP
                             : Participant.SINGLE,
-                    unreadMessages: [
-                        {
-                            userId: user.uid,
-                            count: 0,
-                        },
-                        ...unreadMessages,
-                    ],
                     keywords: generateKeyword(value.title),
                 }
             );

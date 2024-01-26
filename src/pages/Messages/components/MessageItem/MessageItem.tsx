@@ -6,12 +6,7 @@ import { zeroPad } from "@/helpers/calendar";
 import { MessageItemProps } from "@/types";
 import { Participant } from "@/utils/enum";
 
-const MessageItem = ({
-    conversation,
-    unreadMessage,
-    active,
-    onClick,
-}: MessageItemProps) => {
+const MessageItem = ({ conversation, active, onClick }: MessageItemProps) => {
     const classes = ["messages__item"];
 
     if (active) classes.push("messages__item--active");
@@ -62,19 +57,13 @@ const MessageItem = ({
                     {conversationLastMessageTime}
                 </span>
 
-                {unreadMessage && unreadMessage.count > 0 ? (
-                    <span className="messages__item-count">
-                        {unreadMessage.count}
-                    </span>
-                ) : (
-                    <img
-                        src={icons.starSolid}
-                        alt=""
-                        className="messages__item-icon
+                <img
+                    src={icons.starSolid}
+                    alt=""
+                    className="messages__item-icon
                             messages__item-wishlist-icon
                             messages__item-wishlist-icon--active"
-                    />
-                )}
+                />
             </div>
         </article>
     );

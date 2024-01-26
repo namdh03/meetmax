@@ -111,12 +111,6 @@ export type UserType = {
     createdAt: Timestamp;
 };
 
-// Unread messages collection types
-export type UnreadMessageType = {
-    userId: string;
-    count: number;
-};
-
 // Conversation collection types
 export type ConversationType = {
     id: string;
@@ -128,7 +122,6 @@ export type ConversationType = {
     lastMessage: string;
     lastMessageTime: Timestamp;
     participants: string[];
-    unreadMessages: UnreadMessageType[];
     keywords: string[];
     createdAt: Timestamp;
 };
@@ -437,7 +430,6 @@ export type ForgotPasswordFormData = {
 
 export type MessageItemProps = {
     conversation: ConversationType;
-    unreadMessage?: UnreadMessageType;
     active: boolean;
     onClick: () => void;
 };

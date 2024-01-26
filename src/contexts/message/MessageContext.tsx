@@ -18,7 +18,6 @@ import {
     getDocumentsByCondition,
     queryConstraints,
     queryDbConstraint,
-    updateDocument,
 } from "@/services";
 import {
     MessageContextType,
@@ -66,11 +65,7 @@ const MessageContext = createContext<MessageContextType>({
 const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
     const { user } = useAuth();
     const {
-        conversations: {
-            list,
-            selectedConversation,
-            handleSelectedConversation,
-        },
+        conversations: { selectedConversation, handleSelectedConversation },
     } = useApp();
 
     // Show create conversation
@@ -184,49 +179,6 @@ const MessageProvider: FC<PropsWithChildren> = ({ children }) => {
             }
         })();
     }, [selectedConversation]);
-
-    // Handle listen to reset unread message
-    useEffect(() => {
-        (async () => {
-            try {
-                const conditions =
-                    !selectedConversation ||
-                    !user ||
-                    messages.list[messages.list.length - 1].senderId ===
-                        user.uid;
-
-                if (conditions) return;
-
-                const conversation = list.find(
-                    (conversation) =>
-                        conversation.id === selectedConversation.id
-                );
-
-                const otherUnreadMessages =
-                    conversation &&
-                    conversation.unreadMessages.filter(
-                        (message) => message.userId !== user.uid
-                    );
-
-                await updateDocument(
-                    configs.collections.conversations,
-                    selectedConversation.id,
-                    {
-                        unreadMessages: [
-                            ...(otherUnreadMessages || []),
-                            {
-                                userId: user.uid,
-                                count: 0,
-                            },
-                        ],
-                    }
-                );
-            } catch (error) {
-                handleFirebaseError(error);
-            }
-        })();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [messages.list, selectedConversation, user]);
 
     // Handle show create conversation
     const handleOpenCreateConversation = () =>

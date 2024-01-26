@@ -17,7 +17,7 @@ import schema from "./Footer.schema";
 const Footer = () => {
     const { user } = useAuth();
     const {
-        conversations: { list, selectedConversation },
+        conversations: { selectedConversation },
     } = useApp();
     const {
         register,
@@ -55,26 +55,6 @@ const Footer = () => {
             if (!selectedConversation || !user) return;
             if (!valueTrim) return reset();
 
-            const conversation = list.find(
-                (conversation) => conversation.id === selectedConversation.id
-            );
-
-            const unreadMessages = conversation?.unreadMessages.map(
-                (message) => {
-                    if (message.userId !== user.uid) {
-                        return {
-                            userId: message.userId,
-                            count: ++message.count,
-                        };
-                    }
-
-                    return {
-                        userId: message.userId,
-                        count: 0,
-                    };
-                }
-            );
-
             // Get new key and path to add message
             const newKey = getNewKey(
                 `${configs.collections.messages}/${selectedConversation.id}`
@@ -100,7 +80,6 @@ const Footer = () => {
                 {
                     lastMessage: valueTrim,
                     lastMessageTime: serverTimestamp(),
-                    unreadMessages,
                 }
             );
         } catch (error) {

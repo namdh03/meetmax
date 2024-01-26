@@ -14,11 +14,18 @@ import { handleFirebaseError } from "@/helpers";
 import { useAuth, useFirestore } from "@/hooks";
 import {
     getCount,
+    getDocument,
     getDocumentsByCondition,
     queryConstraints,
 } from "@/services";
-import { AppContextType, AppConversationType, ConversationType } from "@/types";
+import {
+    AppContextType,
+    AppConversationType,
+    ConversationType,
+    UserType,
+} from "@/types";
 import { CONVERSATION_LIMIT } from "@/utils/constants";
+import { Participant } from "@/utils/enum";
 
 // Initial state conversations
 const conversationsState: AppConversationType = {
@@ -79,12 +86,20 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     ...conversationsQuery
                 );
 
+                const list = await Promise.all(
+                    await handleGetConversationInfo(
+                        user.uid,
+                        data as ConversationType[]
+                    )
+                );
+
                 setConversations((prev) => ({
                     ...prev,
-                    list: data as ConversationType[],
+                    list: list as ConversationType[],
                     total,
                     lastVisible:
                         lastVisible as QueryDocumentSnapshot<DocumentData>,
+                    selectedConversation: list[0] as ConversationType,
                 }));
             } catch (error) {
                 handleFirebaseError(error);
@@ -99,6 +114,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
         return () => {
             setConversations(conversationsState);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     // Listen for new conversations
@@ -116,8 +132,15 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     )
                 );
 
+                const newList = await Promise.all(
+                    await handleGetConversationInfo(
+                        user.uid,
+                        newConversation as ConversationType[]
+                    )
+                );
+
                 setConversations((prev) => {
-                    const newList = prev.list.filter(
+                    const currentList = prev.list.filter(
                         (conversation) =>
                             conversation.id !==
                             (newConversation[0] as ConversationType).id
@@ -126,8 +149,8 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     return {
                         ...prev,
                         list: [
-                            ...(newConversation as ConversationType[]),
-                            ...newList,
+                            ...(newList as ConversationType[]),
+                            ...currentList,
                         ],
                         total,
                     };
@@ -136,7 +159,34 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                 handleFirebaseError(error);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newConversation, user]);
+
+    // Handle get conversation title, avatar when conversation type is single
+    const handleGetConversationInfo = useCallback(
+        async (userId: string, conversations: ConversationType[]) =>
+            conversations.map(async (conversation) => {
+                const otherParticipantId = conversation.participants.find(
+                    (participantId: string) => participantId !== userId
+                );
+
+                if (!otherParticipantId) return;
+                if (conversation.type === Participant.SINGLE) {
+                    const result = await getDocument(
+                        configs.collections.users,
+                        otherParticipantId
+                    );
+
+                    conversation.title = (result.data() as UserType).fullName;
+                    conversation.avatarUrl = (
+                        result.data() as UserType
+                    ).avatarUrl;
+                }
+
+                return conversation;
+            }),
+        []
+    );
 
     // Handle selected conversation
     const handleSelectedConversation = useCallback(
@@ -147,16 +197,18 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
             )
                 return;
 
-            const conversation = conversations.list.find(
-                (conversation) => conversation.id === id
-            );
+            setConversations((prev) => {
+                const conversation = prev.list.find(
+                    (conversation) => conversation.id === id
+                );
 
-            setConversations((prev) => ({
-                ...prev,
-                selectedConversation: conversation as ConversationType,
-            }));
+                return {
+                    ...prev,
+                    selectedConversation: conversation as ConversationType,
+                };
+            });
         },
-        [conversations.list, conversations.selectedConversation]
+        [conversations.selectedConversation]
     );
 
     // Handle load more conversations

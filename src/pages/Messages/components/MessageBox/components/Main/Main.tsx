@@ -12,7 +12,6 @@ const Main = () => {
     const {
         messages: { ref, list, loading, userList, handleLoadMoreMessage },
     } = useMessage();
-
     const [activeMessageId, setActiveMessageId] = useState<string>("");
 
     const handleShowTimeMsg = (messageId: string) => {
