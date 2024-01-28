@@ -7,16 +7,12 @@ import { useCalendar } from "@/hooks";
 import LabelDate from "../LabelDate";
 
 const CalendarDate = memo(() => {
-    const { today, data } = useCalendar();
-    const dateList = useMemo(
-        () => calendar(data.month, data.year),
-        [data.month, data.year]
-    );
+    const { today, current, month, year } = useCalendar();
+    const dateList = useMemo(() => calendar(month, year), [month, year]);
 
     // Render a calendar date as returned from the calendar builder function
     // This method is used as a map callback as seen in render()
     const renderCalendarDate = (date: (string | number)[]) => {
-        const { current, month, year } = data;
         const _date = new Date(date.join("-"));
         // Check if calendar date is same day as today
         const isToday = isSameDay(_date, today);

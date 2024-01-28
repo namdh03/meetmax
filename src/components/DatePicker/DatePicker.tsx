@@ -46,9 +46,7 @@ const DatePicker = ({
         setCalendarOpen(!calendarOpen);
     };
 
-    const handleDateChange = (date: Date) => {
-        dateTemp.current = date;
-    };
+    const handleDateChange = (date: Date) => (dateTemp.current = date);
 
     const formatDate = (date: Date) => {
         const day = date.getDate();
@@ -89,7 +87,7 @@ const DatePicker = ({
             <Calendar
                 ref={calendarRef}
                 date={date}
-                onDateChanged={handleDateChange}
+                onChanged={handleDateChange}
                 coords={coords}
                 actions={<Actions />}
                 className="date-picker__calendar"

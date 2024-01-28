@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 
 import "@/scss/main.scss";
 import { AppProvider } from "@/contexts/app/AppContext";
-import { AuthProvider } from "@/contexts/auth/AuthContext";
+import AuthProvider from "@/contexts/auth/provider";
 
 import App from "./App";
 

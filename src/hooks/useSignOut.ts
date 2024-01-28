@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { signOut } from "@/contexts/auth/actions";
+import { actions } from "@/contexts/auth/store";
 import { signOutSystem } from "@/services";
 
 import { useAuth } from ".";
@@ -10,7 +10,7 @@ const useSignOut = () => {
 
     const onSignOut = useCallback(() => {
         signOutSystem();
-        dispatch(signOut());
+        dispatch(actions.signOut());
     }, [dispatch]);
 
     return { onSignOut };

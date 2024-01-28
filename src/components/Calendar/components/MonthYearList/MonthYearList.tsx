@@ -1,4 +1,7 @@
+import { useEffect, useRef } from "react";
+
 import InfiniteScroll from "@/components/InfiniteScroll";
+import { actions } from "@/contexts/calendar/store";
 import {
     getMonthAndYearFormat,
     getMonthYearList,
@@ -7,22 +10,39 @@ import {
 import { useCalendar } from "@/hooks";
 
 const MonthYearList = () => {
-    const { data, monthYearList, setMonthYearList, setDate, toggle, ref } =
-        useCalendar();
+    const {
+        current,
+        month,
+        year,
+        isMonthYearListOpen,
+        monthYearList,
+        dispatch,
+    } = useCalendar();
+
+    // Refs: Control dropdown scroll
+    const dropdownRef = useRef<HTMLLIElement | null>(null);
+
+    useEffect(() => {
+        if (isMonthYearListOpen) {
+            dropdownRef.current?.scrollIntoView({ block: "center" });
+        }
+    }, [isMonthYearListOpen]);
 
     const handleChangeDate = (month: number, year: number) => {
-        const date = new Date(year, month - 1, data.current?.getDate() ?? 1);
+        const date = new Date(year, month - 1, current.getDate());
 
-        setDate(date);
-        toggle();
+        dispatch(actions.setDate({ date }));
+        dispatch(actions.toggleMonthYearList());
     };
 
     // Load more months and years when the user reaches the top of the list
     const handleLoadMore = () =>
-        setMonthYearList((prev) => [
-            ...getMonthYearList(prev[0].year - 2),
-            ...prev,
-        ]);
+        dispatch(
+            actions.setMonthYearList([
+                ...getMonthYearList(monthYearList[0].year - 2),
+                ...monthYearList,
+            ])
+        );
 
     return (
         <div className="calendar__dropdown-month-year">
@@ -31,12 +51,12 @@ const MonthYearList = () => {
                     {monthYearList.map((date) => {
                         const isActive = isSameMonth(
                             new Date(date.year, date.month),
-                            new Date(data.year, data.month)
+                            new Date(year, month)
                         );
 
                         return (
                             <li
-                                ref={isActive ? ref : null}
+                                ref={isActive ? dropdownRef : null}
                                 key={getMonthAndYearFormat(
                                     date.month,
                                     date.year

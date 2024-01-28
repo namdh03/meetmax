@@ -1,7 +1,7 @@
 import { AuthState, PayloadAction, ReducerHandlers } from "@/types";
 
 const reducerHandlers: ReducerHandlers = {
-    INITIALIZE(state: AuthState, action: PayloadAction<AuthState>) {
+    INITIALIZE: (state: AuthState, action: PayloadAction<AuthState>) => {
         const { isAuthenticated, user } = action.payload;
 
         return {
@@ -12,7 +12,7 @@ const reducerHandlers: ReducerHandlers = {
         };
     },
 
-    SIGN_IN(state: AuthState, action: PayloadAction<AuthState>) {
+    SIGN_IN: (state: AuthState, action: PayloadAction<AuthState>) => {
         const { user } = action.payload;
 
         return {
@@ -22,7 +22,7 @@ const reducerHandlers: ReducerHandlers = {
         };
     },
 
-    SIGN_OUT(state: AuthState) {
+    SIGN_OUT: (state: AuthState) => {
         return {
             ...state,
             isAuthenticated: false,
@@ -36,6 +36,5 @@ export default function reducer(
     action: PayloadAction<AuthState>
 ) {
     if (!reducerHandlers[action.type]) return state;
-
     return reducerHandlers[action.type](state, action);
 }

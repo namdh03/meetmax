@@ -1,30 +1,12 @@
-import {
-    createContext,
-    FC,
-    PropsWithChildren,
-    useEffect,
-    useReducer,
-} from "react";
+import { FC, PropsWithChildren, useEffect, useReducer } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 
 import Loading from "@/components/Loading";
 import configs from "@/configs";
-import { AuthContextType, AuthState } from "@/types";
 
-import { initialize } from "./actions";
-import reducer from "./reducer";
-
-const initialState: AuthState = {
-    isInitialized: false,
-    isAuthenticated: false,
-    user: null,
-};
-
-const AuthContext = createContext<AuthContextType>({
-    ...initialState,
-    dispatch: () => null,
-});
+import AuthContext from "../context";
+import { actions, initialState, reducer } from "../store";
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -35,10 +17,13 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
             (user) => {
                 if (!user)
                     return dispatch(
-                        initialize({ isAuthenticated: false, user: null })
+                        actions.initialize({
+                            isAuthenticated: false,
+                            user: null,
+                        })
                     );
 
-                dispatch(initialize({ isAuthenticated: !!user, user }));
+                dispatch(actions.initialize({ isAuthenticated: !!user, user }));
             }
         );
 
@@ -52,4 +37,4 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 };
 
-export { AuthContext, AuthProvider };
+export default AuthProvider;

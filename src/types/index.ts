@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import { Dispatch, ReactNode, RefObject } from "react";
 import { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
 
 import { Analytics } from "firebase/analytics";
@@ -19,6 +19,7 @@ import {
 
 import {
     AuthActionType,
+    CalendarActionType,
     Gender,
     Message,
     Participant,
@@ -160,6 +161,90 @@ export type ReducerHandlers = {
     SIGN_OUT(state: AuthState): AuthState;
 };
 
+// Calendar type
+export type MonthYearType = {
+    month: number;
+    year: number;
+};
+
+export type CalendarState = {
+    today: Date;
+    current: Date;
+    month: number;
+    year: number;
+    isMonthYearListOpen: boolean;
+    monthYearList: MonthYearType[];
+    onChanged?: (date: Date) => void;
+};
+
+export type CalendarDateType = {
+    date: Date;
+    onChanged?: (date: Date) => void;
+}
+
+export type CalendarPayloadAction<T> = {
+    type: CalendarActionType;
+    payload: T;
+};
+
+export type CalendarContextType = CalendarState & {
+    dispatch: Dispatch<CalendarPayloadAction<CalendarState>>;
+};
+
+export type CalendarReducerHandlers = {
+    SET_TODAY(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    SET_DATE(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    SET_MONTH_YEAR_LIST(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    OPEN_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+    CLOSE_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+    TOGGLE_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+};
+
+export type CalendarProviderProps = {
+    date?: Date;
+    onChanged?: (date: Date) => void;
+};
+
+// Coords type
+export type Coords = {
+    x?: number;
+    y?: number;
+};
+
+// Calender props
+export type CalendarProps = CalendarProviderProps & {
+    coords?: Coords;
+    actions?: ReactNode;
+    className?: string;
+};
+
+// Label Date props
+export type LabelDateProps = {
+    children: ReactNode;
+    date: Date;
+    className?: string;
+};
+
+// Date picker props
+export type DatePickerProps = {
+    icon?: string;
+    label?: string;
+    position?: Coords;
+    className?: string;
+    value?: Date;
+    errorMsg?: string;
+    onChanged?: (date: Date) => void;
+};
+
 // Grid System - Container props
 export type MaxWithKey = "sm" | "md" | "lg" | "xl" | "xxl";
 
@@ -231,64 +316,6 @@ export type CheckboxesProps<
 > = UseControllerProps<TFieldValues, TName> & {
     options: CheckboxesOptionType[];
     className?: string;
-};
-
-// Coords type
-export type Coords = {
-    x?: number;
-    y?: number;
-};
-
-// Calendar state
-export type CalendarState = {
-    current: Date | null;
-    month: number;
-    year: number;
-};
-
-// Calender props
-export type CalendarProps = {
-    date?: Date;
-    onDateChanged?: (date: Date) => void;
-    coords?: Coords;
-    actions?: ReactNode;
-    className?: string;
-};
-
-export type MonthYearType = {
-    month: number;
-    year: number;
-};
-
-// Calendar context type
-export type CalendarContextType = {
-    today: Date;
-    monthYearList: MonthYearType[];
-    setMonthYearList: Dispatch<SetStateAction<MonthYearType[]>>;
-    data: CalendarState;
-    setDate: (date: Date) => void;
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    toggle: () => void;
-    ref?: RefObject<HTMLLIElement>;
-};
-
-// Date props
-export type DateProps = {
-    children: ReactNode;
-    date: Date;
-    className?: string;
-};
-
-// Date picker props
-export type DatePickerProps = {
-    icon?: string;
-    label?: string;
-    position?: Coords;
-    className?: string;
-    value?: Date;
-    errorMsg?: string;
-    onChanged?: (date: Date) => void;
 };
 
 // Divider props
