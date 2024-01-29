@@ -1,8 +1,12 @@
 import icons from "@/assets/icons";
-import { useMessage } from "@/hooks";
+import images from "@/assets/images";
+import { useApp } from "@/hooks";
+import { Participant } from "@/utils/enum";
 
 const Header = () => {
-    const { selectedConversation } = useMessage();
+    const {
+        conversations: { selectedConversation },
+    } = useApp();
 
     return (
         <div className="messages__header">
@@ -10,14 +14,20 @@ const Header = () => {
                 <>
                     <div className="messages__header-user">
                         <img
-                            src={selectedConversation?.avatarUrl}
-                            alt={selectedConversation?.title}
+                            src={
+                                selectedConversation.avatarUrl ||
+                                (selectedConversation.type ===
+                                Participant.SINGLE
+                                    ? images.avatar
+                                    : images.groupAvatar)
+                            }
+                            alt={selectedConversation.title}
                             className="messages__header-avatar"
                         />
 
                         <div className="messages__header-content">
                             <h2 className="messages__header-name">
-                                {selectedConversation?.title}
+                                {selectedConversation.title}
                             </h2>
                         </div>
                     </div>

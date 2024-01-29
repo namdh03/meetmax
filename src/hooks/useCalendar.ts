@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CalendarContext } from "@/contexts/calendar/CalendarContext";
+import CalendarContext from "@/contexts/calendar/context";
 
 // Create consumer
 export default function useCalendar() {

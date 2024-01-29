@@ -9,7 +9,7 @@ import Input from "@/components/Input";
 import configs from "@/configs";
 import { generateKeyword, handleFirebaseError } from "@/helpers";
 import { useAuth, useMessage } from "@/hooks";
-import { addDocument } from "@/services";
+import { addDocument, getCount, queryConstraints } from "@/services";
 import { CreateConversationFormData } from "@/types";
 import { Participant } from "@/utils/enum";
 
@@ -17,14 +17,11 @@ import UserTag from "../UserTag";
 
 const { Text } = Input;
 
-const selectedUserSearchList = memo(() => {
+const SelectedUserSearchList = memo(() => {
     const { user } = useAuth();
     const {
-        conversations,
-        selectedUserSearchList,
-        handleSelectedConversation,
-        handleRemoveSelectedUser,
-        handleCloseCreateConversation,
+        userSearch: { selectedUserList, handleRemoveSelectedUser },
+        handleShowSelectedConversation,
     } = useMessage();
     const {
         control,
@@ -41,32 +38,29 @@ const selectedUserSearchList = memo(() => {
     ) => {
         try {
             if (!user) return;
-            if (!selectedUserSearchList.length)
-                return toast.error("No user selected");
-            if (selectedUserSearchList.length > 1 && !value.title.trim())
+
+            // Get selected user list length
+            const selectedUserListLength = selectedUserList.length;
+
+            // Validate form data and show error toast
+            if (!selectedUserListLength) return toast.error("No user selected");
+            if (selectedUserListLength > 1 && !value.title.trim())
                 return toast.error("Please enter conversation name");
-            if (selectedUserSearchList.length === 1) {
-                const conversation = conversations.find((conversation) => {
-                    return (
-                        conversation.type === Participant.SINGLE &&
-                        conversation.participants.includes(
-                            selectedUserSearchList[0].id
-                        )
-                    );
-                });
 
-                if (conversation) {
-                    return (
-                        handleCloseCreateConversation(),
-                        handleSelectedConversation(conversation.id)
-                    );
-                }
+            // Check if conversation already exists
+            if (selectedUserListLength === 1) {
+                const count = await getCount(
+                    configs.collections.conversations,
+                    queryConstraints.where("participants", "in", [
+                        [selectedUserList[0].id, user.uid],
+                        [user.uid, selectedUserList[0].id],
+                    ]),
+                    queryConstraints.where("type", "==", Participant.SINGLE)
+                );
+
+                if (count > 0)
+                    return toast.error("Conversation already exists");
             }
-
-            const unreadMessages = selectedUserSearchList.map((user) => ({
-                userId: user.id,
-                count: 0,
-            }));
 
             const conservation = await addDocument(
                 configs.collections.conversations,
@@ -77,27 +71,19 @@ const selectedUserSearchList = memo(() => {
                     lastMessage: null,
                     lastMessageTime: serverTimestamp(),
                     participants: [
+                        ...selectedUserList.map((user) => user.id),
                         user.uid,
-                        ...selectedUserSearchList.map((user) => user.id),
                     ],
                     title: value.title || null,
                     type:
-                        selectedUserSearchList.length > 1
+                        selectedUserListLength > 1
                             ? Participant.GROUP
                             : Participant.SINGLE,
-                    unreadMessages: [
-                        {
-                            userId: user.uid,
-                            count: 0,
-                        },
-                        ...unreadMessages,
-                    ],
                     keywords: generateKeyword(value.title),
                 }
             );
 
-            handleCloseCreateConversation();
-            handleSelectedConversation(conservation.id);
+            handleShowSelectedConversation(conservation.id);
         } catch (error) {
             handleFirebaseError(error);
         }
@@ -106,7 +92,7 @@ const selectedUserSearchList = memo(() => {
     return (
         <div className="messages__selected-user">
             <div className="messages__selected-user-list">
-                {selectedUserSearchList.map((user) => (
+                {selectedUserList.map((user) => (
                     <UserTag
                         key={user.id}
                         fullName={user.fullName}
@@ -120,7 +106,7 @@ const selectedUserSearchList = memo(() => {
                 onSubmit={handleSubmit(handleCreateConversation)}
                 autoComplete="off"
             >
-                {selectedUserSearchList.length > 1 && (
+                {selectedUserList.length > 1 && (
                     <Text
                         id="title"
                         name="title"
@@ -142,4 +128,4 @@ const selectedUserSearchList = memo(() => {
     );
 });
 
-export default selectedUserSearchList;
+export default SelectedUserSearchList;

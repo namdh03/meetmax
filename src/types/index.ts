@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import { Dispatch, ReactNode, RefObject } from "react";
 import { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
 
 import { Analytics } from "firebase/analytics";
@@ -9,10 +9,17 @@ import {
     GoogleAuthProvider,
     User,
 } from "firebase/auth";
-import { Firestore, Timestamp } from "firebase/firestore";
+import { Database } from "firebase/database";
+import {
+    DocumentData,
+    Firestore,
+    QueryDocumentSnapshot,
+    Timestamp,
+} from "firebase/firestore";
 
 import {
     AuthActionType,
+    CalendarActionType,
     Gender,
     Message,
     Participant,
@@ -33,7 +40,7 @@ export type RouteKey =
     | "settings"
     | "forgotPassword"
     | "checkEmail"
-    | "NotVerifyEmail"
+    | "notVerifyEmail"
     | "notFound";
 
 export type RouteValue =
@@ -59,6 +66,7 @@ export type FirebaseConfigType = {
     analytics: Analytics;
     auth: Auth;
     db: Firestore;
+    database: Database;
     googleProvider: GoogleAuthProvider;
     facebookProvider: FacebookAuthProvider;
 };
@@ -104,12 +112,6 @@ export type UserType = {
     createdAt: Timestamp;
 };
 
-// Unread messages collection types
-export type UnreadMessageType = {
-    userId: string;
-    count: number;
-};
-
 // Conversation collection types
 export type ConversationType = {
     id: string;
@@ -121,7 +123,6 @@ export type ConversationType = {
     lastMessage: string;
     lastMessageTime: Timestamp;
     participants: string[];
-    unreadMessages: UnreadMessageType[];
     keywords: string[];
     createdAt: Timestamp;
 };
@@ -133,8 +134,9 @@ export type MessageType = {
     conversationId: string;
     message: string;
     messageType: Message;
-    deletedAt: Timestamp;
-    createdAt: Timestamp;
+    createdAt: number;
+    deletedAt: number;
+    updatedAt: number;
 };
 
 // Authentication types
@@ -157,6 +159,90 @@ export type ReducerHandlers = {
     INITIALIZE(state: AuthState, action: PayloadAction<AuthState>): AuthState;
     SIGN_IN(state: AuthState, action: PayloadAction<AuthState>): AuthState;
     SIGN_OUT(state: AuthState): AuthState;
+};
+
+// Calendar type
+export type MonthYearType = {
+    month: number;
+    year: number;
+};
+
+export type CalendarState = {
+    today: Date;
+    current: Date;
+    month: number;
+    year: number;
+    isMonthYearListOpen: boolean;
+    monthYearList: MonthYearType[];
+    onChanged?: (date: Date) => void;
+};
+
+export type CalendarDateType = {
+    date: Date;
+    onChanged?: (date: Date) => void;
+}
+
+export type CalendarPayloadAction<T> = {
+    type: CalendarActionType;
+    payload: T;
+};
+
+export type CalendarContextType = CalendarState & {
+    dispatch: Dispatch<CalendarPayloadAction<CalendarState>>;
+};
+
+export type CalendarReducerHandlers = {
+    SET_TODAY(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    SET_DATE(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    SET_MONTH_YEAR_LIST(
+        state: CalendarState,
+        action: CalendarPayloadAction<CalendarState>
+    ): CalendarState;
+    OPEN_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+    CLOSE_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+    TOGGLE_MONTH_YEAR_LIST(state: CalendarState): CalendarState;
+};
+
+export type CalendarProviderProps = {
+    date?: Date;
+    onChanged?: (date: Date) => void;
+};
+
+// Coords type
+export type Coords = {
+    x?: number;
+    y?: number;
+};
+
+// Calender props
+export type CalendarProps = CalendarProviderProps & {
+    coords?: Coords;
+    actions?: ReactNode;
+    className?: string;
+};
+
+// Label Date props
+export type LabelDateProps = {
+    children: ReactNode;
+    date: Date;
+    className?: string;
+};
+
+// Date picker props
+export type DatePickerProps = {
+    icon?: string;
+    label?: string;
+    position?: Coords;
+    className?: string;
+    value?: Date;
+    errorMsg?: string;
+    onChanged?: (date: Date) => void;
 };
 
 // Grid System - Container props
@@ -230,64 +316,6 @@ export type CheckboxesProps<
 > = UseControllerProps<TFieldValues, TName> & {
     options: CheckboxesOptionType[];
     className?: string;
-};
-
-// Coords type
-export type Coords = {
-    x?: number;
-    y?: number;
-};
-
-// Calendar state
-export type CalendarState = {
-    current: Date | null;
-    month: number;
-    year: number;
-};
-
-// Calender props
-export type CalendarProps = {
-    date?: Date;
-    onDateChanged?: (date: Date) => void;
-    coords?: Coords;
-    actions?: ReactNode;
-    className?: string;
-};
-
-export type MonthYearType = {
-    month: number;
-    year: number;
-};
-
-// Calendar context type
-export type CalendarContextType = {
-    today: Date;
-    monthYearList: MonthYearType[];
-    setMonthYearList: Dispatch<SetStateAction<MonthYearType[]>>;
-    data: CalendarState;
-    setDate: (date: Date) => void;
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    toggle: () => void;
-    ref?: RefObject<HTMLLIElement>;
-};
-
-// Date props
-export type DateProps = {
-    children: ReactNode;
-    date: Date;
-    className?: string;
-};
-
-// Date picker props
-export type DatePickerProps = {
-    icon?: string;
-    label?: string;
-    position?: Coords;
-    className?: string;
-    value?: Date;
-    errorMsg?: string;
-    onChanged?: (date: Date) => void;
 };
 
 // Divider props
@@ -383,29 +411,35 @@ export type LoaderProps = {
     loading?: boolean;
 };
 
-// Message loading type
-export type MessageLoadingType = {
-    userListLoading: boolean;
-    conversationLoading: boolean;
-    messageLoading: boolean;
+// Message context type
+export type MessageUserSearchType = {
+    searchValue: string;
+    loading: boolean;
+    list: UserType[];
+    total: number;
+    lastVisible: QueryDocumentSnapshot<DocumentData> | null;
+    selectedUserList: UserType[];
+    handleSearchUser: (value: string) => void;
+    handleLoadMoreUser: () => void;
+    handleSelectedUser: (user: UserType) => void;
+    handleRemoveSelectedUser: (id: string) => void;
+};
+
+export type MessageListType = {
+    ref: RefObject<HTMLDivElement> | null;
+    list: MessageType[];
+    loading: boolean;
+    userList: UserType[];
+    handleLoadMoreMessage: () => void;
 };
 
 export type MessageContextType = {
-    loading: MessageLoadingType;
-    userSearchList: UserType[];
-    selectedUserSearchList: UserType[];
-    conversations: ConversationType[];
-    messages: MessageType[];
-    userList: UserType[];
-    selectedConversation: ConversationType | null;
-    handleSelectedConversation: (id: string) => void;
     isOpenCreateConversation: boolean;
     handleOpenCreateConversation: () => void;
     handleCloseCreateConversation: () => void;
-    handleSearchUser: (value: string) => void;
-    handleSelectedUser: (user: UserType) => void;
-    handleRemoveSelectedUser: (id: string) => void;
-    messageRef?: RefObject<HTMLDivElement>;
+    userSearch: MessageUserSearchType;
+    handleShowSelectedConversation: (id: string) => void;
+    messages: MessageListType;
 };
 
 export type SearchProps = {
@@ -424,7 +458,6 @@ export type ForgotPasswordFormData = {
 
 export type MessageItemProps = {
     conversation: ConversationType;
-    unreadMessage?: UnreadMessageType;
     active: boolean;
     onClick: () => void;
 };
@@ -447,4 +480,29 @@ export type ModalProps = {
     open: boolean;
     onClose?: () => void;
     onSubmit?: () => void;
+};
+
+// Infinite scroll props
+export type InfiniteScrollProps = {
+    children: JSX.Element;
+    hasMore?: boolean;
+    fetchMore?: () => void;
+    loader?: JSX.Element;
+    endMessage?: JSX.Element;
+    reverse?: boolean;
+};
+
+// App context type
+export type AppConversationType = {
+    list: ConversationType[];
+    loading: boolean;
+    total: number;
+    lastVisible: QueryDocumentSnapshot<DocumentData> | null;
+    selectedConversation: ConversationType | null;
+    handleSelectedConversation: (id: string) => void;
+    handleLoadMoreConversation: () => void;
+};
+
+export type AppContextType = {
+    conversations: AppConversationType;
 };

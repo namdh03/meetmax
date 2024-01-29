@@ -1,15 +1,12 @@
 import { useCallback, useMemo } from "react";
 
 import icons from "@/assets/icons";
+import images from "@/assets/images";
 import { zeroPad } from "@/helpers/calendar";
 import { MessageItemProps } from "@/types";
+import { Participant } from "@/utils/enum";
 
-const MessageItem = ({
-    conversation,
-    unreadMessage,
-    active,
-    onClick,
-}: MessageItemProps) => {
+const MessageItem = ({ conversation, active, onClick }: MessageItemProps) => {
     const classes = ["messages__item"];
 
     if (active) classes.push("messages__item--active");
@@ -35,7 +32,12 @@ const MessageItem = ({
         <article className={classes.join(" ")} onClick={onClick}>
             <figure className="messages__item-avatar">
                 <img
-                    src={conversation.avatarUrl}
+                    src={
+                        conversation.avatarUrl ||
+                        (conversation.type === Participant.SINGLE
+                            ? images.avatar
+                            : images.groupAvatar)
+                    }
                     alt={conversation.title}
                     className="messages__item-avatar-img"
                 />
@@ -55,19 +57,13 @@ const MessageItem = ({
                     {conversationLastMessageTime}
                 </span>
 
-                {unreadMessage && unreadMessage.count > 0 ? (
-                    <span className="messages__item-count">
-                        {unreadMessage.count}
-                    </span>
-                ) : (
-                    <img
-                        src={icons.starSolid}
-                        alt=""
-                        className="messages__item-icon
+                <img
+                    src={icons.starSolid}
+                    alt=""
+                    className="messages__item-icon
                             messages__item-wishlist-icon
                             messages__item-wishlist-icon--active"
-                    />
-                )}
+                />
             </div>
         </article>
     );

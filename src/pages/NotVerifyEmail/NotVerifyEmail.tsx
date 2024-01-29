@@ -1,7 +1,37 @@
+import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
+import { Navigate } from "react-router-dom";
+
+import { sendEmailVerification } from "firebase/auth";
+
 import images from "@/assets/images";
 import Button from "@/components/Button";
+import configs from "@/configs";
+import { handleFirebaseError } from "@/helpers";
+import { useAuth, useSignOut } from "@/hooks";
 
 const NotVerifyEmail = () => {
+    const { user } = useAuth();
+    const { onSignOut } = useSignOut();
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleSendEmailVerification = useCallback(async () => {
+        try {
+            if (!user) return;
+            setLoading(true);
+
+            await sendEmailVerification(user);
+            toast.success("Email sent successfully.");
+        } catch (error) {
+            handleFirebaseError(error);
+        } finally {
+            setLoading(false);
+        }
+    }, [user]);
+
+    if (user && user.emailVerified)
+        return <Navigate to={configs.routes.notFound} />;
+
     return (
         <div className="verify-email">
             <section className="verify-email__wrapper">
@@ -27,12 +57,13 @@ const NotVerifyEmail = () => {
                 <div className="verify-email__actions">
                     <Button
                         variant="secondary"
-                        className="verify-email__button"
+                        loading={loading}
+                        onClick={handleSendEmailVerification}
                     >
                         Send email again
                     </Button>
-                    <Button variant="primary" className="verify-email__button">
-                        Checked
+                    <Button variant="primary" onClick={onSignOut}>
+                        Sign Out
                     </Button>
                 </div>
             </section>

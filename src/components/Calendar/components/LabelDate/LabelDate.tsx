@@ -1,13 +1,14 @@
 import { FC, memo } from "react";
 
+import { actions } from "@/contexts/calendar/store";
 import { useCalendar } from "@/hooks";
-import { DateProps } from "@/types";
+import { LabelDateProps } from "@/types";
 
-const LabelDate: FC<DateProps> = memo(({ children, date, className }) => {
-    const { setDate, setOpen } = useCalendar();
+const LabelDate: FC<LabelDateProps> = memo(({ children, date, className }) => {
+    const { dispatch } = useCalendar();
     const handleSetDate = () => {
-        setDate(date);
-        setOpen(false);
+        dispatch(actions.setDate({ date }));
+        dispatch(actions.closeMonthYearList());
     };
 
     return (

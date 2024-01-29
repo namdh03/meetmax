@@ -3,15 +3,18 @@ import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 
 import "@/scss/main.scss";
-import { AuthProvider } from "@/contexts/auth/AuthContext";
+import { AppProvider } from "@/contexts/app/AppContext";
+import AuthProvider from "@/contexts/auth/provider";
 
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <AuthProvider>
-            <App />
-            <Toaster />
+            <AppProvider>
+                <App />
+                <Toaster />
+            </AppProvider>
         </AuthProvider>
     </React.StrictMode>
 );

@@ -1,38 +1,26 @@
 import { useEffect, useRef } from "react";
 
-interface InfiniteScrollProps {
-    children: JSX.Element;
-    loader?: JSX.Element;
-    fetchMore?: () => void;
-    hasMore?: boolean;
-    endMessage?: JSX.Element;
-}
+import { InfiniteScrollProps } from "@/types";
 
 const InfiniteScroll = ({
     children,
-    loader,
-    fetchMore,
     hasMore,
+    fetchMore,
+    loader,
     endMessage,
+    reverse,
 }: InfiniteScrollProps) => {
-    const pageStartRef = useRef(null);
+    const pageRef = useRef(null);
 
     useEffect(() => {
         if (hasMore) {
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        fetchMore && fetchMore();
-                    }
-                },
-                {
-                    root: null,
-                    rootMargin: "0px",
-                    threshold: 1.0,
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    fetchMore && fetchMore();
                 }
-            );
+            });
 
-            const currentRef = pageStartRef.current;
+            const currentRef = pageRef.current;
 
             if (currentRef) {
                 observer.observe(currentRef);
@@ -44,16 +32,18 @@ const InfiniteScroll = ({
                 }
             };
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hasMore]);
+    }, [fetchMore, hasMore]);
+
+    const renderHasMore = () =>
+        hasMore ? <div ref={pageRef}>{loader}</div> : endMessage;
 
     return (
         <>
-            <div ref={pageStartRef}>{loader}</div>
+            {reverse && renderHasMore()}
 
             {children}
 
-            {hasMore ? null : endMessage}
+            {!reverse && renderHasMore()}
         </>
     );
 };

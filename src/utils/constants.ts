@@ -34,3 +34,12 @@ export const CALENDAR_MONTHS = {
 
 // Weeks displayed on calendar
 export const CALENDAR_WEEKS = 6;
+
+// Limit 10 user search results
+export const USER_LIMIT = 10;
+
+// Limit 10 conversations
+export const CONVERSATION_LIMIT = 10;
+
+// Limit 10 messages
+export const MESSAGE_LIMIT = 10;

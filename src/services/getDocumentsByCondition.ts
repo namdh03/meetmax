@@ -16,16 +16,20 @@ const getDocumentsByCondition = async (
     const data: DocumentData[] = [];
     const colRef = collection(configs.firebase.db, _collection);
     const q = query(colRef, ...queryConstraints);
-    const querySnapshot = await getDocs(q);
+    const documentSnapshots = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
+    documentSnapshots.forEach((doc) => {
         data.push({
             ...doc.data(),
             id: doc.id,
         });
     });
 
-    return data;
+    // Get the last visible document
+    const lastVisible =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+
+    return { data, documentSnapshots, lastVisible };
 };
 
 export default getDocumentsByCondition;

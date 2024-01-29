@@ -8,15 +8,17 @@ import { serverTimestamp } from "firebase/firestore";
 import icons from "@/assets/icons";
 import configs from "@/configs";
 import { handleFirebaseError } from "@/helpers";
-import { useAuth, useMessage } from "@/hooks";
-import { addDocument, updateDocument } from "@/services";
+import { useApp, useAuth } from "@/hooks";
+import { getNewKey, setData, updateDocument } from "@/services";
 import { Message } from "@/utils/enum";
 
 import schema from "./Footer.schema";
 
 const Footer = () => {
     const { user } = useAuth();
-    const { conversations, selectedConversation } = useMessage();
+    const {
+        conversations: { selectedConversation },
+    } = useApp();
     const {
         register,
         handleSubmit,
@@ -53,35 +55,24 @@ const Footer = () => {
             if (!selectedConversation || !user) return;
             if (!valueTrim) return reset();
 
-            const conversation = conversations.find(
-                (conversation) => conversation.id === selectedConversation.id
+            // Get new key and path to add message
+            const newKey = getNewKey(
+                `${configs.collections.messages}/${selectedConversation.id}`
             );
-
-            const unreadMessages = conversation?.unreadMessages.map(
-                (message) => {
-                    if (message.userId !== user.uid) {
-                        return {
-                            userId: message.userId,
-                            count: ++message.count,
-                        };
-                    }
-
-                    return {
-                        userId: message.userId,
-                        count: 0,
-                    };
-                }
-            );
+            const path = `${configs.collections.messages}/${selectedConversation.id}/${newKey}`;
 
             // Handle reset after add message
             reset();
 
-            await addDocument(configs.collections.messages, {
+            await setData(path, {
+                id: newKey,
                 conversationId: selectedConversation.id,
-                deletedAt: null,
+                senderId: user.uid,
                 message: valueTrim,
                 messageType: Message.TEXT,
-                senderId: user.uid,
+                createdAt: new Date().getTime(),
+                deletedAt: null,
+                updatedAt: null,
             });
 
             await updateDocument(
@@ -90,7 +81,6 @@ const Footer = () => {
                 {
                     lastMessage: valueTrim,
                     lastMessageTime: serverTimestamp(),
-                    unreadMessages,
                 }
             );
         } catch (error) {

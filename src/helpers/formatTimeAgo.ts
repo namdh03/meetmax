@@ -1,6 +1,8 @@
 export default function formatTimeAgo(timestamp: number): string {
-    const currentTimestamp = Math.floor(Date.now() / 1000); // Convert to seconds
-    const secondsAgo = currentTimestamp - timestamp;
+    const currentTimestamp = Math.floor(Date.now()); // Keep it in milliseconds
+    const secondsAgo = Math.floor((currentTimestamp - timestamp) / 1000);
+    let timeAgo = secondsAgo;
+    let unit = "s";
 
     if (secondsAgo < 60) {
         return `${secondsAgo}s ago`;
@@ -15,13 +17,8 @@ export default function formatTimeAgo(timestamp: number): string {
         { unit: "y", divisor: 12 }, // years
     ];
 
-    let timeAgo = secondsAgo;
-    let unit = "s";
-
     for (const { unit: nextUnit, divisor } of timeUnits) {
-        if (timeAgo < divisor) {
-            break;
-        }
+        if (timeAgo < divisor) break;
 
         timeAgo = Math.floor(timeAgo / divisor);
         unit = nextUnit;

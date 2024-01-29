@@ -4,6 +4,15 @@ export enum AuthActionType {
     SIGN_OUT = "SIGN_OUT",
 }
 
+export enum CalendarActionType {
+    SET_TODAY = "SET_TODAY",
+    SET_DATE = "SET_DATE",
+    SET_MONTH_YEAR_LIST = "SET_MONTH_YEAR_LIST",
+    OPEN_MONTH_YEAR_LIST = "OPEN_MONTH_YEAR_LIST",
+    CLOSE_MONTH_YEAR_LIST = "CLOSE_MONTH_YEAR_LIST",
+    TOGGLE_MONTH_YEAR_LIST = "TOGGLE_MONTH_YEAR_LIST",
+}
+
 export enum Role {
     ADMIN = "ADMIN",
     USER = "USER",

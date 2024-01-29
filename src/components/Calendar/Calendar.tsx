@@ -1,7 +1,7 @@
 import { CSSProperties, forwardRef, LegacyRef, useMemo } from "react";
 
 import Divider from "@/components/Divider";
-import { CalendarProvider } from "@/contexts/calendar/CalendarContext";
+import CalendarProvider from "@/contexts/calendar/provider";
 import { CalendarProps } from "@/types";
 
 import CalendarDate from "./components/CalendarDate";
@@ -11,7 +11,7 @@ import TextDate from "./components/TextDate";
 
 const Calendar = forwardRef(
     (
-        { date, onDateChanged, coords, actions, className = "" }: CalendarProps,
+        { date, onChanged, coords, actions, className = "" }: CalendarProps,
         ref: LegacyRef<HTMLElement>
     ) => {
         const classNames = `calendar ${
@@ -29,7 +29,7 @@ const Calendar = forwardRef(
         }, [coords]);
 
         return (
-            <CalendarProvider date={date} onDateChanged={onDateChanged}>
+            <CalendarProvider date={date} onChanged={onChanged}>
                 <article
                     ref={ref}
                     className={classNames.trim()}

@@ -16,18 +16,15 @@ import { CollectionValue } from "@/types";
 const useFirestore = (
     _collection: CollectionValue,
     badCondition: boolean,
-    deps?: React.DependencyList | undefined,
     ...queryConstraints: QueryConstraint[]
 ) => {
     const [documents, setDocuments] = useState<DocumentData[]>([]);
-    const documentTemps = useRef<DocumentData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
     const documentSnapshots = useRef<QuerySnapshot<DocumentData>>();
     const visible = useRef<QueryDocumentSnapshot<DocumentData>>();
-    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (badCondition) return;
-        setLoading(true);
 
         const colRef = collection(configs.firebase.db, _collection);
         const q = query(colRef, ...queryConstraints);
@@ -37,7 +34,6 @@ const useFirestore = (
                 id: doc.id,
             }));
 
-            documentTemps.current = result;
             documentSnapshots.current = querySnapshot;
             visible.current = querySnapshot.docs[querySnapshot.docs.length - 1];
             setDocuments(result);
@@ -47,7 +43,7 @@ const useFirestore = (
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [deps]);
+    }, [badCondition]);
 
     return { documents, documentSnapshots, visible, setDocuments, loading };
 };
