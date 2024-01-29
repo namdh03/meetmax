@@ -23,6 +23,8 @@ export default async function signUpWithEmail(
         password
     );
 
+    await sendEmailVerification(result.user);
+
     await updateProfile(result.user, {
         displayName: fullName,
     });
@@ -47,8 +49,6 @@ export default async function signUpWithEmail(
         coverPhotoName: null,
         keywords: generateKeyword(fullName),
     });
-
-    await sendEmailVerification(result.user);
 
     return result;
 }
