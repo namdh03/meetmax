@@ -43,7 +43,7 @@ const useFirestore = (
 
         return () => unsubscribe();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [badCondition]);
 
     return { documents, documentSnapshots, visible, setDocuments, loading };
 };
