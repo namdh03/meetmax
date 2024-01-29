@@ -1,6 +1,7 @@
 @use "../abstracts";
 
 .site-bar {
+    @include abstracts.display-flex(center, null, column);
     padding: 10px 20px;
     background: var(--site-bar-layout-bg-color);
 
@@ -24,6 +25,10 @@
                 @extend %display-b;
                 color: var(--site-bar-layout-item-active-color);
             }
+        }
+
+        &:last-child {
+            margin-top: auto;
         }
     }
 
