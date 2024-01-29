@@ -121,7 +121,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                if (!user || !newConversation.length) return;
+                if (!user) return;
 
                 const total = await getCount(
                     configs.collections.conversations,
@@ -153,6 +153,9 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                             ...currentList,
                         ],
                         total,
+                        selectedConversation: prev.selectedConversation
+                            ? prev.selectedConversation
+                            : (newList[0] as ConversationType),
                     };
                 });
             } catch (error) {
