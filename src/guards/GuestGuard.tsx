@@ -12,7 +12,8 @@ const GuestGuard: FC<PropsWithChildren> = ({ children }) => {
 
     if (!isInitialized) return <Loading />;
 
-    if (isAuthenticated) return <Navigate to={configs.routes.home} />;
+    if (isAuthenticated)
+        return <Navigate to={configs.routes.messages} replace />;
 
     return <>{children}</>;
 };

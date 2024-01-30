@@ -1,6 +1,7 @@
 import active from "@/assets/icons/active.svg";
 import add from "@/assets/icons/add.svg";
 import angleDown from "@/assets/icons/angle-down.svg";
+import angleLeft from "@/assets/icons/angle-left.svg";
 import angleRight from "@/assets/icons/angle-right.svg";
 import angleUp from "@/assets/icons/angle-up.svg";
 import apple from "@/assets/icons/apple.svg";
@@ -15,6 +16,7 @@ import calendar from "@/assets/icons/calendar.svg";
 import cameraRegular from "@/assets/icons/camera-regular.svg";
 import cameraSolid from "@/assets/icons/camera-solid.svg";
 import check from "@/assets/icons/check.svg";
+import checkbox from "@/assets/icons/checkbox.svg";
 import clock from "@/assets/icons/clock.svg";
 import close from "@/assets/icons/close.svg";
 import closeCircle from "@/assets/icons/close-circle.svg";
@@ -30,6 +32,7 @@ import explore from "@/assets/icons/explore.svg";
 import eye from "@/assets/icons/eye.svg";
 import eyeOff from "@/assets/icons/eye-off.svg";
 import facebook from "@/assets/icons/facebook.svg";
+import facebookCircle from "@/assets/icons/facebook-circle.svg";
 import feed from "@/assets/icons/feed.svg";
 import female from "@/assets/icons/female.svg";
 import gif from "@/assets/icons/gif.svg";
@@ -46,6 +49,7 @@ import lock from "@/assets/icons/lock.svg";
 import logOut from "@/assets/icons/log-out.svg";
 import logo from "@/assets/icons/logo.svg";
 import loveColor from "@/assets/icons/love-color.svg";
+import mail from "@/assets/icons/mail.svg";
 import male from "@/assets/icons/male.svg";
 import menu from "@/assets/icons/menu.svg";
 import message from "@/assets/icons/message.svg";
@@ -70,7 +74,8 @@ import setting from "@/assets/icons/setting.svg";
 import share from "@/assets/icons/share.svg";
 import shareColor from "@/assets/icons/share-color.svg";
 import smile from "@/assets/icons/smile.svg";
-import star from "@/assets/icons/star.svg";
+import starSolid from "@/assets/icons/star-solid.svg";
+import starThin from "@/assets/icons/star-thin.svg";
 import twitter from "@/assets/icons/twitter.svg";
 import unExpand from "@/assets/icons/un-expand.svg";
 import unFollow from "@/assets/icons/un-follow.svg";
@@ -78,7 +83,6 @@ import updateCircle from "@/assets/icons/update-circle.svg";
 import upload from "@/assets/icons/upload.svg";
 import user from "@/assets/icons/user.svg";
 import userColor from "@/assets/icons/user-color.svg";
-import vector from "@/assets/icons/vector.svg";
 import videoCamera from "@/assets/icons/video-camera.svg";
 import videoOff from "@/assets/icons/video-off.svg";
 import volumeFull from "@/assets/icons/volume-full.svg";
@@ -88,6 +92,7 @@ const icons = {
     active,
     add,
     angleDown,
+    angleLeft,
     angleRight,
     angleUp,
     apple,
@@ -102,6 +107,7 @@ const icons = {
     cameraRegular,
     cameraSolid,
     check,
+    checkbox,
     clock,
     close,
     closeCircle,
@@ -117,6 +123,7 @@ const icons = {
     eye,
     eyeOff,
     facebook,
+    facebookCircle,
     feed,
     female,
     gif,
@@ -157,7 +164,8 @@ const icons = {
     share,
     shareColor,
     smile,
-    star,
+    starSolid,
+    starThin,
     twitter,
     unExpand,
     unFollow,
@@ -165,7 +173,7 @@ const icons = {
     upload,
     user,
     userColor,
-    vector,
+    mail,
     videoCamera,
     videoOff,
     volumeFull,

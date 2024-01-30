@@ -1,0 +1,97 @@
+@use "../abstracts";
+
+// Button
+.button {
+    @include abstracts.display-flex(center);
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 6px;
+
+    border: 1px solid var(--button-border-color);
+    color: var(--button-color);
+    background: var(--button-bg-color);
+
+    @extend %display-m;
+
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+        background-position: right center;
+        background-size: 200% auto;
+        -webkit-animation: pulse 2s infinite;
+        animation: pulse-animation 1.5s infinite;
+    }
+
+    &--link {
+        width: fit-content;
+    }
+
+    &--disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    &--loading {
+        opacity: 0.7;
+        cursor: default;
+    }
+
+    &__spinner {
+        border: 2px solid var(--button-color);
+        border-bottom-color: transparent;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    &__inner {
+        @include abstracts.display-flex(center);
+        column-gap: var(--icon-gutter);
+
+        height: 100%;
+    }
+
+    &__icon {
+        display: block;
+        width: var(--size);
+        height: var(--size);
+        object-fit: cover;
+    }
+
+    &--primary {
+        border: 1px solid var(--button-border-primary-color);
+        color: var(--button-primary-color);
+        background: var(--button-bg-primary-color);
+    }
+
+    &--secondary {
+        border: 1px solid var(--button-border-secondary-color);
+        color: var(--button-secondary-color);
+        background: var(--button-bg-secondary-color);
+    }
+
+    &--outline {
+        border: 1px solid var(--button-border-outline-color);
+        color: var(--button-outline-color);
+        background: var(--button-bg-outline-color);
+    }
+
+    &--primary &__spinner {
+        border: 2px solid var(--button-primary-color);
+        border-bottom-color: transparent;
+    }
+
+    &--secondary &__spinner {
+        border: 2px solid var(--button-secondary-color);
+        border-bottom-color: transparent;
+    }
+
+    &--outline &__spinner {
+        border: 2px solid var(--button-outline-color);
+        border-bottom-color: transparent;
+    }
+}

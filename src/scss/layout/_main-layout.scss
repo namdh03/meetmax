@@ -1,0 +1,11 @@
+@use "../abstracts";
+
+.body {
+    @include abstracts.display-flex();
+    min-height: 100vh; 
+    padding-top: var(--header-height);
+
+    main {
+        flex: 1;
+    }
+}

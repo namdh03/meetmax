@@ -1,0 +1,61 @@
+@use "../abstracts";
+
+.checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+
+    user-select: none;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        display: inline-block;
+    }
+
+    &::before {
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--input-checkbox-color);
+        border-radius: 4px;
+    }
+
+    &:has(:checked) {
+        .checkbox__icon {
+            display: inline-block;
+        }
+
+        &::before {
+            border-color: var(--input-checkbox-color-checked);
+            background: var(--input-checkbox-color-checked);
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        left: 4px;
+        display: none;
+    }
+
+    &__input {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+
+        margin: -1px;
+        padding: 0;
+        border: 0;
+
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &__text {
+        @extend %body-m-1;
+        margin-left: 10px;
+        color: var(--input-checkbox-color);
+    }
+}

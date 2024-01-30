@@ -12,7 +12,8 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
 
     if (!isInitialized) return <Loading />;
 
-    if (!isAuthenticated) return <Navigate to={configs.routes.notFound} />;
+    if (!isAuthenticated)
+        return <Navigate to={configs.routes.signIn} replace />;
 
     return <>{children}</>;
 };

@@ -1,0 +1,215 @@
+@use "../abstracts";
+
+html {
+    // Body
+    --body-bg-color: #{abstracts.$grayscale-white-color};
+
+    // Container
+    --app-container-bg-color: #{abstracts.$grayscale-color-w-3};
+
+    // Scrollbar
+    --scrollbar-track-bg-color: #{abstracts.$grayscale-white-color};
+    --scrollbar-shadow-color: #eff3f4;
+    --scrollbar-thumb-bg-color: #{abstracts.$grayscale-color-w-20};
+
+    // Icon
+    --icon-filter-color: brightness(0) saturate(100%) invert(36%) sepia(14%)
+        saturate(922%) hue-rotate(180deg) brightness(92%) contrast(90%);
+
+    // Error message
+    --error-msg-color: #{abstracts.$red-primary-color};
+
+    // Button - Button default
+    --button-bg-color: #{abstracts.$grayscale-color-w-5};
+    --button-color: #{abstracts.$grayscale-gray-color};
+    --button-border-color: #{abstracts.$grayscale-color-w-5};
+    --button-hover-color: #{abstracts.$grayscale-color-w-40};
+
+    // Button - Button primary
+    --button-bg-primary-color: #{abstracts.$blue-primary-color};
+    --button-primary-color: #{abstracts.$grayscale-white-color};
+    --button-border-primary-color: #{abstracts.$blue-primary-color};
+
+    // Button - Button secondary - Message
+    --button-bg-secondary-color: #{abstracts.$green-primary-color};
+    --button-secondary-color: #{abstracts.$grayscale-white-color};
+    --button-border-secondary-color: #{abstracts.$green-primary-color};
+
+    // Button - Button outline
+    --button-bg-outline-color: transparent;
+    --button-outline-color: #{abstracts.$grayscale-color-w-60};
+    --button-border-outline-color: #{abstracts.$grayscale-color-w-20};
+
+    // Input radio
+    --input-radio-color-checked: #{abstracts.$grayscale-gray-color};
+    --input-radio-color: #{abstracts.$grayscale-color-w-60};
+    --input-radio-label-color: #{abstracts.$grayscale-gray-color};
+    --input-radio-label-color-checked: #{abstracts.$blue-primary-color};
+
+    // Input checkbox
+    --input-checkbox-color-checked: #{abstracts.$blue-primary-color};
+    --input-checkbox-color: #{abstracts.$grayscale-gray-color};
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-drop-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-text-date-color: #{abstracts.$grayscale-gray-color};
+    --calendar-text-standard-color: #{abstracts.$grayscale-gray-color};
+    --calendar-text-today-color: #{abstracts.$green-primary-color};
+    --calendar-text-highlighted-color: #{abstracts.$grayscale-white-color};
+    --calendar-text-outer-color: #{abstracts.$grayscale-color-w-60};
+    --calendar-bg-highlighted-color: #{abstracts.$blue-primary-color};
+    --calendar-divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --calendar-dropdown-bg-color: #{abstracts.$grayscale-white-color};
+    --calendar-dropdown-shadow-color: rgba(0, 0, 0, 0.04);
+    --calendar-month-year-item-text-color: #{abstracts.$grayscale-gray-color};
+    --calendar-month-year-item-active-text-color: #{abstracts.$blue-primary-color};
+    --calendar-month-year-item-active-bg-color: #{abstracts.$blue-primary-color-w-80};
+
+    // Date picker
+    --date-picker-bg-color: #{abstracts.$grayscale-white-color};
+    --date-picker-border-color: #{abstracts.$grayscale-color-w-20};
+    --date-picker-default-text-color: #{abstracts.$grayscale-color-w-60};
+    --date-picker-date-text-color: #{abstracts.$grayscale-gray-color};
+    --date-picker-cancel-btn-color: #{abstracts.$grayscale-color-w-60};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-color-w-20};
+    --divider-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Logo
+    --logo-color: #{abstracts.$grayscale-gray-color};
+
+    // Auth layout
+    --auth-header-bg-color: #{abstracts.$grayscale-white-color};
+    --auth-body-bg-from-color: rgba(255, 255, 255, 0.4);
+    --auth-body-bg-to-color: rgba(255, 255, 255, 0.1);
+    --auth-title-color: #{abstracts.$grayscale-gray-color};
+    --auth-form-bg-color: #{abstracts.$grayscale-white-color};
+    --auth-form-shadow-color: rgba(205, 205, 212, 0.1);
+    --auth-background-color: #{abstracts.$grayscale-white-color};
+    --auth-background-filter-color: #{abstracts.$blue-primary-color};
+    --auth-radio-wrapper-border-color: #{abstracts.$grayscale-color-w-20};
+    --auth-footer-text-color: #{abstracts.$grayscale-gray-color};
+    --auth-footer-link-color: #{abstracts.$blue-primary-color};
+
+    // Input
+    --input-border-color: #{abstracts.$grayscale-color-w-20};
+    --input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --input-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Remember me checkbox
+    --checkbox-text-color: #{abstracts.$grayscale-gray-color};
+
+    // Header layout
+    --header-layout-color: #{abstracts.$grayscale-gray-color};
+    --header-layout-bg-color: #{abstracts.$grayscale-white-color};
+    --header-layout-user-color: #{abstracts.$grayscale-white-color};
+    --header-layout-shadow-color: rgba(0, 0, 0, 0.02);
+
+    // Site bar layout
+    --site-bar-layout-bg-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-bg-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-bg-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
+        invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
+        brightness(99%) contrast(103%);
+    --site-bar-layout-counter-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-counter-bg-color: #{abstracts.$red-primary-color};
+
+    // Page not found
+    --not-found-bg-color: #f7f7f7 linear-gradient(to bottom, #ffffff, #efefef);
+    --not-found-circle-bg-color: #ccc;
+    --not-found-text-primary-color: #333;
+    --not-found-text-secondary-color: #777;
+    --not-found-text-shadow-color: #ddd;
+    --not-found-box-shadow-primary-color: #eee;
+    --not-found-box-shadow-secondary-color: #ccc;
+    --not-found-gradient-color: linear-gradient(to right, #fff, #eee 30%, #ddd);
+
+    // Loading
+    --loading-bg-color: #{abstracts.$blue-primary-color};
+    --loading-color: #{abstracts.$grayscale-white-color};
+    --loading-color-2: #{abstracts.$grayscale-color-w-40};
+
+    // Loader
+    --loader-border-color: #{abstracts.$blue-primary-color};
+
+    // Messages
+    --message-list-bg-color: #{abstracts.$grayscale-white-color};
+    --message-search-border-color: #{abstracts.$grayscale-color-w-40};
+    --message-input-search-text-color: #{abstracts.$grayscale-gray-color};
+    --message-input-search-placeholder-color: #{abstracts.$grayscale-color-w-80};
+    --message-wishlist-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-icon-color: brightness(0) saturate(100%) invert(94%) sepia(10%)
+        saturate(94%) hue-rotate(178deg) brightness(97%) contrast(87%);
+    --message-icon-active-color: brightness(0) saturate(100%) invert(65%)
+        sepia(80%) saturate(363%) hue-rotate(100deg) brightness(89%)
+        contrast(88%);
+    --message-item-bg-color: #{abstracts.$grayscale-color-w-5};
+    --message-author-name-color: #{abstracts.$grayscale-gray-color};
+    --message-last-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-time-msg-color: #{abstracts.$grayscale-color-w-60};
+    --message-count-text-color: #{abstracts.$grayscale-white-color};
+    --message-count-bg-color: #{abstracts.$red-primary-color};
+    --message-create-conversation-overlay-color: rgba(57, 57, 57, 0.5);
+    --message-create-conversation-bg-color: #{abstracts.$grayscale-white-color};
+    --message-user-avatar-border-color: #{abstracts.$grayscale-color-w-20};
+    --message-selected-user-item-bg-color: #{abstracts.$grayscale-color-w-5};
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-gray-color};
+    --forgot-password-header-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-bg-color-1: rgba(255, 255, 255, 0.4);
+    --forgot-password-bg-color-2: rgba(255, 255, 255, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$grayscale-white-color};
+    --forgot-password-shadow-form-color: rgba(205, 205, 212, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
+
+    // Check email
+    --check-email-header-color: #{abstracts.$grayscale-white-color};
+    --check-email-wrapper-bg-color: #{abstracts.$grayscale-white-color};
+    --check-email-title-color: #{abstracts.$grayscale-gray-color};
+    --check-email-link-email-color: #{abstracts.$blue-primary-color};
+    --check-email-resend-color: #{abstracts.$blue-primary-color};
+
+    // Message header
+    --message-bg-color: #{abstracts.$grayscale-white-color};
+    --message-name-color: #{abstracts.$grayscale-gray-color};
+    --message-status-color: #{abstracts.$grayscale-color-w-60};
+    --message-border-color: #{abstracts.$grayscale-color-w-20};
+
+    // Message footer
+    --message-input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-input-color: #{abstracts.$grayscale-gray-color};
+    --message-input-bg-color: #{abstracts.$grayscale-color-w-5};
+    --message-button-color: brightness(0) saturate(100%) invert(46%) sepia(79%)
+        saturate(4198%) hue-rotate(208deg) brightness(103%) contrast(102%);
+    --message-button-bg-color: #ebf2ff;
+
+    // Message main content
+    --message-main-item-bg-color: #{abstracts.$blue-primary-color};
+    --message-main-item-text-color: #{abstracts.$grayscale-white-color};
+    --message-main-item-current-bg-color: #{abstracts.$grayscale-color-w-3};
+    --message-main-item-current-text-color: #{abstracts.$grayscale-gray-color};
+    --message-main-item-time-color: #{abstracts.$grayscale-color-w-60};
+
+    // Modal
+    --modal-color: #{abstracts.$grayscale-white-color};
+    --modal-bg-color: rgba(140, 140, 140, 0.5);
+    --modal-shadow-color: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    --modal-close-bg-color: rgba(0, 0, 0, 0.06);
+    --modal-title-color: #{abstracts.$dark-color-1};
+    --modal-description-color: #{abstracts.$grayscale-gray-color};
+
+    // Not verify email
+    --not-verify-email-bg: #{abstracts.$grayscale-white-color};
+    --not-verify-email-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    --not-verify-email-title: #{abstracts.$grayscale-gray-color};
+    --not-verify-email-text: #{abstracts.$grayscale-color-w-80};
+}

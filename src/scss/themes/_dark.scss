@@ -1,0 +1,162 @@
+@use "../abstracts";
+
+html.dark {
+    // Body
+    --body-bg-color: #{abstracts.$dark-color-1};
+
+    // Container
+    --app-container-bg-color: #{abstracts.$dark-color-2};
+
+    // Scrollbar
+    --scrollbar-track-bg-color: #{abstracts.$dark-color-2};
+    --scrollbar-shadow-color: #{abstracts.$grayscale-gray-color};
+    --scrollbar-thumb-bg-color: #{abstracts.$grayscale-gray-color};
+
+    // Icon
+    --icon-filter-color: brightness(0) saturate(100%) invert(88%) sepia(56%)
+        saturate(1476%) hue-rotate(180deg) brightness(114%) contrast(89%);
+
+    // Button - Button default
+    --button-bg-color: #{abstracts.$grayscale-gray-color};
+    --button-color: #{abstracts.$grayscale-color-w-10};
+    --button-border-color: #{abstracts.$grayscale-gray-color};
+    --button-hover-color: #{abstracts.$grayscale-gray-color};
+
+    // Input radio
+    --input-radio-color-checked: #{abstracts.$grayscale-color-w-10};
+    --input-radio-label-color: #{abstracts.$grayscale-color-w-10};
+
+    // Input checkbox
+    --input-checkbox-color: #{abstracts.$grayscale-color-w-10};
+
+    // Calendar
+    --calendar-bg-color: #{abstracts.$dark-color-2};
+    --calendar-text-date-color: #{abstracts.$grayscale-color-w-10};
+    --calendar-text-standard-color: #{abstracts.$grayscale-color-w-10};
+    --calendar-text-outer-color: #{abstracts.$grayscale-gray-color};
+    --calendar-divider-bg-color: #{abstracts.$dark-color-1};
+    --calendar-dropdown-bg-color: #{abstracts.$dark-color-1};
+
+    // Date picker
+    --date-picker-bg-color: #{abstracts.$dark-color-2};
+    --date-picker-border-color: #{abstracts.$grayscale-gray-color};
+    --date-picker-date-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Divider
+    --divider-bg-color: #{abstracts.$grayscale-gray-color};
+    --divider-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Logo
+    --logo-color: #{abstracts.$grayscale-color-w-10};
+
+    // Auth layout
+    --auth-header-bg-color: #{abstracts.$dark-color-1};
+    --auth-body-bg-from-color: rgba(22, 28, 39, 0.4);
+    --auth-body-bg-to-color: rgba(22, 28, 39, 0.1);
+    --auth-title-color: #{abstracts.$grayscale-color-w-10};
+    --auth-form-bg-color: #{abstracts.$dark-color-2};
+    --auth-form-shadow-color: rgba(51, 62, 82, 0.1);
+    --auth-background-color: #{abstracts.$dark-color-1};
+    --auth-radio-wrapper-border-color: #{abstracts.$grayscale-gray-color};
+    --auth-footer-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Input
+    --input-border-color: #{abstracts.$grayscale-gray-color};
+    --input-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --input-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Remember me checkbox
+    --checkbox-text-color: #{abstracts.$grayscale-color-w-10};
+
+    // Header layout
+    --header-layout-color: #{abstracts.$grayscale-white-color};
+    --header-layout-bg-color: #{abstracts.$dark-color-1};
+    --header-layout-user-color: #{abstracts.$dark-color-2};
+    --header-layout-shadow-color: rgba(0, 0, 0, 0.02);
+
+    // Site bar layout
+    --site-bar-layout-bg-color: #{abstracts.$dark-color-1};
+    --site-bar-layout-item-bg-color: #{abstracts.$dark-color-1};
+    --site-bar-layout-item-color: #{abstracts.$grayscale-color-w-10};
+    --site-bar-layout-item-active-bg-color: #{abstracts.$grayscale-gray-color};
+    --site-bar-layout-item-active-color: #{abstracts.$grayscale-white-color};
+    --site-bar-layout-item-active-icon-color: brightness(0) saturate(100%)
+        invert(100%) sepia(0%) saturate(7481%) hue-rotate(320deg)
+        brightness(99%) contrast(103%);
+
+    // Page not found
+    --not-found-bg-color: #e6f1a3 radial-gradient(#f9ffd2, #ecff70);
+    --not-found-circle-bg-color: #124;
+    --not-found-text-primary-color: #efefef;
+    --not-found-text-secondary-color: #fafafa;
+    --not-found-text-shadow-color: #c3d168a2;
+    --not-found-box-shadow-primary-color: #e7f1a3a2;
+    --not-found-box-shadow-secondary-color: #e1f17859;
+    --not-found-gradient-color: radial-gradient(
+        circle,
+        rgb(28, 27, 90) 0%,
+        rgb(15, 18, 44) 30%,
+        rgb(15, 13, 31) 100%
+    );
+
+    // Messages
+    --message-list-bg-color: #{abstracts.$dark-color-1};
+    --message-search-border-color: #{abstracts.$grayscale-color-w-60};
+    --message-input-search-text-color: #{abstracts.$grayscale-color-w-10};
+    --message-input-search-placeholder-color: #{abstracts.$grayscale-color-w-60};
+    --message-wishlist-bg-color: #{abstracts.$dark-color-2};
+    --message-icon-color: brightness(0) saturate(100%) invert(90%) sepia(3%)
+        saturate(3648%) hue-rotate(187deg) brightness(74%) contrast(75%);
+    --message-item-bg-color: #{abstracts.$dark-color-2};
+    --message-author-name-color: #{abstracts.$grayscale-color-w-10};
+    --message-create-conversation-bg-color: #{abstracts.$dark-color-1};
+    --message-user-avatar-border-color: #{abstracts.$grayscale-gray-color};
+    --message-selected-user-item-bg-color: #{abstracts.$dark-color-2};
+
+    // Forgot password
+    --forgot-password-title-color: #{abstracts.$grayscale-color-w-10};
+    --forgot-password-header-color: #{abstracts.$dark-color-1};
+    --forgot-password-bg-color-1: rgba(22, 28, 39, 0.4);
+    --forgot-password-bg-color-2: rgba(22, 28, 39, 0.1);
+    --forgot-password-form-bg-color: #{abstracts.$dark-color-2};
+    --forgot-password-shadow-form-color: rgba(51, 62, 82, 0.1);
+    --forgot-password-icon-color: #{abstracts.$blue-primary-color};
+    --forgot-password-link-color: #{abstracts.$blue-primary-color};
+
+    // Check email
+    --check-email-header-color: #{abstracts.$dark-color-1};
+    --check-email-wrapper-bg-color: #{abstracts.$dark-color-2};
+    --check-email-title-color: #{abstracts.$grayscale-color-w-10};
+    --check-email-link-email-color: #{abstracts.$blue-primary-color};
+    --check-email-resend-color: #{abstracts.$blue-primary-color};
+
+    // Message header
+    --message-bg-color: #{abstracts.$dark-color-1};
+    --message-name-color: #{abstracts.$grayscale-color-w-10};
+    --message-border-color: #{abstracts.$grayscale-gray-color};
+
+    // Message footer
+    --message-input-color: #{abstracts.$grayscale-white-color};
+    --message-input-bg-color: #{abstracts.$dark-color-2};
+    --message-button-color: brightness(0) saturate(100%) invert(100%)
+        sepia(100%) saturate(2%) hue-rotate(219deg) brightness(108%)
+        contrast(101%);
+    --message-button-bg-color: #1d222a;
+
+    // Message main content
+    --message-main-item-bg-color: #{abstracts.$blue-primary-color};
+    --message-main-item-text-color: #{abstracts.$grayscale-white-color};
+    --message-main-item-current-bg-color: #{abstracts.$dark-color-2};
+    --message-main-item-current-text-color: #{abstracts.$grayscale-white-color};
+
+    // Modal
+    --modal-color: #1f1f1f;
+    --modal-bg-color: rgba(140, 140, 140, 0.1);
+    --modal-title-color: #{abstracts.$grayscale-white-color};
+    --modal-description-color: #{abstracts.$grayscale-color-w-20};
+
+    // Not verify email
+    --not-verify-email-bg: #{abstracts.$dark-color-2};
+    --not-verify-email-title: #{abstracts.$grayscale-white-color};
+    --not-verify-email-text: #{abstracts.$grayscale-color-w-20};
+}

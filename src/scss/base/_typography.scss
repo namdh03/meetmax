@@ -1,0 +1,57 @@
+@use "../abstracts";
+
+// Heading
+.first-heading {
+    @extend %first-heading;
+}
+
+.second-heading {
+    @extend %second-heading;
+}
+
+.third-heading {
+    @extend %third-heading;
+}
+
+// Display
+.display-b {
+    @extend %display-b;
+}
+
+.display-m {
+    @extend %display-m;
+}
+
+// Body
+.body-b {
+    @extend %body-b;
+}
+
+.body-m-1 {
+    @extend %body-m-1;
+}
+
+.body-m-2 {
+    @extend %body-m-2;
+}
+
+.body-m-3 {
+    @extend %body-m-3;
+}
+
+.body-r-1 {
+    @extend %body-r-1;
+}
+
+// Body Regular m 4
+.body-r-2 {
+    @extend %body-r-2;
+}
+
+.body-r-3 {
+    @extend %body-r-3;
+}
+
+.body-r-4 {
+    @extend %body-r-4;
+}

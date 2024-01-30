@@ -1,0 +1,60 @@
+@use "../abstracts";
+
+.site-bar {
+    @include abstracts.display-flex(center, null, column);
+    padding: 10px 20px;
+    background: var(--site-bar-layout-bg-color);
+
+    &__item {
+        @include abstracts.display-flex(center, null);
+        column-gap: 20px;
+
+        min-width: 200px;
+        padding: 11px 20px;
+        background: var(--site-bar-layout-item-bg-color);
+
+        &.active {
+            border-radius: 10px;
+            background: var(--site-bar-layout-item-active-bg-color);
+
+            .site-bar__icon {
+                filter: var(--site-bar-layout-item-active-icon-color);
+            }
+
+            .site-bar__text {
+                @extend %display-b;
+                color: var(--site-bar-layout-item-active-color);
+            }
+        }
+
+        &:last-child {
+            margin-top: auto;
+        }
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    &__info {
+        @include abstracts.display-flex(center, null);
+        column-gap: 14px;
+    }
+
+    &__text {
+        @extend %display-m;
+        color: var(--site-bar-layout-item-color);
+    }
+
+    &__counter {
+        @include abstracts.display-flex(center);
+        @extend %body-r-3;
+
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        color: var(--site-bar-layout-counter-color);
+        background: var(--site-bar-layout-counter-bg-color);
+    }
+}

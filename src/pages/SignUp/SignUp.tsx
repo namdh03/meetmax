@@ -1,79 +1,160 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
-import { signInWithEmail, signOutSystem, signUpWithEmail } from "@/helpers";
-import { useAuth } from "@/hooks";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import icons from "@/assets/icons";
+import Button from "@/components/Button";
+import DatePicker from "@/components/DatePicker";
+import Input from "@/components/Input";
+import Radio from "@/components/Radio";
+import configs from "@/configs";
+import { handleFirebaseError } from "@/helpers";
+import { isDate } from "@/helpers/calendar";
+import { signUpWithEmail } from "@/services";
+import { SignUpFormData } from "@/types";
+import { Gender } from "@/utils/enum";
+
+import schema from "./SignUp.schema";
 
 const SignUp = () => {
-    const { user } = useAuth();
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+    const {
+        control,
+        setValue,
+        clearErrors,
+        handleSubmit,
+        formState: { isSubmitting, errors },
+    } = useForm<SignUpFormData>({
+        mode: "onTouched",
+        resolver: yupResolver(schema),
+        defaultValues: {
+            email: "",
+            fullName: "",
+            password: "",
+            birthday: undefined,
+            gender: Gender.MALE,
+        },
     });
 
-    const handleSignIn = async () => {
-        try {
-            await signInWithEmail(formData.email, formData.password);
+    const handleChangeBirthday = (date: Date) => {
+        setValue("birthday", date);
 
-            console.log("User signed in successfully");
-        } catch (error) {
-            console.log(error);
+        if (isDate(date)) {
+            clearErrors("birthday");
         }
     };
 
-    const handleSignUp = async () => {
+    const handleSignUpWithEmail = async (values: SignUpFormData) => {
         try {
-            await signUpWithEmail(formData.email, formData.password);
-
-            console.log("User created successfully");
+            await signUpWithEmail(
+                values.email,
+                values.password,
+                values.fullName,
+                values.birthday,
+                values.gender
+            );
         } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleSignOut = async () => {
-        try {
-            await signOutSystem();
-            console.log("Sign out");
-        } catch (error) {
-            console.log(error);
+            handleFirebaseError(error);
         }
     };
 
     return (
-        <div>
-            <h1>{user?.email}</h1>
+        <>
+            <form
+                className="auth-form"
+                onSubmit={handleSubmit(handleSignUpWithEmail)}
+            >
+                <div className="auth-form__group">
+                    <Input.Email
+                        control={control}
+                        name="email"
+                        id="email"
+                        placeholder="Your Email"
+                        icon={icons.mail}
+                    />
+                </div>
 
-            <form action="">
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            email: e.target.value,
-                        })
-                    }
-                />
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            password: e.target.value,
-                        })
-                    }
-                />
-                <button type="button" onClick={handleSignUp}>
+                <div className="auth-form__group">
+                    <Input.Text
+                        control={control}
+                        name="fullName"
+                        id="fullName"
+                        placeholder="Your Name"
+                        icon={icons.smile}
+                    />
+                </div>
+
+                <div className="auth-form__group">
+                    <Input.Password
+                        control={control}
+                        name="password"
+                        id="password"
+                        placeholder="Create Password"
+                        icon={icons.lock}
+                    />
+                </div>
+
+                <div className="auth-form__group auth-form__group--radio">
+                    <div className="auth-form__date-picker">
+                        <DatePicker
+                            label="Date of birth"
+                            position={{
+                                x: -219,
+                                y: 42,
+                            }}
+                            errorMsg={errors.birthday?.message}
+                            onChanged={handleChangeBirthday}
+                        />
+                    </div>
+
+                    <div className="auth-form__radio-wrapper">
+                        <img
+                            src={icons.male}
+                            alt="radio-icon"
+                            className="icon auth-form__radio-icon"
+                        />
+
+                        <div className="auth-form__radio">
+                            <Radio
+                                control={control}
+                                name="gender"
+                                id="male"
+                                label="Male"
+                                value={Gender.MALE}
+                            />
+                        </div>
+
+                        <div className="auth-form__radio">
+                            <Radio
+                                control={control}
+                                name="gender"
+                                id="female"
+                                label="Female"
+                                value={Gender.FEMALE}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <Button
+                    variant="primary"
+                    className="auth-form__btn"
+                    loading={isSubmitting}
+                >
                     Sign Up
-                </button>
-            </form>
+                </Button>
 
-            <button onClick={handleSignOut}>Sign Out</button>
-            <button onClick={handleSignIn}>Sign In</button>
-        </div>
+                <div className="auth-form__footer">
+                    <p className="auth-form__text">Already have an account?</p>
+                    <Link
+                        to={configs.routes.signIn}
+                        className="auth-form__link"
+                    >
+                        Sign In
+                    </Link>
+                </div>
+            </form>
+        </>
     );
 };
 

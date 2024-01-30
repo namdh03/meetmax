@@ -1,0 +1,49 @@
+@use "../abstracts";
+
+.date-picker {
+    @include abstracts.display-flex(center, null);
+    column-gap: 10px;
+
+    width: 240px;
+    height: 52px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--date-picker-border-color);
+    background-color: var(--date-picker-bg-color);
+    cursor: pointer;
+
+    &__icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+        object-fit: cover;
+    }
+
+    &__default-text {
+        @extend %body-m-1;
+        color: var(--date-picker-default-text-color);
+    }
+
+    &__date-text {
+        @extend %body-m-1;
+        color: var(--date-picker-date-text-color);
+    }
+
+    &__actions {
+        @include abstracts.display-flex(center, flex-end);
+    }
+
+    &__btn {
+        @extend %body-m-1;
+
+        &--cancel {
+            color: var(--date-picker-cancel-btn-color);
+            background-color: transparent;
+            border-color: transparent;
+        }
+    }
+
+    &__calendar {
+        z-index: 9999;
+    }
+}

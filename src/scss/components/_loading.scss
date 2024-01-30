@@ -1,0 +1,42 @@
+@use "../abstracts";
+
+.loading {
+    @include abstracts.display-flex(center);
+
+    min-width: 100vw;
+    min-height: 100vh;
+
+    &__icon {
+        position: relative;
+        width: 100px;
+        height: 75px;
+        background: var(--loading-bg-color);
+        border-radius: 100%;
+
+        &::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            border: 15px solid transparent;
+            border-top: 25px solid var(--loading-bg-color);
+            transform: rotate(50deg);
+            top: 45px;
+            left: -15px;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: var(--loading-color);
+            box-shadow: 20px 0 var(--loading-color),
+                -20px 0 var(--loading-color);
+            animation: flash 0.5s ease-out infinite alternate;
+        }
+    }
+}

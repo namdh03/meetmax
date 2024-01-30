@@ -1,0 +1,39 @@
+@use "../abstracts";
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    @include abstracts.display-flex(center, space-between);
+
+    padding: 18px 30px;
+
+    height: var(--header-height);
+    background: var(--header-layout-bg-color);
+
+    &__user {
+        @include abstracts.display-flex(center);
+        background: var(--header-layout-user-color);
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px 0px var(--header-layout-shadow-color);
+        backdrop-filter: blur(25px);
+        cursor: pointer;
+    }
+
+    &__name {
+        @extend %display-m;
+        padding: 0 20px;
+        color: var(--header-layout-color);
+    }
+
+    &__avatar {
+        display: block;
+        width: 42px;
+        height: 42px;
+        border-radius: inherit;
+        object-fit: cover;
+    }
+}
