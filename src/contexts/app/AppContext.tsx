@@ -66,6 +66,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
             try {
                 if (!user) return;
 
+                // Create query
                 const conversationsQuery = [
                     queryConstraints.where(
                         "participants",
@@ -75,17 +76,20 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
                     queryConstraints.orderBy("lastMessageTime", "desc"),
                 ];
 
+                // Get conversations
                 const { data, lastVisible } = await getDocumentsByCondition(
                     configs.collections.conversations,
                     ...conversationsQuery,
                     queryConstraints.limit(CONVERSATION_LIMIT)
                 );
 
+                // Get total conversations
                 const total = await getCount(
                     configs.collections.conversations,
                     ...conversationsQuery
                 );
 
+                // Get conversation info
                 const list = await Promise.all(
                     await handleGetConversationInfo(
                         user.uid,
@@ -219,26 +223,49 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
         try {
             if (!user) return;
 
-            const { data, lastVisible } = await getDocumentsByCondition(
-                configs.collections.conversations,
+            // Create query
+            const conversationsQuery = [
                 queryConstraints.where(
                     "participants",
                     "array-contains",
                     user.uid
                 ),
                 queryConstraints.orderBy("lastMessageTime", "desc"),
+            ];
+
+            // Get conversations
+            const { data, lastVisible } = await getDocumentsByCondition(
+                configs.collections.conversations,
+                ...conversationsQuery,
                 queryConstraints.limit(CONVERSATION_LIMIT),
                 queryConstraints.startAfter(conversations.lastVisible)
             );
 
+            // Get total conversations
+            const total = await getCount(
+                configs.collections.conversations,
+                ...conversationsQuery
+            );
+
+            // Get conversation info
+            const list = await Promise.all(
+                await handleGetConversationInfo(
+                    user.uid,
+                    data as ConversationType[]
+                )
+            );
+
             setConversations((prev) => ({
                 ...prev,
-                list: [...prev.list, ...(data as ConversationType[])],
+                list: [...prev.list, ...(list as ConversationType[])],
+                total,
                 lastVisible: lastVisible as QueryDocumentSnapshot<DocumentData>,
+                selectedConversation: list[0] as ConversationType,
             }));
         } catch (error) {
             handleFirebaseError(error);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [conversations.lastVisible, user]);
 
     const values: AppContextType = {
